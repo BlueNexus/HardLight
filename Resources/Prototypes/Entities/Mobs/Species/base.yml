@@ -137,7 +137,7 @@
     - Pacified
     - StaminaModifier
     - PsionicsDisabled #Nyano - Summary: PCs can have psionics disabled.
-    - PsionicallyInsulated #Nyano - Summary: PCs can be made insulated from psionic powers.
+    - PsionicallyInsulated #Nyano - Summary: PCs can be made insulated from psionic powers. 
     - Flashed
     - RadiationProtection
     - Drowsiness
@@ -224,7 +224,6 @@
     - AnomalyHost
   - type: Targeting # Shitmed Change
   - type: SurgeryTarget # Shitmed Change
-  - type: ModifyUndies  # FLOOF Add
 
 - type: entity
   save: false
