@@ -9,6 +9,7 @@ using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
 using Content.Server.PowerCell;
 using Content.Shared._Mono.Blocking; // Mono
+using Content.Shared._White.Blocking;
 using Content.Shared.Damage;
 using Content.Shared.Examine;
 using Content.Shared.Item.ItemToggle;
@@ -37,7 +38,11 @@ public sealed class RechargeableBlockingSystem : SharedBlockingSystem // Mono
     {
         if (!component.Discharged)
         {
-            _powerCell.OnBatteryExamined(uid, null, args);
+            if (_powerCell.TryGetBatteryFromSlot(uid, out var battery))
+            {
+                var charge = battery.CurrentCharge / battery.MaxCharge * 100;
+                args.PushMarkup(Loc.GetString("power-cell-component-examine-details", ("currentCharge", $"{charge:F0}")));
+            }
             return;
         }
 
@@ -47,8 +52,8 @@ public sealed class RechargeableBlockingSystem : SharedBlockingSystem // Mono
 
     private int GetRemainingTime(EntityUid uid)
     {
-        if (!_battery.TryGetBatteryComponent(uid, out var batteryComponent, out var batteryUid)
-            || !TryComp<BatterySelfRechargerComponent>(batteryUid, out var recharger)
+        if (!_powerCell.TryGetBatteryFromSlot(uid, out var batteryEnt, out var batteryComponent)
+            || !TryComp<BatterySelfRechargerComponent>(batteryEnt, out var recharger)
             || recharger is not { AutoRechargeRate: > 0, AutoRecharge: true })
             return 0;
 
@@ -58,13 +63,13 @@ public sealed class RechargeableBlockingSystem : SharedBlockingSystem // Mono
 
     private void OnDamageChanged(EntityUid uid, RechargeableBlockingComponent component, DamageChangedEvent args)
     {
-        if (!_battery.TryGetBatteryComponent(uid, out var batteryComponent, out var batteryUid)
+        if (!_powerCell.TryGetBatteryFromSlot(uid, out var batteryEnt, out var batteryComponent)
             || !_itemToggle.IsActivated(uid)
             || args.DamageDelta == null)
             return;
 
         var batteryUse = Math.Min(args.DamageDelta.GetTotal().Float(), batteryComponent.CurrentCharge);
-        _battery.TryUseCharge(batteryUid.Value, batteryUse, batteryComponent);
+        _battery.TryUseCharge(batteryEnt.Value, batteryUse, batteryComponent);
     }
 
     private void AttemptToggle(EntityUid uid, RechargeableBlockingComponent component, ref ItemToggleActivateAttemptEvent args)
@@ -89,13 +94,13 @@ public sealed class RechargeableBlockingSystem : SharedBlockingSystem // Mono
 
     private void CheckCharge(EntityUid uid, RechargeableBlockingComponent component)
     {
-        if (!_battery.TryGetBatteryComponent(uid, out var battery, out _))
+        if (!_powerCell.TryGetBatteryFromSlot(uid, out var batteryEnt, out var battery))
             return;
 
         BatterySelfRechargerComponent? recharger;
         if (battery.CurrentCharge < 1)
         {
-            if (TryComp(uid, out recharger))
+            if (TryComp(batteryEnt, out recharger))
                 recharger.AutoRechargeRate = component.DischargedRechargeRate;
 
             component.Discharged = true;
@@ -107,7 +112,7 @@ public sealed class RechargeableBlockingSystem : SharedBlockingSystem // Mono
             return;
 
         component.Discharged = false;
-        if (TryComp(uid, out recharger))
+        if (TryComp(batteryEnt, out recharger))
                 recharger.AutoRechargeRate = component.ChargedRechargeRate;
     }
 }

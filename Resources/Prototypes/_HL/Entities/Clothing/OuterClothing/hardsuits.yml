@@ -17,7 +17,7 @@
 
 # Cybersun Hardsuit (Enhanced radiation resistance)
 - type: entity
-  parent: [ClothingOuterHardsuitSyndie, BaseC3SyndicateContraband, ContrabandClothing]
+  parent: [ClothingOuterHardsuitSyndie, BaseC3SyndicateContraband, ContrabandClothing, EnergyShieldClothing]
   id: ClothingOuterHardsuitCybersun
   name: cybersun hardsuit
   description: A technologically advanced hardsuit with enhanced radiation shielding for hazardous environments.
@@ -29,12 +29,15 @@
   - type: Armor
     modifiers:
       coefficients:
-        Blunt: 0.5
-        Slash: 0.5
-        Piercing: 0.5
-        Heat: 0.5
-        Radiation: 0.25  # Enhanced radiation resistance
-        Caustic: 0.5
+        Blunt: 0.55
+        Slash: 0.55
+        Piercing: 0.55
+        Heat: 0.55
+        Radiation: 0.55
+        Caustic: 0.55
+  - type: ClothingSpeedModifier
+    walkModifier: 0.85
+    sprintModifier: 0.8
   - type: ToggleableClothing
     clothingPrototype: ClothingHeadHelmetHardsuitCybersunHL
 
@@ -82,7 +85,7 @@
 
 # Syndicate High Command Hardsuit (25% better armor)
 - type: entity
-  parent: [ClothingOuterHardsuitSyndie, BaseC3SyndicateContraband, ContrabandClothing]
+  parent: [ClothingOuterHardsuitSyndie, BaseC3SyndicateContraband, ContrabandClothing, EnergyShieldClothing]
   id: ClothingOuterHardsuitSyndicateHighCommand
   name: syndicate high command hardsuit
   description: An elite hardsuit reserved for high-ranking Syndicate commanders. Features superior armor plating.
@@ -94,12 +97,12 @@
   - type: Armor
     modifiers:
       coefficients:
-        Blunt: 0.375    # 25% better than 0.5
-        Slash: 0.375    # 25% better than 0.5
-        Piercing: 0.375 # 25% better than 0.5
-        Heat: 0.375     # 25% better than 0.5
-        Radiation: 0.375 # 25% better than 0.5
-        Caustic: 0.375  # 25% better than 0.5
+        Blunt: 0.35   # 25% better than 0.5
+        Slash: 0.35    # 25% better than 0.5
+        Piercing: 0.35 # 25% better than 0.5
+        Heat: 0.35     # 25% better than 0.5
+        Radiation: 0.35 # 25% better than 0.5
+        Caustic: 0.35  # 25% better than 0.5
   - type: ToggleableClothing
     clothingPrototype: ClothingHeadHelmetHardsuitSyndicateHighCommand
 
@@ -158,7 +161,7 @@
 
 # SUNS Hardsuit
 - type: entity
-  parent: [ClothingOuterHardsuitSyndie, BaseC3SyndicateContraband, ContrabandClothing]
+  parent: [ClothingOuterHardsuitSyndie, BaseC3SyndicateContraband, ContrabandClothing, EnergyShieldClothing]
   id: ClothingOuterHardsuitSUNS
   name: SUNS hardsuit
   description: A mysterious hardsuit, bearing a golden sun emblem on a purple background.
@@ -170,18 +173,18 @@
   - type: Armor
     modifiers:
       coefficients:
-        Blunt: 0.4
-        Slash: 0.4
-        Piercing: 0.4
-        Heat: 0.4
-        Radiation: 0.4
-        Caustic: 0.4
-        Holy: 0.4
+        Blunt: 0.45
+        Slash: 0.45
+        Piercing: 0.45
+        Heat: 0.45
+        Radiation: 0.45
+        Caustic: 0.45
+        Holy: 0.45
   - type: ToggleableClothing
     clothingPrototype: ClothingHeadHelmetHardsuitSUNS
   - type: ClothingSpeedModifier
     walkModifier: 0.9
-    sprintModifier: 0.75
+    sprintModifier: 0.8
 
 # Syndicate Navy Hardsuit
 - type: entity
@@ -283,12 +286,12 @@
   - type: Armor
     modifiers:
       coefficients:
-        Blunt: 0.675    # 25% better than 0.9
-        Slash: 0.675    # 25% better than 0.9
-        Piercing: 0.675 # 25% better than 0.9
-        Heat: 0.675     # 25% better than 0.9
-        Radiation: 0.675 # 25% better than 0.9
-        Caustic: 0.675  # 25% better than 0.9
+        Blunt: 0.65
+        Slash: 0.65
+        Piercing: 0.65
+        Heat: 0.65
+        Radiation: 0.65
+        Caustic: 0.65
 
 # Interdyne Hardsuit Helmet (Enhanced bio resistance)
 - type: entity
