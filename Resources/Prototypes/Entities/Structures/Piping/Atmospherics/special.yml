@@ -25,6 +25,21 @@
   - type: Tag
     tags:
       - SpreaderIgnore
+  - type: Destructible # Mono - destructible tiny/directional fans
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 500
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalSlam
+  - type: Anchorable # Mono
+    delay: 6
+  - type: Pullable # Mono
+  - type: Rotatable # Mono
 
 - type: entity
   id: AtmosDeviceFanDirectional
@@ -57,3 +72,18 @@
   - type: RCDDeconstructable # HARDLIGHT
     cost: 10 # HARDLIGHT
     delay: 10 # HARDLIGHT
+  - type: Destructible # Mono - destructible tiny/directional fans
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 500
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalSlam
+  - type: Anchorable # Mono
+    delay: 6
+  - type: Pullable # Mono
+  - type: Rotatable # Mono

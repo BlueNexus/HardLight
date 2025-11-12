@@ -102,7 +102,7 @@
     - ClothingOuterHardsuitSalvage
     - ClothingOuterHardsuitLuxury
     - ClothingOuterHardsuitMaximPrototype
-
+ 
 - type: latheRecipePack
   id: NFSalvageTechfabDeprecatedEmag
   recipes:

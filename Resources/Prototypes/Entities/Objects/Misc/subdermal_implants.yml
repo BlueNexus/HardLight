@@ -334,7 +334,7 @@
   categories: [ HideSpawnMenu ]
   components:
       - type: SubdermalImplant
-        # implantAction: FakeMindShieldToggleAction
+        implantAction: FakeMindShieldToggleAction
       - type: FakeMindShieldImplant
 
 # Sec and Command implants

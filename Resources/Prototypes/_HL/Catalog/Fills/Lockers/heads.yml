@@ -31,15 +31,13 @@
 
 - type: entity
   id: HLLockerQuarterMasterFilled
-  suffix: Filled, HL
-  parent: LockerQuarterMaster
+  suffix: Station, Filled
+  parent: HLLockerQuarterMaster
   components:
   - type: EntityTableContainerFill
     containers:
       entity_storage: !type:NestedSelector
         tableId: HLLockerFillQuarterMaster
-  - type: AccessReader
-    access: [ [ "Quartermaster" ] ]
 
 # No laser table
 - type: entityTable
@@ -103,28 +101,39 @@
 # No laser locker, used when the antique laser is placed in the special display crate
 - type: entity
   id: HLLockerCaptainFilledNoLaser
-  suffix: Filled, HL
-  parent: LockerStationCaptain
+  suffix: Station, Filled
+  parent: HLLockerCaptain
   components:
   - type: EntityTableContainerFill
     containers:
       entity_storage: !type:NestedSelector
         tableId: HLLockerFillCaptainNoLaser
-  - type: AccessReader
-    access: [ [ "StationCaptain" ] ]
 
 # Laser locker, used when the antique laser is not in a special display crate
 - type: entity
   id: HLLockerCaptainFilledLaser
-  suffix: Filled, Laser, HL
-  parent: LockerStationCaptain
+  suffix: Station, Filled, Laser
+  parent: HLLockerCaptain
   components:
   - type: EntityTableContainerFill
     containers:
       entity_storage: !type:NestedSelector
         tableId: HLLockerFillCaptainLaser
-  - type: AccessReader
-    access: [ [ "StationCaptain" ] ]
+
+# Hardsuit table, used for suit storage as well
+- type: entity
+  id: HLLockerCaptainFilledHardsuit
+  suffix: Station, Filled, Hardsuit
+  parent: HLLockerCaptain
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:AllSelector
+        children:
+        - !type:NestedSelector
+          tableId: HLLockerFillCaptainLaser
+        - !type:NestedSelector
+          tableId: HLFillCaptainHardsuit
 
 - type: entityTable
   id: HLLockerFillHeadOfPersonnel
@@ -157,15 +166,13 @@
 
 - type: entity
   id: HLLockerHeadOfPersonnelFilled
-  suffix: Filled, HL
-  parent: LockerHeadOfPersonnel
+  suffix: Station, Filled
+  parent: HLLockerHeadOfPersonnel
   components:
   - type: EntityTableContainerFill
     containers:
       entity_storage: !type:NestedSelector
         tableId: HLLockerFillHeadOfPersonnel
-  - type: AccessReader
-    access: [ [ "HeadOfPersonnel" ] ]
 
 # No hardsuit table
 - type: entityTable
@@ -208,21 +215,19 @@
 # No hardsuit locker
 - type: entity
   id: HLLockerChiefEngineerFilled
-  suffix: Filled, HL
-  parent: LockerChiefEngineer
+  suffix: Station, Filled
+  parent: HLLockerChiefEngineer
   components:
   - type: EntityTableContainerFill
     containers:
       entity_storage: !type:NestedSelector
         tableId: HLLockerFillChiefEngineerNoHardsuit
-  - type: AccessReader
-    access: [["ChiefEngineer"]]
 
 # No hardsuit + hardsuit locker
 - type: entity
   id: HLLockerChiefEngineerFilledHardsuit
-  suffix: Filled, Hardsuit, HL
-  parent: LockerChiefEngineer
+  suffix: Station, Filled, Hardsuit
+  parent: HLLockerChiefEngineer
   components:
   - type: EntityTableContainerFill
     containers:
@@ -232,8 +237,6 @@
           tableId: HLLockerFillChiefEngineerNoHardsuit
         - !type:NestedSelector
           tableId: HLFillChiefEngineerHardsuit
-  - type: AccessReader
-    access: [ [ "ChiefEngineer" ] ]
 
 # No hardsuit table
 - type: entityTable
@@ -275,21 +278,19 @@
 # No hardsuit locker
 - type: entity
   id: HLLockerChiefMedicalOfficerFilled
-  suffix: Filled, HL
-  parent: LockerChiefMedicalOfficer
+  suffix: Station, Filled
+  parent: HLLockerChiefMedicalOfficer
   components:
   - type: EntityTableContainerFill
     containers:
       entity_storage: !type:NestedSelector
         tableId: HLLockerFillChiefMedicalOfficerNoHardsuit
-  - type: AccessReader
-    access: [ [ "ChiefMedicalOfficer" ] ]
 
 # No hardsuit + Hardsuit locker
 - type: entity
   id: HLLockerChiefMedicalOfficerFilledHardsuit
-  suffix: Filled, Hardsuit, HL
-  parent: LockerChiefMedicalOfficer
+  suffix: Station, Filled, Hardsuit
+  parent: HLLockerChiefMedicalOfficer
   components:
   - type: EntityTableContainerFill
     containers:
@@ -299,8 +300,6 @@
           tableId: HLLockerFillChiefMedicalOfficerNoHardsuit
         - !type:NestedSelector
           tableId: HLFillChiefMedicalOfficerHardsuit
-  - type: AccessReader
-    access: [ [ "ChiefMedicalOfficer" ] ]
 
 # No hardsuit table
 - type: entityTable
@@ -336,21 +335,19 @@
 # No hardsuit locker
 - type: entity
   id: HLLockerResearchDirectorFilled
-  suffix: Filled, HL
-  parent: LockerResearchDirector
+  suffix: Station, Filled
+  parent: HLLockerResearchDirector
   components:
   - type: EntityTableContainerFill
     containers:
       entity_storage: !type:NestedSelector
         tableId: HLLockerFillResearchDirectorNoHardsuit
-  - type: AccessReader
-    access: [ [ "ResearchDirector" ] ]
 
 # No hardsuit + Hardsuit locker
 - type: entity
   id: HLLockerResearchDirectorFilledHardsuit
-  suffix: Filled, Hardsuit, HL
-  parent: LockerResearchDirector
+  suffix: Station, Filled, Hardsuit
+  parent: HLLockerResearchDirector
   components:
   - type: EntityTableContainerFill
     containers:
@@ -360,8 +357,6 @@
           tableId: HLLockerFillResearchDirectorNoHardsuit
         - !type:NestedSelector
           tableId: HLFillResearchDirectorHardsuit
-  - type: AccessReader
-    access: [ [ "ResearchDirector" ] ]
 
 # No hardsuit table
 - type: entityTable
@@ -415,20 +410,18 @@
 - type: entity
   id: HLLockerHeadOfSecurityFilled
   suffix: Filled, HL
-  parent: LockerHeadOfSecurity
+  parent: HLLockerHeadOfSecurity
   components:
   - type: EntityTableContainerFill
     containers:
       entity_storage: !type:NestedSelector
         tableId: HLLockerFillHeadOfSecurityNoHardsuit
-  - type: AccessReader
-    access: [ [ "HeadOfSecurity" ] ]
 
 # No hardsuit + Hardsuit locker
 - type: entity
   id: HLLockerHeadOfSecurityFilledHardsuit
   suffix: Filled, Hardsuit, HL
-  parent: LockerHeadOfSecurity
+  parent: HLLockerHeadOfSecurity
   components:
   - type: EntityTableContainerFill
     containers:
@@ -438,5 +431,12 @@
           tableId: HLLockerFillHeadOfSecurityNoHardsuit
         - !type:NestedSelector
           tableId: HLFillHeadOfSecurityHardsuit
+
+- type: entity
+  id: HLLockerFreezerVaultFilled
+  suffix: Station, Vault, Locked
+  parent: LockerFreezerVaultFilled
+  categories: []
+  components:
   - type: AccessReader
-    access: [ [ "HeadOfSecurity" ] ]
+    access: [["Command"]]

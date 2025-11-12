@@ -98,4 +98,11 @@ public sealed partial class ProjectileComponent : Component
     /// </summary>
     [DataField]
     public FixedPoint2 PenetrationAmount = FixedPoint2.Zero;
+
+    /// <summary>
+    ///     Chance for this projectile to inflict a brief blindness effect on hit. 0 disables.
+    ///     Server-side systems may apply blinding when this is greater than 0.
+    /// </summary>
+    [DataField]
+    public float RandomBlindChance = 0f; // Frontier
 }

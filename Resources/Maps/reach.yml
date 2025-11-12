@@ -13695,7 +13695,7 @@ entities:
     - type: Transform
       pos: -10.5,10.5
       parent: 2
-- proto: GunSafeBaseSecure
+- proto: HLGunSafeBaseSecure
   entities:
   - uid: 868
     components:
@@ -13955,35 +13955,35 @@ entities:
     - type: Transform
       pos: 11.5,3.5
       parent: 2
-- proto: LockerAtmosphericsFilledHardsuit
+- proto: HLLockerAtmosphericsFilledHardsuit
   entities:
   - uid: 2499
     components:
     - type: Transform
       pos: 4.5,-11.5
       parent: 2
-- proto: LockerBoozeFilled
+- proto: HLLockerBoozeFilled
   entities:
   - uid: 1645
     components:
     - type: Transform
       pos: -10.5,5.5
       parent: 2
-- proto: LockerBotanistFilled
+- proto: HLLockerBotanistFilled
   entities:
   - uid: 1646
     components:
     - type: Transform
       pos: -14.5,4.5
       parent: 2
-- proto: LockerCaptainFilledHardsuit
+- proto: HLLockerCaptainFilledHardsuit
   entities:
   - uid: 1647
     components:
     - type: Transform
       pos: 21.5,-2.5
       parent: 2
-- proto: LockerEngineerFilledHardsuit
+- proto: HLLockerEngineerFilledHardsuit
   entities:
   - uid: 1649
     components:
@@ -14009,28 +14009,28 @@ entities:
     - type: Transform
       pos: -5.5,3.5
       parent: 2
-- proto: LockerFreezerVaultFilled
+- proto: HLLockerFreezerVaultFilled
   entities:
   - uid: 1652
     components:
     - type: Transform
       pos: 24.5,-0.5
       parent: 2
-- proto: LockerMedicalFilled
+- proto: HLLockerMedicalFilled
   entities:
   - uid: 1654
     components:
     - type: Transform
       pos: 4.5,-4.5
       parent: 2
-- proto: LockerMedicineFilled
+- proto: HLLockerMedicineFilled
   entities:
   - uid: 1655
     components:
     - type: Transform
       pos: 12.5,-2.5
       parent: 2
-- proto: LockerSecurityFilled
+- proto: HLLockerSecurityFilled
   entities:
   - uid: 1656
     components:
@@ -16500,7 +16500,7 @@ entities:
     - type: Transform
       pos: -16.5,4.5
       parent: 2
-- proto: SuitStorageSec
+- proto: HLSuitStorageSec
   entities:
   - uid: 2020
     components:

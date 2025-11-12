@@ -7,7 +7,7 @@
   - type: Projectile
     damage:
       types:
-        Piercing: 45
+        Piercing: 35
 
 - type: entity
   id: Bullet762x54mmRImprovised

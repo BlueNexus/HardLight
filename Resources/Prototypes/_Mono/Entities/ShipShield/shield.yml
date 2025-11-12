@@ -105,5 +105,6 @@
   - type: RadarBlip
     radarColor: "#27264A"
     scale: 1
+    visibleFromOtherGrids: true
   - type: Occluder
     enabled: false

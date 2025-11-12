@@ -1010,6 +1010,22 @@
           - SecurityUplink
 
 - type: listing
+  id: UplinkSecurityCash100000
+  name:  uplink-security-cash45000-name
+  description: uplink-security-cash1000-desc
+  productEntity: SpaceCash100000
+  icon: { sprite: Objects/Economy/cash.rsi, state: cash_25000 }
+  cost:
+    FrontierUplinkCoin: 10
+  categories:
+    - UplinkSecurityUtility
+  conditions:
+    - !type:StoreWhitelistCondition
+      whitelist:
+        tags:
+          - SecurityUplink
+
+- type: listing
   id: UplinkSecurityEmpGrenadeBox
   name:  uplink-security-empgrenade-box-name
   description: uplink-security-empgrenade-box-desc

@@ -1,0 +1,97 @@
+# Ship energy weapon hitscan prototypes to satisfy HitscanBatteryAmmoProvider refs
+
+- type: hitscan
+  id: PhalanxLaser
+  damage:
+    types:
+      Heat: 100
+      Structural: 100
+  muzzleFlash:
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles.rsi
+    state: muzzle_beam_heavy
+  travelFlash:
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles.rsi
+    state: beam_heavy
+  impactFlash:
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles.rsi
+    state: impact_beam_heavy
+
+- type: hitscan
+  id: ApolloLaser
+  damage:
+    types:
+      Heat: 10000
+      Structural: 50000
+  muzzleFlash:
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles.rsi
+    state: muzzle_beam_heavy2
+  travelFlash:
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles.rsi
+    state: beam_heavy2
+  impactFlash:
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles.rsi
+    state: impact_beam_heavy2
+
+- type: hitscan
+  id: TachyonLaser
+  damage:
+    types:
+      Heat: 30000
+      Structural: 100000
+  muzzleFlash:
+    sprite: _Mono/Objects/Weapons/Guns/Projectiles/ship_lasers.rsi
+    state: muzzle_superheavy_prefrac
+  travelFlash:
+    sprite: _Mono/Objects/Weapons/Guns/Projectiles/ship_lasers.rsi
+    state: Beam_SuperHeavy_prefrac
+  impactFlash:
+    sprite: _Mono/Objects/Weapons/Guns/Projectiles/ship_lasers.rsi
+    state: impact_superheavy_prefrac
+
+- type: hitscan
+  id: SunderLaser
+  damage:
+    types:
+      Heat: 350
+      Structural: 2500
+  muzzleFlash:
+    sprite: _Mono/Objects/Weapons/Guns/Projectiles/ship_lasers.rsi
+    state: proton_muzzle
+  travelFlash:
+    sprite: _Mono/Objects/Weapons/Guns/Projectiles/ship_lasers.rsi
+    state: proton_beam
+  impactFlash:
+    sprite: _Mono/Objects/Weapons/Guns/Projectiles/ship_lasers.rsi
+    state: proton_impact
+
+- type: hitscan
+  id: GaussRound
+  damage:
+    types:
+      Piercing: 125
+      Heat: 25
+      Structural: 200
+  muzzleFlash:
+    sprite: _Mono/Objects/Weapons/Guns/Projectiles/ship_lasers.rsi
+    state: gauss_muzzle
+  travelFlash:
+    sprite: _Mono/Objects/Weapons/Guns/Projectiles/ship_lasers.rsi
+    state: gauss_trail
+  impactFlash:
+    sprite: _Mono/Objects/Weapons/Guns/Projectiles/ship_lasers.rsi
+    state: gauss_impact
+
+- type: hitscan
+  id: ExplosiveLaser
+  damage:
+    types:
+      Heat: 10
+  muzzleFlash:
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles.rsi
+    state: muzzle_laser
+  travelFlash:
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles.rsi
+    state: beam
+  impactFlash:
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles.rsi
+    state: impact_laser

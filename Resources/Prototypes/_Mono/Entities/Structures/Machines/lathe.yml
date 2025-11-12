@@ -1,0 +1,45 @@
+# SPDX-FileCopyrightText: 2025 HungryCuban
+# SPDX-FileCopyrightText: 2025 Onezero0
+# SPDX-FileCopyrightText: 2025 Redrover1760
+# SPDX-FileCopyrightText: 2025 significant harassment
+# SPDX-FileCopyrightText: 2025 starch
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  id: FactionLathe
+  parent: BaseLatheLube
+  name: military multi-purpose assembler
+  description: Prints out items researched with TSFMC/Rogue R&D servers.
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/techfab.rsi
+    layers:
+    - state: icon
+      map: [ "enum.LatheVisualLayers.IsRunning" ]
+    - state: unlit
+      shader: unshaded
+      map: [ "enum.PowerDeviceVisualLayers.Powered"]
+    - state: inserting
+      map: ["enum.MaterialStorageVisualLayers.Inserting"]
+    - state: panel
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+  - type: Machine
+    # board removed: prototype missing
+  - type: Lathe
+    producingSound: /Audio/Machines/circuitprinter.ogg
+    idleState: icon
+    runningState: icon
+    dynamicPacks:
+    # Universal content packs (available)
+    - UniversalRailgunAmmo
+    - UniversalMissileAmmo
+    - UniversalShellAmmo
+    - UniversalOrdinance
+  - type: MaterialStorage
+    whitelist:
+      tags:
+      - Sheet
+      - RawMaterial
+      - Ingot
+  - type: RequireProjectileTarget

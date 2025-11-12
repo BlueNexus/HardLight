@@ -1,7 +1,111 @@
 - type: entity
+  id: HLSuitStorageEngi
+  parent: SuitStorageEngi
+  suffix: Station, Station Engineer
+  components:
+  - type: AccessReader
+    access: [["Engineering"]]
+
+- type: entity
+  id: HLSuitStorageAtmos
+  parent: SuitStorageAtmos
+  suffix: Station, Atmospheric Technician
+  components:
+  - type: AccessReader
+    access: [["Atmospherics"]]
+
+- type: entity
+  id: HLSuitStorageSec
+  parent: SuitStorageSec
+  suffix: Station, Security
+  components:
+  - type: AccessReader
+    access: [["Security"]]
+
+- type: entity
+  id: HLSuitStorageCE
+  parent: SuitStorageCE
+  suffix: Station, Chief Engineer
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:NestedSelector
+        tableId: HLFillChiefEngineerHardsuit
+  - type: AccessReader
+    access: [["ChiefEngineer"]]
+
+- type: entity
+  id: HLSuitStorageCMO
+  parent: SuitStorageCMO
+  suffix: Station, Chief Medical Officer
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:NestedSelector
+        tableId: HLFillChiefMedicalOfficerHardsuit
+  - type: AccessReader
+    access: [["ChiefMedicalOfficer"]]
+
+- type: entity
+  id: HLSuitStorageParamed
+  parent: SuitStorageBase
+  suffix: Station, Paramedic
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:NestedSelector
+        tableId: HLFillParamedicHardsuit
+  - type: AccessReader
+    access: [["Paramedic"]]
+
+- type: entity
+  id: HLSuitStorageRD
+  parent: SuitStorageRD
+  suffix: Station, Research Director
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:NestedSelector
+        tableId: HLFillResearchDirectorHardsuit
+  - type: AccessReader
+    access: [["ResearchDirector"]]
+
+- type: entity
+  id: HLSuitStorageHOS
+  parent: SuitStorageHOS
+  suffix: Station, Head of Security
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:NestedSelector
+        tableId: HLFillHeadOfSecurityHardsuit
+  - type: AccessReader
+    access: [["HeadOfSecurity"]]
+
+- type: entity
+  id: HLSuitStorageWarden
+  parent: SuitStorageWarden
+  suffix: Station, Warden
+  components:
+  - type: AccessReader
+    access: [["Armory"]]
+
+- type: entity
+  id: HLSuitStorageBrigmedic
+  parent: SuitStorageBase
+  suffix: Station, Brigmedic
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:NestedSelector
+        tableId: HLFillHardsuitBrigmedic
+  - type: AccessReader
+    access: [["Security"]]
+
+- type: entity
   id: HLSuitStorageCaptain
   parent: SuitStorageBase
-  suffix: HL, Captain
+  suffix: Station, Captain
   components:
   - type: EntityTableContainerFill
     containers:
@@ -9,3 +113,11 @@
         tableId: HLFillCaptainHardsuit
   - type: AccessReader
     access: [["StationCaptain"]]
+
+- type: entity
+  id: HLSuitStorageSalv
+  parent: SuitStorageSalv
+  suffix: Station, Salvage
+  components:
+  - type: AccessReader
+    access: [["Salvage"]]

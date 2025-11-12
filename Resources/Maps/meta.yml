@@ -128867,7 +128867,7 @@ entities:
     - type: Transform
       pos: 31.677748,21.795935
       parent: 5350
-- proto: GunSafeDisabler
+- proto: HLGunSafeDisabler
   entities:
   - uid: 6369
     components:
@@ -128897,7 +128897,7 @@ entities:
         - 0
         - 0
         - 0
-- proto: GunSafePistolMk58
+- proto: HLGunSafePistolMk58
   entities:
   - uid: 6511
     components:
@@ -128909,7 +128909,7 @@ entities:
       parent: 5350
     - type: Physics
       bodyType: Static
-- proto: GunSafeRifleLecter
+- proto: HLGunSafeRifleLecter
   entities:
   - uid: 22966
     components:
@@ -128952,7 +128952,7 @@ entities:
           showEnts: False
           occludes: True
           ent: null
-- proto: GunSafeShotgunKammerer
+- proto: HLGunSafeShotgunKammerer
   entities:
   - uid: 11588
     components:
@@ -128994,7 +128994,7 @@ entities:
           showEnts: False
           occludes: True
           ent: null
-- proto: GunSafeSubMachineGunDrozd
+- proto: HLGunSafeSubMachineGunDrozd
   entities:
   - uid: 13851
     components:
@@ -131310,7 +131310,7 @@ entities:
         14436:
         - - Pressed
           - Toggle
-- proto: LockerAtmosphericsFilled
+- proto: HLLockerAtmosphericsFilled
   entities:
   - uid: 11751
     components:
@@ -131322,7 +131322,7 @@ entities:
     - type: Transform
       pos: 42.5,-26.5
       parent: 5350
-- proto: LockerAtmosphericsFilledHardsuit
+- proto: HLLockerAtmosphericsFilledHardsuit
   entities:
   - uid: 19842
     components:
@@ -131339,7 +131339,7 @@ entities:
     - type: Transform
       pos: 54.5,-16.5
       parent: 5350
-- proto: LockerBoozeFilled
+- proto: HLLockerBoozeFilled
   entities:
   - uid: 13302
     components:
@@ -131351,7 +131351,7 @@ entities:
     - type: Transform
       pos: 24.5,-13.5
       parent: 5350
-- proto: LockerBotanistFilled
+- proto: HLLockerBotanistFilled
   entities:
   - uid: 2618
     components:
@@ -131442,7 +131442,7 @@ entities:
         - 0
         - 0
         - 0
-- proto: LockerElectricalSupplies
+- proto: HLLockerElectricalSupplies
   entities:
   - uid: 12030
     components:
@@ -131467,7 +131467,7 @@ entities:
         - 0
         - 0
         - 0
-- proto: LockerElectricalSuppliesFilled
+- proto: HLLockerElectricalSuppliesFilled
   entities:
   - uid: 1671
     components:
@@ -131543,7 +131543,7 @@ entities:
         - 0
         - 0
         - 0
-- proto: LockerEngineerFilled
+- proto: HLLockerEngineerFilled
   entities:
   - uid: 16266
     components:
@@ -131660,7 +131660,7 @@ entities:
         - 0
         - 0
         - 0
-- proto: LockerFreezer
+- proto: HLLockerFreezer
   entities:
   - uid: 3158
     components:
@@ -131709,7 +131709,7 @@ entities:
     - type: Transform
       pos: -50.5,-19.5
       parent: 5350
-- proto: LockerFreezerVaultFilled
+- proto: HLLockerFreezerVaultFilled
   entities:
   - uid: 1938
     components:
@@ -131748,7 +131748,7 @@ entities:
         - 0
         - 0
         - 0
-- proto: LockerMedicalFilled
+- proto: HLLockerMedicalFilled
   entities:
   - uid: 16189
     components:
@@ -131814,7 +131814,7 @@ entities:
       parent: 5350
     - type: Physics
       bodyType: Static
-- proto: LockerMedicineFilled
+- proto: HLLockerMedicineFilled
   entities:
   - uid: 10336
     components:
@@ -131851,7 +131851,7 @@ entities:
     - type: Transform
       pos: -25.5,-29.5
       parent: 5350
-- proto: LockerParamedicFilled
+- proto: HLLockerParamedicFilled
   entities:
   - uid: 15898
     components:
@@ -131883,7 +131883,7 @@ entities:
     - type: Transform
       pos: 30.5,-45.5
       parent: 5350
-- proto: LockerSalvageSpecialistFilledHardsuit
+- proto: HLLockerSalvageSpecialistFilledHardsuit
   entities:
   - uid: 4096
     components:
@@ -131942,7 +131942,7 @@ entities:
     - type: Transform
       pos: 6.5,-51.5
       parent: 5350
-- proto: LockerSecurityFilled
+- proto: HLLockerSecurityFilled
   entities:
   - uid: 7672
     components:
@@ -132018,7 +132018,7 @@ entities:
       parent: 5350
     - type: Physics
       bodyType: Static
-- proto: LockerWardenFilled
+- proto: HLLockerWardenFilled
   entities:
   - uid: 6696
     components:
@@ -132043,7 +132043,7 @@ entities:
         - 0
         - 0
         - 0
-- proto: LockerWeldingSuppliesFilled
+- proto: HLLockerWeldingSuppliesFilled
   entities:
   - uid: 6288
     components:
@@ -154050,21 +154050,21 @@ entities:
     - type: Transform
       pos: 13.5,1.5
       parent: 5350
-- proto: SuitStorageCE
+- proto: HLSuitStorageCE
   entities:
   - uid: 4065
     components:
     - type: Transform
       pos: 43.5,6.5
       parent: 5350
-- proto: SuitStorageCMO
+- proto: HLSuitStorageCMO
   entities:
   - uid: 15617
     components:
     - type: Transform
       pos: -14.5,-38.5
       parent: 5350
-- proto: SuitStorageEngi
+- proto: HLSuitStorageEngi
   entities:
   - uid: 9208
     components:
@@ -154569,21 +154569,21 @@ entities:
         - 0
         - 0
         - 0
-- proto: SuitStorageHOS
+- proto: HLSuitStorageHOS
   entities:
   - uid: 10385
     components:
     - type: Transform
       pos: 6.5,45.5
       parent: 5350
-- proto: SuitStorageRD
+- proto: HLSuitStorageRD
   entities:
   - uid: 20770
     components:
     - type: Transform
       pos: 27.5,-43.5
       parent: 5350
-- proto: SuitStorageSec
+- proto: HLSuitStorageSec
   entities:
   - uid: 5663
     components:
@@ -154641,7 +154641,7 @@ entities:
     - type: Transform
       pos: -6.5,46.5
       parent: 5350
-- proto: SuitStorageWarden
+- proto: HLSuitStorageWarden
   entities:
   - uid: 6687
     components:

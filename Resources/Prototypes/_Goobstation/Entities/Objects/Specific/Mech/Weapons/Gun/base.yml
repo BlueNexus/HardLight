@@ -1,6 +1,6 @@
 - type: entity
   id: BaseMechWeaponRange
-  parent: BaseMechEquipment
+  parent: [ BaseMechEquipment, BaseC3ExpeditionContraband ]
   abstract: true
   components:
   - type: Battery

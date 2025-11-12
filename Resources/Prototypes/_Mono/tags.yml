@@ -1,3 +1,16 @@
+# SPDX-FileCopyrightText: 2025 LukeZurg22
+# SPDX-FileCopyrightText: 2025 Onezero0
+# SPDX-FileCopyrightText: 2025 Redrover1760
+# SPDX-FileCopyrightText: 2025 ScyronX
+# SPDX-FileCopyrightText: 2025 core-mene
+# SPDX-FileCopyrightText: 2025 mikusssssss
+# SPDX-FileCopyrightText: 2025 significant harassment
+# SPDX-FileCopyrightText: 2025 sleepyyapril
+# SPDX-FileCopyrightText: 2025 starch
+# SPDX-FileCopyrightText: 2025 wewman222
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: Tag
   id: CassetteTape
 
@@ -167,6 +180,50 @@
   id: Magazine57x28mmFMJBox
 
 - type: Tag
+  id: MilitaryPowerCellMG
+
+- type: Tag
+  id: MagazineDP29
+
+#8x65mm SKR tags
+
+## Removed duplicates; these tags are defined in base tags.yml
+# - type: Tag
+#   id: Cartridge8x65mmSKR
+
+# - type: Tag
+#   id: Magazine8x65mmSKR
+
+- type: Tag
+  id: MagazineBox8x65mmSKR
+
+#12 gauge tags
+
+# - type: Tag
+#   id: Magazine12_gaugeBuckshot
+
+- type: Tag
+  id: ShellShotgun12_gaugeBuckshot
+
+#4 gauge tags
+
+- type: Tag
+  id: WeaponShotgunBigLeady
+
+- type: Tag
+  id: WeaponShotgunBigJohnny
+
+- type: Tag
+  id: ShellShotgun23x75mmBuckshot
+
+#Misc emote tags
+
+- type: Tag
+  id: ReptilianEmotes
+
+# Ship tags
+
+- type: Tag
   id: CrewedShuttle
 
 # Mech Tags
@@ -183,6 +240,9 @@
 
 - type: Tag
   id: EWARMechMount
+
+- type: Tag
+  id: IFFMechMount
 #Mech Tags
 
 - type: Tag
@@ -250,3 +310,50 @@
 
 - type: Tag
   id: FlailTargetingControlModule
+
+# USSP Bounty
+
+- type: Tag
+  id: VodkaBounty
+
+- type: Tag
+  id: EnergySword
+
+- type: Tag
+  id: MilitaryMechBounty
+
+- type: Tag
+  id: CivilianMechBounty
+
+- type: Tag
+  id: BiomassBounty
+
+# Ship Ammo
+
+- type: Tag
+  id: Asm220Torpedo
+
+- type: Tag
+  id: CharonSlug
+
+- type: Tag
+  id: 150mmShell
+
+- type: Tag
+  id: LightFighterOrdinance
+
+# Kudzu ignore tag
+
+- type: Tag
+  id: Chimera
+
+- type: Tag
+  id: ChimeraFloor
+
+# hhhh
+
+- type: Tag
+  id: TechDiskMono
+
+- type: Tag
+  id: MPSSMMissile

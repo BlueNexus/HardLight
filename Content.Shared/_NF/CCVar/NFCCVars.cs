@@ -270,4 +270,37 @@ public sealed class NFCCVars
     /// </summary>
     public static readonly CVarDef<bool> XenoarchSingleUseNodes =
         CVarDef.Create("nf14.xenoarch.single_use_nodes", true, CVar.REPLICATED);
+
+    /*
+     * Rewards / Payouts
+     */
+    /// <summary>
+    /// Amount paid to a medical rescuer when a critically-injured patient is brought back to alive.
+    /// </summary>
+    public static readonly CVarDef<int> RewardsMedicalReviveAmount =
+        CVarDef.Create("nf14.rewards.medical_revive_amount", 10000, CVar.SERVERONLY);
+
+    /// <summary>
+    /// Cooldown in minutes per rescued person for medical revive payouts.
+    /// </summary>
+    public static readonly CVarDef<float> RewardsMedicalReviveCooldownMinutes =
+        CVarDef.Create("nf14.rewards.medical_revive_cooldown_minutes", 10f, CVar.SERVERONLY);
+
+    /// <summary>
+    /// Amount paid to Security for killing a hostile mob (faction-hostile to NanoTrasen).
+    /// </summary>
+    public static readonly CVarDef<int> RewardsSecurityKillHostileAmount =
+        CVarDef.Create("nf14.rewards.security_kill_hostile_amount", 2000, CVar.SERVERONLY);
+
+    /// <summary>
+    /// Amount paid to Security for killing an antagonist player.
+    /// </summary>
+    public static readonly CVarDef<int> RewardsSecurityKillAntagAmount =
+        CVarDef.Create("nf14.rewards.security_kill_antag_amount", 15000, CVar.SERVERONLY);
+
+    /// <summary>
+    /// Amount paid to each Security member at round end for each antagonist in custody.
+    /// </summary>
+    public static readonly CVarDef<int> RewardsSecurityCustodyPerAntagAmount =
+        CVarDef.Create("nf14.rewards.security_custody_per_antag_amount", 100000, CVar.SERVERONLY);
 }

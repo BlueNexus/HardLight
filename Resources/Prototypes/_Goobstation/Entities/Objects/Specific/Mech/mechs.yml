@@ -99,7 +99,7 @@
 # Clarke
 - type: entity
   id: MechClarke
-  parent: [ BaseMech, IndustrialMech, BaseCargoContraband ]
+  parent: [ BaseMech, IndustrialMech, BaseC2ExpeditionContraband ]
   name: Clarke
   description: A fast-moving mech for space travel. It has built-in trusts.
   components:
@@ -132,8 +132,9 @@
       types:
         Blunt: 26
   - type: MovementSpeedModifier
-    baseWalkSpeed: 2.5
-    baseSprintSpeed: 4.5
+    baseWalkSpeed: 1
+    baseSprintSpeed: 2
+    baseWeightlessModifier: 2
   - type: CanMoveInAir
   - type: MovementAlwaysTouching
   - type: StaticPrice
@@ -170,7 +171,7 @@
 # Gygax
 - type: entity
   id: MechGygax
-  parent: [ BaseMech, CombatMech, BaseC2ContrabandUnredeemable ]
+  parent: [ BaseMech, CombatMech, BaseC3ExpeditionContraband ]
   name: Gygax
   description: While lightly armored, the Gygax has incredible mobility thanks to its ability that lets it smash through walls at high speeds.
   components:
@@ -206,8 +207,9 @@
   - type: CanMoveInAir
   - type: MovementAlwaysTouching
   - type: MovementSpeedModifier
-    baseWalkSpeed: 2
-    baseSprintSpeed: 2.6
+    baseWalkSpeed: 1
+    baseSprintSpeed: 2
+    baseWeightlessModifier: 2
   - type: StaticPrice
     price: 3000
   - type: Tag
@@ -229,7 +231,7 @@
 # Durand
 - type: entity
   id: MechDurand
-  parent: [ BaseMech, CombatMech, BaseC2ContrabandUnredeemable ]
+  parent: [ BaseMech, CombatMech, BaseC3ExpeditionContraband ]
   name: Durand
   description: A slow but beefy combat exosuit that is extra scary in confined spaces due to its punches. Xenos hate it!
   components:
@@ -252,7 +254,7 @@
     brokenState: durand-broken
     mechToPilotDamageMultiplier: 0.25
     airtight: true
-    maxIntegrity: 400
+    maxIntegrity: 300
     pilotWhitelist:
       components:
         - HumanoidAppearance
@@ -264,8 +266,9 @@
         Blunt: 40
         Structural: 220
   - type: MovementSpeedModifier
-    baseWalkSpeed: 1.5
+    baseWalkSpeed: 1
     baseSprintSpeed: 2
+    baseWeightlessModifier: 2
   - type: Damageable
     damageModifierSet: MediumArmorNT
   - type: CanMoveInAir
@@ -296,7 +299,7 @@
 # Marauder
 - type: entity
   id: MechMarauder
-  parent: [ BaseMech, CombatMech, BaseCentcommContraband ]
+  parent: [ BaseMech, CombatMech, BaseC3ExpeditionContraband ]
   name: Marauder
   description: Looks like we're all saved. # ERT mech
   components:
@@ -319,7 +322,7 @@
     brokenState: marauder-broken
     mechToPilotDamageMultiplier: 0.1
     airtight: true
-    maxIntegrity: 500
+    maxIntegrity: 300
     maxEquipmentAmount: 4
     pilotWhitelist:
       components:
@@ -333,7 +336,8 @@
         Structural: 200
   - type: MovementSpeedModifier
     baseWalkSpeed: 1
-    baseSprintSpeed: 1.5
+    baseSprintSpeed: 2
+    baseWeightlessModifier: 2
   - type: Damageable
     damageModifierSet: HeavyArmorNT
   - type: CanMoveInAir
@@ -369,7 +373,7 @@
 # Seraph
 - type: entity
   id: MechSeraph
-  parent: [ BaseMech, CombatMech, BaseCentcommContraband ]
+  parent: [ BaseMech, CombatMech, BaseC3ExpeditionContraband ]
   name: Seraph
   description: That's the last thing you'll see. # Death Squad mech
   components:
@@ -392,7 +396,7 @@
     brokenState: seraph-broken
     mechToPilotDamageMultiplier: 0.05
     airtight: true
-    maxIntegrity: 550
+    maxIntegrity: 300
     maxEquipmentAmount: 5
     pilotWhitelist:
       components:
@@ -405,8 +409,9 @@
         Blunt: 60
         Structural: 400
   - type: MovementSpeedModifier
-    baseWalkSpeed: 2.2
-    baseSprintSpeed: 3.7
+    baseWalkSpeed: 1
+    baseSprintSpeed: 2
+    baseWeightlessModifier: 3
   - type: Damageable
     damageModifierSet: HeavyArmorNT
   - type: CanMoveInAir
@@ -445,7 +450,7 @@
 # Dark Gygax
 - type: entity
   id: MechGygaxSyndie
-  parent: [ BaseMech, CombatMech, BaseSyndicateContraband ]
+  parent: [ BaseMech, CombatMech, BaseC3ExpeditionContraband ]
   name: Dark Gygax
   description: A modified Gygax used for nefarious purposes. On the back of the armor plate there is an inscription "Cybersun Inc."
   components:
@@ -481,8 +486,9 @@
         Blunt: 30
         Structural: 200
   - type: MovementSpeedModifier
-    baseWalkSpeed: 2.2
-    baseSprintSpeed: 3.7
+    baseWalkSpeed: 1
+    baseSprintSpeed: 2
+    baseWeightlessModifier: 2
   - type: Damageable
     damageModifierSet: MediumArmorSyndi
   - type: CanMoveInAir
@@ -518,7 +524,7 @@
 # Mauler
 - type: entity
   id: MechMaulerSyndie
-  parent: [ BaseMech, CombatMech, BaseSyndicateContraband ]
+  parent: [ BaseMech, CombatMech, BaseC3ExpeditionContraband ]
   name: Mauler
   description: A modified Marauder used by the Syndicate that's not as maneuverable as the Dark Gygax, but it makes up for that in armor and sheer firepower. On the back of the armor plate there is an inscription "Cybersun Inc."
   components:
@@ -541,7 +547,7 @@
     brokenState: mauler-broken
     mechToPilotDamageMultiplier: 0.1
     airtight: true
-    maxIntegrity: 500
+    maxIntegrity: 300
     maxEquipmentAmount: 5
     pilotWhitelist:
       components:
@@ -555,7 +561,8 @@
         Structural: 400
   - type: MovementSpeedModifier
     baseWalkSpeed: 1
-    baseSprintSpeed: 1.5
+    baseSprintSpeed: 2
+    baseWeightlessModifier: 2
   - type: Damageable
     damageModifierSet: HeavyArmorSyndi
   - type: CanMoveInAir
@@ -588,3 +595,4 @@
       - WeaponMechCombatShotgun
       - WeaponMechCombatMissileRack6
       - WeaponMechCombatTeslaCannon
+

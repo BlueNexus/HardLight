@@ -606,6 +606,9 @@ SimpleXenoArtifactItem: ComplexXenoArtifactItem
 MediumXenoArtifactItem: ComplexXenoArtifactItem
 VariedXenoArtifactItem: ComplexXenoArtifactItem
 
+# 2025-06-12
+GunneryServer: GunneryServerMedium # Mono
+
 # Frontier: put Frontier-related migrations in nf_migration.yml. Thank you.
 # 2025-05-26 Turrets
 WeaponEnergyTurretStation: WeaponEnergyTurretSecurity

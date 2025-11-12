@@ -1,0 +1,61 @@
+# SPDX-FileCopyrightText: 2025 Redrover1760
+# SPDX-FileCopyrightText: 2025 RikuTheKiller
+# SPDX-FileCopyrightText: 2025 sleepyyapril
+# SPDX-FileCopyrightText: 2025 starch
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+#- type: latheRecipe
+#  parent: BaseGoldCircuitboardRecipe
+#  id: ShieldControlComputerCircuitboard
+#  result: ShieldControlComputerCircuitboard
+
+- type: latheRecipe
+  parent: BaseGoldCircuitboardRecipe
+  id: GunneryControlComputerCircuitboard
+  result: GunneryControlComputerCircuitboard
+
+# - type: latheRecipe
+#   parent: BaseGoldCircuitboardRecipe
+#   id: MachineShieldMS225Circuitboard
+#   result: MachineShieldMS225Circuitboard
+
+- type: latheRecipe
+  parent: BaseGoldCircuitboardRecipe
+  id: MachineDriveCTLA25Circuitboard
+  result: MachineDriveCTLA25Circuitboard
+
+- type: latheRecipe
+  parent: BaseGoldCircuitboardRecipe
+  id: MachineDriveCTLA25sCircuitboard
+  result: MachineDriveCTLA25sCircuitboard
+
+- type: latheRecipe
+  parent: BaseGoldCircuitboardRecipe
+  id: MachineDriveCTLA50Circuitboard
+  result: MachineDriveCTLA50Circuitboard
+
+- type: latheRecipe
+  parent: BaseGoldCircuitboardRecipe
+  id: MachineGCSLowCircuitboard
+  result: MachineGCSLowCircuitboard
+
+- type: latheRecipe
+  parent: BaseGoldCircuitboardRecipe
+  id: MachineGCSMediumCircuitboard
+  result: MachineGCSMediumCircuitboard
+
+- type: latheRecipe
+  parent: BaseGoldCircuitboardRecipe
+  id: MachineGCSHighCircuitboard
+  result: MachineGCSHighCircuitboard
+
+- type: latheRecipe
+  parent: BaseGoldCircuitboardRecipe
+  id: AdvancedRadarConsoleCircuitboard
+  result: AdvancedRadarConsoleCircuitboard
+
+- type: latheRecipe
+  parent: BaseGoldCircuitboardRecipe
+  id: ComputerIFFCircuitboard
+  result: ComputerIFFCircuitboard

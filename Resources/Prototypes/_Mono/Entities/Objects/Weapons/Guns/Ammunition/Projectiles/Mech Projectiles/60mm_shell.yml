@@ -12,6 +12,7 @@
         Piercing: 210
   - type: RadarBlip
     scale: 2.5
+    visibleFromOtherGrids: true
     requireNoGrid: true
     shape: triangle
   - type: Explosive
@@ -19,4 +20,4 @@
     totalIntensity: 40
     intensitySlope: 5
     maxIntensity: 25
-    maxTileBreak: 1
+    maxTileBreak: 0

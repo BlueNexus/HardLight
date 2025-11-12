@@ -1,10 +1,10 @@
+#if false
 using Robust.Shared.Utility;
 
 namespace Content.Shared._Mono.SpaceArtillery;
 
 /// <summary>
-/// Marker + data component for homing projectiles referenced by _Mono prototypes.
-/// Server-side behavior can be added later; for now, prototypes load without errors.
+/// Disabled duplicate; canonical TargetSeekingComponent lives in Content.Server.Mono.Projectiles.TargetSeeking.
 /// </summary>
 [RegisterComponent]
 public sealed partial class TargetSeekingComponent : Component
@@ -15,3 +15,4 @@ public sealed partial class TargetSeekingComponent : Component
     [DataField("launchSpeed")] public float LaunchSpeed = 0f;
     [DataField("maxSpeed")] public float MaxSpeed = 0f;
 }
+#endif

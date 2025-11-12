@@ -34,6 +34,8 @@ public sealed class EmotesUIController : UIController, IOnStateChanged<GameplayS
                 new SpriteSpecifier.Rsi(new ResPath("/Textures/Clothing/Hands/Gloves/latex.rsi"), "icon")),
             [EmoteCategory.Vocal] = ("emote-menu-category-vocal",
                 new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/Emotes/vocal.png"))),
+            [EmoteCategory.Sex] = ("emote-menu-category-sex",
+                new SpriteSpecifier.Texture(new ResPath("/Textures/Interface/Emotes/lewdemotes.png"))),
         };
 
     public void OnStateEntered(GameplayState state)
@@ -141,7 +143,7 @@ public sealed class EmotesUIController : UIController, IOnStateChanged<GameplayS
         Dictionary<EmoteCategory, List<RadialMenuOption>> emotesByCategory = new();
         foreach (var emote in emotePrototypes)
         {
-            if(emote.Category == EmoteCategory.Invalid)
+            if (emote.Category == EmoteCategory.Invalid)
                 continue;
 
             // only valid emotes that have ways to be triggered by chat and player have access / no restriction on

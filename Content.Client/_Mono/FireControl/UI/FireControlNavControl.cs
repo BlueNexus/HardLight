@@ -1,3 +1,9 @@
+// SPDX-FileCopyrightText: 2025 Ark
+// SPDX-FileCopyrightText: 2025 RikuTheKiller
+// SPDX-FileCopyrightText: 2025 ark1368
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 using System.Linq;
 using System.Numerics;
 using Content.Client.Shuttles.UI;
@@ -8,6 +14,8 @@ using Content.Shared.Shuttles.Components;
 using Content.Shared.Shuttles.Systems;
 using Content.Client._Mono.Radar;
 using Content.Shared._Mono.Radar;
+using Content.Shared._Crescent.ShipShields;
+using Robust.Shared.Physics.Collision.Shapes;
 using Robust.Client.Graphics;
 using Robust.Client.UserInterface;
 using Robust.Shared.Input;
@@ -36,6 +44,7 @@ public sealed class FireControlNavControl : BaseShuttleControl
 
     private EntityUid? _activeConsole;
     private FireControllableEntry[]? _controllables;
+    private HashSet<NetEntity> _selectedWeapons = new();
 
     private List<Entity<MapGridComponent>> _grids = new();
 
@@ -50,6 +59,8 @@ public sealed class FireControlNavControl : BaseShuttleControl
     private Vector2 _lastMousePos;
     private float _lastFireTime;
     private const float FireRateLimit = 0.1f;
+    private float _lastCursorUpdateTime;
+    private const float CursorUpdateInterval = 0.05f;
 
     public Action<EntityCoordinates>? OnRadarClick;
     public bool ShowIFF { get; set; } = true;
@@ -73,6 +84,9 @@ public sealed class FireControlNavControl : BaseShuttleControl
         if (_isMouseInside)
         {
             _lastMousePos = args.RelativePosition;
+
+            // Continuously update the cursor position for guided missiles
+            TryUpdateCursorPosition(_lastMousePos);
         }
     }
 
@@ -199,6 +213,8 @@ public sealed class FireControlNavControl : BaseShuttleControl
         var shuttleToWorld = Matrix3x2.Multiply(posMatrix, ourEntMatrix);
         Matrix3x2.Invert(shuttleToWorld, out var worldToShuttle);
         var shuttleToView = Matrix3x2.CreateScale(new Vector2(MinimapScale, -MinimapScale)) * Matrix3x2.CreateTranslation(MidPointVector);
+        var worldToView = worldToShuttle * shuttleToView;
+        Matrix3x2.Invert(worldToView, out var viewToWorld);
 
         var ourGridId = xform.GridUid;
         if (EntManager.TryGetComponent<MapGridComponent>(ourGridId, out var ourGrid) &&
@@ -223,6 +239,9 @@ public sealed class FireControlNavControl : BaseShuttleControl
 
         handle.DrawPrimitives(DrawPrimitiveTopology.TriangleFan, radarPosVerts, Color.Lime);
 
+        // Draw shields
+        DrawShields(handle, xform, worldToShuttle);
+
         _grids.Clear();
         var maxRange = new Vector2(WorldRange, WorldRange);
         _mapManager.FindGridsIntersecting(xform.MapID, new Box2(mapPos.Position - maxRange, mapPos.Position + maxRange), ref _grids, approx: true, includeMap: false);
@@ -240,7 +259,7 @@ public sealed class FireControlNavControl : BaseShuttleControl
                 continue;
 
             var curGridToWorld = _transform.GetWorldMatrix(gUid);
-            var curGridToView = curGridToWorld * worldToShuttle * shuttleToView;
+            var curGridToView = curGridToWorld * worldToView;
 
             var labelColor = _shuttles.GetIFFColor(grid, self: false, iff);
             var coordColor = new Color(labelColor.R * 0.8f, labelColor.G * 0.8f, labelColor.B * 0.8f, 0.5f);
@@ -305,16 +324,28 @@ public sealed class FireControlNavControl : BaseShuttleControl
 
         foreach (var blip in blips)
         {
-            var blipPos = Vector2.Transform(blip.Item1, worldToShuttle * shuttleToView);
-            DrawBlipShape(handle, blipPos, blip.Item2 * 3f, blip.Item3.WithAlpha(0.8f), blip.Item4);
+            var blipCoord = _transform.ToMapCoordinates(blip.Item1).Position;
+            var blipPos = Vector2.Transform(blipCoord, worldToView);
+
+            if (blip.Item4 == RadarBlipShape.Ring)
+            {
+                DrawShieldRing(handle, blipPos, blip.Item2, blip.Item3.WithAlpha(0.8f));
+            }
+            else
+            {
+                // For other shapes, use the regular drawing method
+                DrawBlipShape(handle, blipPos, blip.Item2 * 3f, blip.Item3.WithAlpha(0.8f), blip.Item4);
+            }
 
             if (_isMouseInside && _controllables != null)
             {
-                var worldPos = blip.Item1;
-                var isFireControllable = _controllables.Any(c => {
+                var worldPos = blipCoord;
+                var isFireControllable = _controllables.Any(c =>
+                {
                     var coords = EntManager.GetCoordinates(c.Coordinates);
                     var entityMapPos = _transform.ToMapCoordinates(coords);
-                    return Vector2.Distance(entityMapPos.Position, worldPos) < 0.1f;
+                    return Vector2.Distance(entityMapPos.Position, worldPos) < 0.1f &&
+                           _selectedWeapons.Contains(c.NetEntity);
                 });
 
                 if (isFireControllable)
@@ -322,7 +353,6 @@ public sealed class FireControlNavControl : BaseShuttleControl
                     var cursorViewPos = InverseScalePosition(_lastMousePos);
                     cursorViewPos = ScalePosition(cursorViewPos);
 
-                    Matrix3x2.Invert(worldToShuttle * shuttleToView, out var viewToWorld);
                     var cursorWorldPos = Vector2.Transform(cursorViewPos, viewToWorld);
 
                     var direction = cursorWorldPos - worldPos;
@@ -337,13 +367,58 @@ public sealed class FireControlNavControl : BaseShuttleControl
                 }
             }
         }
+
+        // Draw hitscan lines from the radar blips system
+        var hitscanLines = _blips.GetHitscanLines();
+        foreach (var line in hitscanLines)
+        {
+            var startPosInView = Vector2.Transform(line.Start, worldToView);
+            var endPosInView = Vector2.Transform(line.End, worldToView);
+
+            // Check if the line is within the view bounds before drawing
+            var viewBounds = new Box2(-3f, -3f, Size.X + 3f, Size.Y + 3f);
+            var lineBounds = new Box2(
+                Math.Min(startPosInView.X, endPosInView.X),
+                Math.Min(startPosInView.Y, endPosInView.Y),
+                Math.Max(startPosInView.X, endPosInView.X),
+                Math.Max(startPosInView.Y, endPosInView.Y)
+            );
+
+            if (viewBounds.Intersects(lineBounds))
+            {
+                handle.DrawLine(startPosInView, endPosInView, line.Color.WithAlpha(0.8f));
+            }
+        }
+
+        ClearShader(handle);
         #endregion
+    }
+
+    private void ClearShader(DrawingHandleScreen handle)
+    {
+        // No-op placeholder to maintain compatibility with previous shader clearing behavior.
+    }
+
+    private void DrawShields(DrawingHandleScreen handle, TransformComponent xform, Matrix3x2 worldToShuttle)
+    {
+        // Placeholder for shield drawing - can be implemented later if needed
+    }
+
+    private void DrawShieldRing(DrawingHandleScreen handle, Vector2 position, float radius, Color color)
+    {
+        // Draw a ring with consistent thickness
+        handle.DrawCircle(position, radius, color, false);
     }
 
     public void UpdateControllables(EntityUid console, FireControllableEntry[] controllables)
     {
         _activeConsole = console;
         _controllables = controllables;
+    }
+
+    public void UpdateSelectedWeapons(HashSet<NetEntity> selectedWeapons)
+    {
+        _selectedWeapons = selectedWeapons;
     }
 
     private Vector2 InverseScalePosition(Vector2 value)
@@ -398,6 +473,7 @@ public sealed class FireControlNavControl : BaseShuttleControl
             case RadarBlipShape.Arrow:
                 DrawArrow(handle, position, size, color);
                 break;
+            // Ring shapes are handled by DrawShieldRing for constant thickness
         }
     }
 
@@ -448,4 +524,30 @@ public sealed class FireControlNavControl : BaseShuttleControl
 
         handle.DrawPrimitives(DrawPrimitiveTopology.TriangleFan, points, color);
     }
+
+    private void TryUpdateCursorPosition(Vector2 relativePosition)
+    {
+        var currentTime = IoCManager.Resolve<IGameTiming>().CurTime.TotalSeconds;
+        if (currentTime - _lastCursorUpdateTime < CursorUpdateInterval)
+            return;
+
+        _lastCursorUpdateTime = (float)currentTime;
+
+        // Convert mouse position to world coordinates for missile tracking
+        if (_coordinates == null || _rotation == null || OnRadarClick == null)
+            return;
+
+        var a = InverseScalePosition(relativePosition);
+        var relativeWorldPos = new Vector2(a.X, -a.Y);
+        relativeWorldPos = _rotation.Value.RotateVec(relativeWorldPos);
+        var coords = _coordinates.Value.Offset(relativeWorldPos);
+
+        // This will update the server of our cursor position without triggering actual firing
+        OnRadarClick?.Invoke(coords);
+    }
+
+    /// <summary>
+    /// Returns true if the mouse button is currently pressed down
+    /// </summary>
+    public bool IsMouseDown() => _isMouseDown;
 }

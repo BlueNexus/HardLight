@@ -35065,56 +35065,56 @@ entities:
     - type: Transform
       pos: 54.5,63.5
       parent: 2
-- proto: GunSafeDisabler
+- proto: HLGunSafeDisabler
   entities:
   - uid: 1002
     components:
     - type: Transform
       pos: 41.5,-4.5
       parent: 2
-- proto: GunSafeLaserCarbine
+- proto: HLGunSafeLaserCarbine
   entities:
   - uid: 1363
     components:
     - type: Transform
       pos: 43.5,-7.5
       parent: 2
-- proto: GunSafePistolMk58
+- proto: HLGunSafePistolMk58
   entities:
   - uid: 1365
     components:
     - type: Transform
       pos: 41.5,-7.5
       parent: 2
-- proto: GunSafeRifleLecter
+- proto: HLGunSafeRifleLecter
   entities:
   - uid: 960
     components:
     - type: Transform
       pos: 42.5,-7.5
       parent: 2
-- proto: GunSafeShotgunEnforcer
+- proto: HLGunSafeShotgunEnforcer
   entities:
   - uid: 1260
     components:
     - type: Transform
       pos: 43.5,-4.5
       parent: 2
-- proto: GunSafeShotgunKammerer
+- proto: HLGunSafeShotgunKammerer
   entities:
   - uid: 1298
     components:
     - type: Transform
       pos: 44.5,-7.5
       parent: 2
-- proto: GunSafeSubMachineGunDrozd
+- proto: HLGunSafeSubMachineGunDrozd
   entities:
   - uid: 1345
     components:
     - type: Transform
       pos: 42.5,-4.5
       parent: 2
-- proto: GunSafeSubMachineGunWt550
+- proto: HLGunSafeSubMachineGunWt550
   entities:
   - uid: 7652
     components:
@@ -35962,7 +35962,7 @@ entities:
     - type: Transform
       pos: 29.5,-12.5
       parent: 2
-- proto: LockerAtmosphericsFilled
+- proto: HLLockerAtmosphericsFilled
   entities:
   - uid: 1688
     components:
@@ -35979,14 +35979,14 @@ entities:
     - type: Transform
       pos: 31.5,35.5
       parent: 2
-- proto: LockerBoozeFilled
+- proto: HLLockerBoozeFilled
   entities:
   - uid: 1498
     components:
     - type: Transform
       pos: 23.5,0.5
       parent: 2
-- proto: LockerBotanistFilled
+- proto: HLLockerBotanistFilled
   entities:
   - uid: 1018
     components:
@@ -36033,21 +36033,21 @@ entities:
     - type: Transform
       pos: 36.5,2.5
       parent: 2
-- proto: LockerElectricalSupplies
+- proto: HLLockerElectricalSupplies
   entities:
   - uid: 7648
     components:
     - type: Transform
       pos: 34.5,39.5
       parent: 2
-- proto: LockerElectricalSuppliesFilled
+- proto: HLLockerElectricalSuppliesFilled
   entities:
   - uid: 1599
     components:
     - type: Transform
       pos: 39.5,38.5
       parent: 2
-- proto: LockerEngineerFilled
+- proto: HLLockerEngineerFilled
   entities:
   - uid: 1566
     components:
@@ -36064,7 +36064,7 @@ entities:
     - type: Transform
       pos: 39.5,39.5
       parent: 2
-- proto: LockerFreezerVaultFilled
+- proto: HLLockerFreezerVaultFilled
   entities:
   - uid: 2165
     components:
@@ -36085,7 +36085,7 @@ entities:
     - type: Transform
       pos: 33.5,-0.5
       parent: 2
-- proto: LockerMedicineFilled
+- proto: HLLockerMedicineFilled
   entities:
   - uid: 626
     components:
@@ -36102,7 +36102,7 @@ entities:
     - type: Transform
       pos: 12.5,16.5
       parent: 2
-- proto: LockerParamedicFilled
+- proto: HLLockerParamedicFilled
   entities:
   - uid: 3161
     components:
@@ -36135,7 +36135,7 @@ entities:
     - type: Transform
       pos: 55.5,4.5
       parent: 2
-- proto: LockerSecurityFilled
+- proto: HLLockerSecurityFilled
   entities:
   - uid: 1050
     components:
@@ -36152,14 +36152,14 @@ entities:
     - type: Transform
       pos: 8.5,-5.5
       parent: 2
-- proto: LockerWardenFilled
+- proto: HLLockerWardenFilled
   entities:
   - uid: 1353
     components:
     - type: Transform
       pos: 33.5,0.5
       parent: 2
-- proto: LockerWeldingSuppliesFilled
+- proto: HLLockerWeldingSuppliesFilled
   entities:
   - uid: 1600
     components:
@@ -42603,7 +42603,7 @@ entities:
     - type: Transform
       pos: 13.5,-12.5
       parent: 2
-- proto: SuitStorageAtmos
+- proto: HLSuitStorageAtmos
   entities:
   - uid: 1721
     components:
@@ -42615,14 +42615,14 @@ entities:
     - type: Transform
       pos: 30.5,33.5
       parent: 2
-- proto: SuitStorageCE
+- proto: HLSuitStorageCE
   entities:
   - uid: 6660
     components:
     - type: Transform
       pos: 47.5,31.5
       parent: 2
-- proto: SuitStorageEngi
+- proto: HLSuitStorageEngi
   entities:
   - uid: 913
     components:
@@ -42661,14 +42661,14 @@ entities:
     - type: Transform
       pos: 53.5,41.5
       parent: 2
-- proto: SuitStorageHOS
+- proto: HLSuitStorageHOS
   entities:
   - uid: 1012
     components:
     - type: Transform
       pos: 39.5,-7.5
       parent: 2
-- proto: SuitStorageSec
+- proto: HLSuitStorageSec
   entities:
   - uid: 986
     components:

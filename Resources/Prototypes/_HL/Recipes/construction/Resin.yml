@@ -13,6 +13,36 @@
     - ResinStructures
   conditions:
     - !type:TileNotBlocked
+
+- type: construction
+  id: Xenolight
+  graph: ResinStructures
+  startNode: start
+  targetNode: Xenolight
+  category: construction-category-Xeno
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: false
+  canBuildInImpassable: false
+  entityWhitelist:
+    tags:
+    - ResinStructures
+  conditions:
+    - !type:TileNotBlocked
+    
+- type: construction
+  id: WallXenolight
+  graph: ResinStructures
+  startNode: start
+  targetNode: WallXenolight
+  category: construction-category-Xeno
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: true
+  entityWhitelist:
+    tags:
+    - ResinStructures
     
 - type: construction
   id: WallXenoResin
@@ -71,12 +101,10 @@
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: false
-  canBuildInImpassable: false
+  canBuildInImpassable: true
   entityWhitelist:
     tags:
     - ResinStructures
-  conditions:
-    - !type:TileNotBlocked
 
 - type: construction
   id: XenoWeedsWall
@@ -87,12 +115,10 @@
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: false
-  canBuildInImpassable: false
+  canBuildInImpassable: true
   entityWhitelist:
     tags:
     - ResinStructures
-  conditions:
-    - !type:TileNotBlocked
     
 - type: construction
   id: WallXenoResinThick
@@ -163,6 +189,38 @@
   graph: ResinStructures
   startNode: start
   targetNode: XenoTurret
+  category: construction-category-Xeno
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: false
+  canBuildInImpassable: false
+  entityWhitelist:
+    tags:
+    - ResinStructures
+  conditions:
+    - !type:TileNotBlocked 
+    
+- type: construction
+  id: XenoTrapdrone
+  graph: ResinStructures
+  startNode: start
+  targetNode: XenoTrapdrone
+  category: construction-category-Xeno
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: false
+  canBuildInImpassable: false
+  entityWhitelist:
+    tags:
+    - ResinStructures
+  conditions:
+    - !type:TileNotBlocked 
+
+- type: construction
+  id: XenoTrapburrower
+  graph: ResinStructures
+  startNode: start
+  targetNode: XenoTrapburrower
   category: construction-category-Xeno
   objectType: Structure
   placementMode: SnapgridCenter

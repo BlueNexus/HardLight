@@ -1,3 +1,53 @@
+// SPDX-FileCopyrightText: 2021 FoLoKe
+// SPDX-FileCopyrightText: 2021 Paul
+// SPDX-FileCopyrightText: 2021 Paul Ritter
+// SPDX-FileCopyrightText: 2022 Chris
+// SPDX-FileCopyrightText: 2022 Flipp Syder
+// SPDX-FileCopyrightText: 2022 Jezithyr
+// SPDX-FileCopyrightText: 2022 Kara D
+// SPDX-FileCopyrightText: 2022 Vera Aguilera Puerto
+// SPDX-FileCopyrightText: 2022 metalgearsloth
+// SPDX-FileCopyrightText: 2022 mirrorcult
+// SPDX-FileCopyrightText: 2022 wrexbe
+// SPDX-FileCopyrightText: 2023 Checkraze
+// SPDX-FileCopyrightText: 2023 Chief-Engineer
+// SPDX-FileCopyrightText: 2023 DrSmugleaf
+// SPDX-FileCopyrightText: 2023 Emisse
+// SPDX-FileCopyrightText: 2023 LankLTE
+// SPDX-FileCopyrightText: 2023 Leon Friedrich
+// SPDX-FileCopyrightText: 2023 Mr0maks
+// SPDX-FileCopyrightText: 2023 Nemanja
+// SPDX-FileCopyrightText: 2023 Pieter-Jan Briers
+// SPDX-FileCopyrightText: 2023 Tunguso4ka
+// SPDX-FileCopyrightText: 2023 Visne
+// SPDX-FileCopyrightText: 2023 Ygg01
+// SPDX-FileCopyrightText: 2023 brainfood1183
+// SPDX-FileCopyrightText: 2023 deltanedas <@deltanedas:kde.org>
+// SPDX-FileCopyrightText: 2023 keronshb
+// SPDX-FileCopyrightText: 2024 Cojoke
+// SPDX-FileCopyrightText: 2024 Dvir
+// SPDX-FileCopyrightText: 2024 Ed
+// SPDX-FileCopyrightText: 2024 GreyMario
+// SPDX-FileCopyrightText: 2024 Kara
+// SPDX-FileCopyrightText: 2024 LittleNyanCat
+// SPDX-FileCopyrightText: 2024 Magnus Larsen
+// SPDX-FileCopyrightText: 2024 Mervill
+// SPDX-FileCopyrightText: 2024 Plykiya
+// SPDX-FileCopyrightText: 2024 Smirnov Peter
+// SPDX-FileCopyrightText: 2024 TemporalOroboros
+// SPDX-FileCopyrightText: 2024 Whatstone
+// SPDX-FileCopyrightText: 2024 beck-thompson
+// SPDX-FileCopyrightText: 2024 deltanedas
+// SPDX-FileCopyrightText: 2024 nikthechampiongr
+// SPDX-FileCopyrightText: 2024 themias
+// SPDX-FileCopyrightText: 2025 Blu
+// SPDX-FileCopyrightText: 2025 Tayrtahn
+// SPDX-FileCopyrightText: 2025 ark1368
+// SPDX-FileCopyrightText: 2025 tonotom
+// SPDX-FileCopyrightText: 2025 tonotom1
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 using Content.Server.Body.Components;
 using Content.Server.Body.Systems;
 using Content.Shared.Chemistry.EntitySystems;
@@ -30,6 +80,7 @@ using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Utility;
 using System.Linq;
+using Content.Shared._Mono.Traits.Physical;
 using Content.Shared.Containers.ItemSlots;
 using Robust.Server.GameObjects;
 using Content.Shared.Whitelist;
@@ -191,9 +242,16 @@ public sealed class FoodSystem : EntitySystem
             _adminLogger.Add(LogType.Ingestion, LogImpact.Low, $"{ToPrettyString(target):target} is eating {ToPrettyString(food):food} {SharedSolutionContainerSystem.ToPrettyString(foodSolution)}");
         }
 
+        var delay = forceFeed ? foodComp.ForceFeedDelay : foodComp.Delay;
+
+        // Mono
+        if (TryComp<VoraciousComponent>(user, out var voracious))
+        {
+            delay /= voracious.ConsumptionSpeedMultiplier;
+        }
         var doAfterArgs = new DoAfterArgs(EntityManager,
             user,
-            forceFeed ? foodComp.ForceFeedDelay : foodComp.Delay,
+            delay,
             new ConsumeDoAfterEvent(foodComp.Solution, flavors),
             eventTarget: food,
             target: target,

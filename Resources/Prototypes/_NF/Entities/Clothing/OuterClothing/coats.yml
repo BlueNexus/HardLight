@@ -138,7 +138,7 @@
     sprite: _NF/Clothing/OuterClothing/Misc/pirate_captain.rsi
 
 - type: entity
-  parent: [ ClothingOuterStorageFoldableBase, BaseC3ContrabandNoValue, ContrabandClothing ]
+  parent: [ ClothingOuterStorageFoldableBase, BaseC1Contraband, ContrabandClothing ] # HL : change to C1 contra because it's armored
   id: ClothingOuterCoatArcadiaTrench
   name: arcadia flak trenchcoat
   description: A flak trenchcoat produced by Arcadia Industries, enhanced with a bulletproof alloy for some extra protection.

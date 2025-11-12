@@ -1,16 +1,35 @@
+// SPDX-FileCopyrightText: 2025 Ark
+// SPDX-FileCopyrightText: 2025 Ilya246
+// SPDX-FileCopyrightText: 2025 ark1368
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 using System.Numerics;
 using Content.Shared._Mono.Radar;
+using Robust.Shared.Map;
 using Robust.Shared.Timing;
 
 namespace Content.Client._Mono.Radar;
 
 public sealed partial class RadarBlipsSystem : EntitySystem
 {
+    private const double BlipStaleSeconds = 3.0;
+    private static readonly List<(Vector2, float, Color, RadarBlipShape)> EmptyBlipList = new();
+    private static readonly List<(NetCoordinates Position, Vector2 Vel, float Scale, Color Color, RadarBlipShape Shape)> EmptyRawBlipList = new();
+    private static readonly List<(Vector2 Start, Vector2 End, float Thickness, Color Color)> EmptyHitscanList = new();
+    private TimeSpan _lastRequestTime = TimeSpan.Zero;
+    private static readonly TimeSpan RequestThrottle = TimeSpan.FromMilliseconds(250);
+
+    // Maximum distance for blips to be considered visible
+    private const float MaxBlipRenderDistance = 1000f;
+
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly SharedTransformSystem _xform = default!;
-    
+
     private TimeSpan _lastUpdatedTime;
-    private List<(NetEntity? Grid, Vector2 Position, float Scale, Color Color, RadarBlipShape Shape)> _blips = new();
+    private List<(NetCoordinates Position, Vector2 Vel, float Scale, Color Color, RadarBlipShape Shape)> _blips = new();
+    private List<(Vector2 Start, Vector2 End, float Thickness, Color Color)> _hitscans = new();
+    private Vector2 _radarWorldPosition;
 
     public override void Initialize()
     {
@@ -29,7 +48,7 @@ public sealed partial class RadarBlipsSystem : EntitySystem
         // Only request if we have a valid console
         if (!Exists(console))
             return;
-            
+
         var netConsole = GetNetEntity(console);
 
         var ev = new RequestBlipsEvent(netConsole);
@@ -38,57 +57,61 @@ public sealed partial class RadarBlipsSystem : EntitySystem
 
     /// <summary>
     /// Gets the current blips as world positions with their scale, color and shape.
-    /// This is needed for the legacy radar display that expects world coordinates.
     /// </summary>
-    public List<(Vector2, float, Color, RadarBlipShape)> GetCurrentBlips()
+    public List<(EntityCoordinates Position, float Scale, Color Color, RadarBlipShape Shape)> GetCurrentBlips()
     {
         // If it's been more than a second since our last update,
         // the data is considered stale - return an empty list
-        if (_timing.CurTime.TotalSeconds - _lastUpdatedTime.TotalSeconds > 1)
-            return new List<(Vector2, float, Color, RadarBlipShape)>();
+        if (_timing.CurTime.TotalSeconds - _lastUpdatedTime.TotalSeconds > BlipStaleSeconds)
+            return new List<(EntityCoordinates, float, Color, RadarBlipShape)>();
 
-        var result = new List<(Vector2, float, Color, RadarBlipShape)>(_blips.Count);
-        
+        var result = new List<(EntityCoordinates, float, Color, RadarBlipShape)>(_blips.Count);
+
         foreach (var blip in _blips)
         {
-            // If no grid, position is already in world coordinates
-            if (blip.Grid == null)
-            {
-                result.Add((blip.Position, blip.Scale, blip.Color, blip.Shape));
+            var coord = GetCoordinates(blip.Position);
+
+            if (!coord.IsValid(EntityManager))
                 continue;
-            }
-            
-            // If grid exists, transform from grid-local to world coordinates
-            if (TryGetEntity(blip.Grid, out var gridEntity))
-            {
-                // Transform the grid-local position to world position
-                var worldPos = _xform.GetWorldPosition(gridEntity.Value);
-                var gridRot = _xform.GetWorldRotation(gridEntity.Value);
-                
-                // Rotate the local position by grid rotation and add grid position
-                var rotatedLocalPos = gridRot.RotateVec(blip.Position);
-                var finalWorldPos = worldPos + rotatedLocalPos;
-                
-                result.Add((finalWorldPos, blip.Scale, blip.Color, blip.Shape));
-            }
-            else
-            {
-                // Grid not found, skip this blip
+
+            var predictedPos = new EntityCoordinates(coord.EntityId, coord.Position + blip.Vel * (float)(_timing.CurTime - _lastUpdatedTime).TotalSeconds);
+
+            // Distance culling for world position blips
+            if (Vector2.DistanceSquared(predictedPos.Position, _radarWorldPosition) > MaxBlipRenderDistance * MaxBlipRenderDistance)
                 continue;
-            }
+
+            result.Add((predictedPos, blip.Scale, blip.Color, blip.Shape));
         }
-        
+
         return result;
     }
-    
+
     /// <summary>
-    /// Gets the raw blips data which includes grid information for more accurate rendering.
+    /// Gets the hitscan lines to be rendered on the radar
     /// </summary>
-    public List<(NetEntity? Grid, Vector2 Position, float Scale, Color Color, RadarBlipShape Shape)> GetRawBlips()
+    public List<(Vector2 Start, Vector2 End, float Thickness, Color Color)> GetHitscanLines()
     {
-        if (_timing.CurTime.TotalSeconds - _lastUpdatedTime.TotalSeconds > 1)
-            return new List<(NetEntity? Grid, Vector2 Position, float Scale, Color Color, RadarBlipShape Shape)>();
-            
-        return _blips;
+        if (_timing.CurTime.TotalSeconds - _lastUpdatedTime.TotalSeconds > BlipStaleSeconds)
+            return new List<(Vector2, Vector2, float, Color)>();
+
+        var result = new List<(Vector2, Vector2, float, Color)>(_hitscans.Count);
+
+        foreach (var hitscan in _hitscans)
+        {
+            var worldStart = hitscan.Start;
+            var worldEnd = hitscan.End;
+
+            // Distance culling - check if either end of the line is in range
+            var startDist = Vector2.DistanceSquared(worldStart, _radarWorldPosition);
+            var endDist = Vector2.DistanceSquared(worldEnd, _radarWorldPosition);
+
+            if (startDist > MaxBlipRenderDistance * MaxBlipRenderDistance &&
+                endDist > MaxBlipRenderDistance * MaxBlipRenderDistance)
+                continue;
+
+            result.Add((worldStart, worldEnd, hitscan.Thickness, hitscan.Color));
+        }
+
+        return result;
     }
-} 
+}

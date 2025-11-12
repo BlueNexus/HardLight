@@ -1,3 +1,50 @@
+// SPDX-FileCopyrightText: 2020 20kdc
+// SPDX-FileCopyrightText: 2020 DamianX
+// SPDX-FileCopyrightText: 2020 Víctor Aguilera Puerto
+// SPDX-FileCopyrightText: 2021 Acruid
+// SPDX-FileCopyrightText: 2021 Metal Gear Sloth
+// SPDX-FileCopyrightText: 2021 Remie Richards
+// SPDX-FileCopyrightText: 2021 ShadowCommander
+// SPDX-FileCopyrightText: 2021 Swept
+// SPDX-FileCopyrightText: 2021 ike709
+// SPDX-FileCopyrightText: 2022 AJCM-git
+// SPDX-FileCopyrightText: 2022 Moony
+// SPDX-FileCopyrightText: 2022 Rane
+// SPDX-FileCopyrightText: 2022 T-Stalker
+// SPDX-FileCopyrightText: 2022 Veritius
+// SPDX-FileCopyrightText: 2022 Visne
+// SPDX-FileCopyrightText: 2022 metalgearsloth
+// SPDX-FileCopyrightText: 2022 mirrorcult
+// SPDX-FileCopyrightText: 2022 wrexbe
+// SPDX-FileCopyrightText: 2023 Cheackraze
+// SPDX-FileCopyrightText: 2023 Checkraze
+// SPDX-FileCopyrightText: 2023 DrSmugleaf
+// SPDX-FileCopyrightText: 2023 Flipp Syder
+// SPDX-FileCopyrightText: 2023 Morb
+// SPDX-FileCopyrightText: 2023 OCO_Omega
+// SPDX-FileCopyrightText: 2024 Ciac32
+// SPDX-FileCopyrightText: 2024 Debug
+// SPDX-FileCopyrightText: 2024 Dvir
+// SPDX-FileCopyrightText: 2024 Ed
+// SPDX-FileCopyrightText: 2024 ErhardSteinhauer
+// SPDX-FileCopyrightText: 2024 GreaseMonk
+// SPDX-FileCopyrightText: 2024 Krunklehorn
+// SPDX-FileCopyrightText: 2024 Leon Friedrich
+// SPDX-FileCopyrightText: 2024 Mr. 27
+// SPDX-FileCopyrightText: 2024 Pieter-Jan Briers
+// SPDX-FileCopyrightText: 2024 Whatstone
+// SPDX-FileCopyrightText: 2024 Whisper
+// SPDX-FileCopyrightText: 2024 Winkarst
+// SPDX-FileCopyrightText: 2024 dffdff2423
+// SPDX-FileCopyrightText: 2024 lizelive
+// SPDX-FileCopyrightText: 2025 Ark
+// SPDX-FileCopyrightText: 2025 Hyper B
+// SPDX-FileCopyrightText: 2025 LukeZurg22
+// SPDX-FileCopyrightText: 2025 ark1368
+// SPDX-FileCopyrightText: 2025 starch
+//
+// SPDX-License-Identifier: MPL-2.0
+
 using System.Linq;
 using System.Text.RegularExpressions;
 using Content.Shared._NF.Bank;
@@ -405,45 +452,10 @@ namespace Content.Shared.Preferences
 
         public HumanoidCharacterProfile WithTraitPreference(ProtoId<TraitPrototype> traitId, IPrototypeManager protoManager)
         {
-            // null category is assumed to be default.
             if (!protoManager.TryIndex(traitId, out var traitProto))
                 return new(this);
 
-            var category = traitProto.Category;
-
-            // Category not found so dump it.
-            TraitCategoryPrototype? traitCategory = null;
-
-            if (category != null && !protoManager.TryIndex(category, out traitCategory))
-                return new(this);
-
             var list = new HashSet<ProtoId<TraitPrototype>>(_traitPreferences) { traitId };
-
-            if (traitCategory == null || traitCategory.MaxTraitPoints < 0)
-            {
-                return new(this)
-                {
-                    _traitPreferences = list,
-                };
-            }
-
-            var count = 0;
-            foreach (var trait in list)
-            {
-                // If trait not found or another category don't count its points.
-                if (!protoManager.TryIndex<TraitPrototype>(trait, out var otherProto) ||
-                    otherProto.Category != traitCategory)
-                {
-                    continue;
-                }
-
-                count += otherProto.Cost;
-            }
-
-            if (count > traitCategory.MaxTraitPoints && traitProto.Cost != 0)
-            {
-                return new(this);
-            }
 
             return new(this)
             {
@@ -459,6 +471,14 @@ namespace Content.Shared.Preferences
             return new(this)
             {
                 _traitPreferences = list,
+            };
+        }
+
+        public HumanoidCharacterProfile WithoutAllTraitPreferences()
+        {
+            return new(this)
+            {
+                _traitPreferences = new HashSet<ProtoId<TraitPrototype>>(),
             };
         }
 
@@ -672,34 +692,15 @@ namespace Content.Shared.Preferences
         /// </summary>
         public List<ProtoId<TraitPrototype>> GetValidTraits(IEnumerable<ProtoId<TraitPrototype>> traits, IPrototypeManager protoManager)
         {
-            // Track points count for each group.
-            var groups = new Dictionary<string, int>();
             var result = new List<ProtoId<TraitPrototype>>();
+            var totalPoints = 0;
 
             foreach (var trait in traits)
             {
                 if (!protoManager.TryIndex(trait, out var traitProto))
                     continue;
 
-                // Always valid.
-                if (traitProto.Category == null)
-                {
-                    result.Add(trait);
-                    continue;
-                }
-
-                // No category so dump it.
-                if (!protoManager.TryIndex(traitProto.Category, out var category))
-                    continue;
-
-                var existing = groups.GetOrNew(category.ID);
-                existing += traitProto.Cost;
-
-                // Too expensive.
-                if (existing > category.MaxTraitPoints)
-                    continue;
-
-                groups[category.ID] = existing;
+                totalPoints += traitProto.Cost;
                 result.Add(trait);
             }
 

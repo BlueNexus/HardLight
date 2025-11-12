@@ -25,6 +25,9 @@
     HeadTop: MobHumanoidAnyMarking
     HeadSide: MobHumanoidAnyMarking
     Tail: MobHumanoidAnyMarking
+    Genital: MobHumanoidAnyMarking
+    Penis: MobHumanoidAnyMarking
+    Breasts: MobHumanoidAnyMarking
     Eyes: MobHumanoidEyes
     LArm: MobReptilianLArm
     RArm: MobReptilianRArm

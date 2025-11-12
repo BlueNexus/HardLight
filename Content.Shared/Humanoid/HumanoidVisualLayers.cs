@@ -1,4 +1,4 @@
-﻿using Content.Shared.Humanoid.Markings;
+using Content.Shared.Humanoid.Markings;
 using Robust.Shared.Serialization;
 
 namespace Content.Shared.Humanoid
@@ -7,6 +7,9 @@ namespace Content.Shared.Humanoid
     public enum HumanoidVisualLayers : byte
     {
         Special, // for the cat ears
+        Genital,
+        Penis,
+        Breasts, // HL: Add breasts layer
         Tail,
         Hair,
         FacialHair,

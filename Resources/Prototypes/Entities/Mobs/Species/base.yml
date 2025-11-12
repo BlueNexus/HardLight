@@ -19,8 +19,11 @@
     - map: [ "enum.HumanoidVisualLayers.LArm" ]
     - map: [ "enum.HumanoidVisualLayers.RLeg" ]
     - map: [ "enum.HumanoidVisualLayers.LLeg" ]
-    - map: [ "enum.HumanoidVisualLayers.UndergarmentBottom" ]
+    - map: [ "enum.HumanoidVisualLayers.Genital" ]
+    - map: [ "enum.HumanoidVisualLayers.Breasts" ] # HL: Add breasts layer
     - map: [ "enum.HumanoidVisualLayers.UndergarmentTop" ]
+    - map: [ "enum.HumanoidVisualLayers.Penis" ]
+    - map: [ "enum.HumanoidVisualLayers.UndergarmentBottom" ]
     - map: [ "accessory1" ]
     - map: [ "accessory2" ]
     - map: ["jumpsuit"]
@@ -83,6 +86,13 @@
     horizontalRotation: 90
   - type: HumanoidAppearance
     species: Human
+    hideLayersOnEquip:
+    - Hair
+    # HL start: Hide genital markings on equip
+    - Genital
+    - Penis
+    - Breasts
+    # HL end
   - type: SlowOnDamage
     speedModifierThresholds:
       60: 0.7
@@ -137,7 +147,7 @@
     - Pacified
     - StaminaModifier
     - PsionicsDisabled #Nyano - Summary: PCs can have psionics disabled.
-    - PsionicallyInsulated #Nyano - Summary: PCs can be made insulated from psionic powers. 
+    - PsionicallyInsulated #Nyano - Summary: PCs can be made insulated from psionic powers.
     - Flashed
     - RadiationProtection
     - Drowsiness
@@ -209,6 +219,8 @@
   - type: Emoting
   - type: BodyEmotes
     soundsId: GeneralBodyEmotes
+  - type: SexEmotes
+    soundsId: LewdSounds
   - type: Grammar
     attributes:
       proper: true
@@ -224,6 +236,7 @@
     - AnomalyHost
   - type: Targeting # Shitmed Change
   - type: SurgeryTarget # Shitmed Change
+  - type: ModifyMarkings # Hardlight
 
 - type: entity
   save: false
@@ -321,8 +334,11 @@
     - map: [ "enum.HumanoidVisualLayers.LArm" ]
     - map: [ "enum.HumanoidVisualLayers.RLeg" ]
     - map: [ "enum.HumanoidVisualLayers.LLeg" ]
-    - map: [ "enum.HumanoidVisualLayers.UndergarmentBottom" ]
+    - map: [ "enum.HumanoidVisualLayers.Genital" ]
+    - map: [ "enum.HumanoidVisualLayers.Breasts" ]
     - map: [ "enum.HumanoidVisualLayers.UndergarmentTop" ]
+    - map: [ "enum.HumanoidVisualLayers.Penis" ]
+    - map: [ "enum.HumanoidVisualLayers.UndergarmentBottom" ]
     - map: [ "accessory1" ]
     - map: [ "accessory2" ]
     - map: ["jumpsuit"]

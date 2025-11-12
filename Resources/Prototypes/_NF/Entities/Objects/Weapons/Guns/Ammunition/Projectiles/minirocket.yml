@@ -15,7 +15,7 @@
     maxIntensity: 1 # max 15 per tile
     intensitySlope: 1
     totalIntensity: 2 # 30 total damage to distribute over tiles
-    maxTileBreak: 1
+    maxTileBreak: 0
   - type: PointLight
     radius: 3.5
     color: orange
@@ -56,6 +56,7 @@
     intensitySlope: 2
     maxIntensity: 10
     canCreateVacuum: false
+    maxTileBreak: 0
   - type: PointLight
     radius: 3.5
     color: "#47f8ff"

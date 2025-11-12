@@ -1,0 +1,28 @@
+# Recipes
+- type: latheRecipe
+  abstract: true
+  parent: BaseCoatRecipe
+  id: BaseArmoredCoatRecipe # Maybe used in future reference
+  categories:
+  - Coats
+  materials:
+    Cloth: 1000
+    Durathread: 300
+    Plasteel: 500
+
+- type: latheRecipe
+  parent: BaseCoatRecipe
+  id: ClothingOuterSPLabCoat
+  result: ClothingOuterSPLabCoat
+
+- type: latheRecipe
+  parent: BaseArmoredCoatRecipe # Use armored coat due to having armor
+  id: ClothingOuterSPArmoredCoat
+  result: ClothingOuterSPArmoredCoat
+
+# Lathe Recipes
+- type: latheRecipePack
+  id: StratosUniformStatic # Specifically designed id for stratos basic uniform
+  recipes:
+  - ClothingOuterSPLabCoat
+  - ClothingOuterSPArmoredCoat

@@ -20,8 +20,10 @@ namespace Content.Server.Entry
             "LightFade",
             "HolidayRsiSwap",
             "OptionsVisualizer",
+            "DrawDepthVisualizer", // DeltaV
             "StatusEffectOrgan",
             "IconSmoothRandom",
+            "MultipartMachineGhost"
         };
     }
 }

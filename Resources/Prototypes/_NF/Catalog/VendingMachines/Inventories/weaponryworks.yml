@@ -4,8 +4,8 @@
   # Weapons
     NFWeaponEnergyPistolLaser: 6
     NFWeaponRevolverArgenti: 6
-    NFWeaponRevolverFitz: 6
-    WeaponSniperRepeater: 6
+    #NFWeaponRevolverFitz: 6
+    #WeaponSniperRepeater: 6
     NFWeaponShotgunDoubleBarreled: 6
     WeaponBrassKnuckles: 6
     #WeaponLaserPistolNF: 6
@@ -14,11 +14,11 @@
     WeaponShotgunDoubleBarreled: 6
     #WeaponRevolverArgenti: 6
     #WeaponPistolMk36: 6
-    WeaponRevolverFaith: 6
-    WeaponShotgunBigJohnny: 6
-    WeaponRifleVulcanCFCM: 6
+    #WeaponRevolverFaith: 6
+    #WeaponShotgunBigJohnny: 6
+    #WeaponRifleVulcanCFCM: 6
     BowModern: 6
-    GestioBoxDeployable: 2
+    #GestioBoxDeployable: 2
     SearchlightBoxDeployable: 2
 # Magazines
     Magazine9x19mmPistolFMJ: 28 # 9x19mm Pistol

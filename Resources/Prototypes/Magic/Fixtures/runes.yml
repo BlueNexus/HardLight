@@ -61,6 +61,7 @@
       totalIntensity: 20.0
       intensitySlope: 5
       maxIntensity: 4
+      maxTileBreak: 0
     - type: Sprite
       sprite: Structures/Magic/Cult/trap.rsi
       layers:
@@ -122,6 +123,7 @@
       totalIntensity: 20.0
       intensitySlope: 5
       maxIntensity: 4
+      maxTileBreak: 0
 
 - type: entity
   parent: ActivateRune
@@ -134,6 +136,7 @@
       totalIntensity: 20.0
       intensitySlope: 5
       maxIntensity: 4
+      maxTileBreak: 0
 
 - type: entity
   parent: ActivateRune

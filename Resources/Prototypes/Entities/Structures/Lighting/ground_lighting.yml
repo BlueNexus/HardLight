@@ -168,3 +168,52 @@
       types:
         Heat: 1
     popupText: powered-light-component-burn-hand
+
+- type: entity
+  id: Xenolight
+  name: alien light
+  description: "A gross bulb that glows."
+  components:
+  - type: Sprite
+    sprite: _HL/Structures/Xeno/lamp.rsi
+    state: XenoLampFloor
+    layers:
+    - map: ["enum.PoweredLightLayers.Base"]
+      state: XenoLampFloor
+    - map: ["enum.PoweredLightLayers.Glow"]
+      state: XenoLampFloor_Glow
+      shader: unshaded
+  - type: PointLight
+    enabled: true
+    radius: 12
+    energy: 0.8
+    softness: 0.9
+    color: "#6FF527"
+  - type: Construction
+    graph: ResinStructures
+    node: Xenolight
+    
+- type: entity
+  id: WallXenolight
+  name: alien light
+  description: "A gross bulb that glows."
+  components:
+  - type: Sprite
+    sprite: _HL/Structures/Xeno/lamp.rsi
+    state: XenoWallLamp
+    layers:
+    - map: ["enum.PoweredLightLayers.Base"]
+      state: XenoWallLamp
+    - map: ["enum.PoweredLightLayers.Glow"]
+      state: XenoWallLamp_Glow
+      shader: unshaded
+  - type: PointLight
+    enabled: true
+    radius: 15
+    energy: 0.8
+    softness: 0.9
+    color: "#6FF527"
+  - type: Construction
+    graph: ResinStructures
+    node: WallXenolight
+  

@@ -25,15 +25,44 @@ public sealed class FireControlConsoleBoundUserInterface : BoundUserInterface
         _window.Radar.OnRadarClick += (coords) =>
         {
             var netCoords = EntMan.GetNetCoordinates(coords);
-            SendFireMessage(netCoords);
+
+            // Send empty list of weapons for cursor tracking only when not clicking
+            // This allows guided missiles to follow the cursor without firing weapons
+            if (!_window.Radar.IsMouseDown())
+            {
+                SendCursorUpdateMessage(netCoords);
+            }
+            else
+            {
+                // Normal fire message when actually clicking
+                SendFireMessage(netCoords);
+            }
         };
 
         _window.Radar.DefaultCursorShape = Control.CursorShape.Crosshair;
+
+        // Add event handler for when weapons are selected/deselected
+        _window.OnWeaponSelectionChanged += UpdateSelectedWeapons;
     }
 
     private void OnRefreshServer()
     {
         SendMessage(new FireControlConsoleRefreshServerMessage());
+    }
+
+    private void UpdateSelectedWeapons()
+    {
+        if (_window?.Radar is not FireControlNavControl navControl)
+            return;
+
+        var selectedWeapons = new HashSet<NetEntity>();
+        foreach (var (netEntity, button) in _window.WeaponsList)
+        {
+            if (button.Pressed)
+                selectedWeapons.Add(netEntity);
+        }
+
+        navControl.UpdateSelectedWeapons(selectedWeapons);
     }
 
     private void SendFireMessage(NetCoordinates coordinates)
@@ -52,6 +81,12 @@ public sealed class FireControlConsoleBoundUserInterface : BoundUserInterface
             SendMessage(new FireControlConsoleFireMessage(selected, coordinates));
     }
 
+    private void SendCursorUpdateMessage(NetCoordinates coordinates)
+    {
+        // Send an empty weapon list to indicate this is just a cursor update, not a firing action
+        SendMessage(new FireControlConsoleFireMessage(new List<NetEntity>(), coordinates));
+    }
+
     protected override void UpdateState(BoundUserInterfaceState state)
     {
         base.UpdateState(state);
@@ -64,6 +99,9 @@ public sealed class FireControlConsoleBoundUserInterface : BoundUserInterface
         {
             navControl.SetConsole(Owner);
             navControl.UpdateControllables(Owner, castState.FireControllables);
+
+            // Update selected weapons when state updates
+            UpdateSelectedWeapons();
         }
     }
 }

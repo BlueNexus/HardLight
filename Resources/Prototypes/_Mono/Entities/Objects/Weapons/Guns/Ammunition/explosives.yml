@@ -1,4 +1,32 @@
-# region FRONTIER - IGNORED
+# SPDX-FileCopyrightText: 2020 AJCM-git
+# SPDX-FileCopyrightText: 2020 DrSmugleaf
+# SPDX-FileCopyrightText: 2020 Paul Ritter
+# SPDX-FileCopyrightText: 2020 Pieter-Jan Briers
+# SPDX-FileCopyrightText: 2021 Leon Friedrich
+# SPDX-FileCopyrightText: 2021 Swept
+# SPDX-FileCopyrightText: 2022 Kara
+# SPDX-FileCopyrightText: 2022 Peptide90
+# SPDX-FileCopyrightText: 2022 T-Stalker
+# SPDX-FileCopyrightText: 2022 Veritius
+# SPDX-FileCopyrightText: 2022 Visne
+# SPDX-FileCopyrightText: 2022 mirrorcult
+# SPDX-FileCopyrightText: 2023 Dvir
+# SPDX-FileCopyrightText: 2023 Nemanja
+# SPDX-FileCopyrightText: 2023 brainfood1183
+# SPDX-FileCopyrightText: 2023 lzk
+# SPDX-FileCopyrightText: 2024 Boaz1111
+# SPDX-FileCopyrightText: 2024 Ed
+# SPDX-FileCopyrightText: 2024 RiceMar1244
+# SPDX-FileCopyrightText: 2024 VividPups
+# SPDX-FileCopyrightText: 2024 Whatstone
+# SPDX-FileCopyrightText: 2024 Winkarst
+# SPDX-FileCopyrightText: 2024 metalgearsloth
+# SPDX-FileCopyrightText: 2025 LukeZurg22
+# SPDX-FileCopyrightText: 2025 core-mene
+# SPDX-FileCopyrightText: 2025 sleepyyapril
+# SPDX-FileCopyrightText: 2025 starch
+#
+# SPDX-License-Identifier: AGPL-3.0-or-later
 
 # Rockets
 
@@ -233,3 +261,49 @@
   - type: Sprite
     sprite: _NF/Objects/Weapons/Guns/Projectiles/projectiles2.rsi
     state: ball-emp
+
+# MPSSM
+
+- type: entity
+  id: CartridgeMPSSMMissile
+  name: MPSSM ASM-19 missile tube
+  parent: [BaseItem, BaseC2ContrabandUnredeemable] # Frontier: BaseMajorContraband<BaseC2ContrabandUnredeemable
+  description: A missile tube designed for the MPSSM launcher. Fires a ship-tracking EMP-HE missile with a lockon range of 1.2km
+  components:
+  - type: Tag
+    tags:
+    - MPSSMMissile
+  - type: Item
+    size: Large
+  - type: CartridgeAmmo
+    proto: ShipMissileASM19
+    deleteOnSpawn: true
+  - type: Sprite
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Explosives/explosives.rsi
+    state: mpssm
+  - type: StaticPrice
+    price: 1500
+  - type: EmpDescription
+    range: 2
+    energyConsumption: 2700000
+    disableDuration: 20
+
+- type: entity
+  id: CartridgeMPSSMHEAT
+  name: MPSSM Mk.248 rocket tube
+  parent: [BaseItem, BaseC2ContrabandUnredeemable] # Frontier: BaseMajorContraband<BaseC2ContrabandUnredeemable
+  description: A missile tube designed for the MPSSM launcher. Fires an unguided HEAT rocket for precise structural destruction and AT usage.
+  components:
+  - type: Tag
+    tags:
+    - MPSSMMissile
+  - type: Item
+    size: Large
+  - type: CartridgeAmmo
+    proto: RocketMk248
+    deleteOnSpawn: true
+  - type: Sprite
+    sprite: _Mono/Objects/Weapons/Guns/Ammunition/Explosives/explosives.rsi
+    state: mpssm-he
+  - type: StaticPrice
+    price: 1500

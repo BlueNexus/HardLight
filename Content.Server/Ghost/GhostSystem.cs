@@ -57,7 +57,7 @@ namespace Content.Server.Ghost
         [Dependency] private readonly MindSystem _minds = default!;
         [Dependency] private readonly MobStateSystem _mobState = default!;
         [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-        [Dependency] private readonly IPlayerManager _playerManager = default!;
+        [Dependency] private readonly ISharedPlayerManager _player = default!;
         [Dependency] private readonly TransformSystem _transformSystem = default!;
         [Dependency] private readonly VisibilitySystem _visibilitySystem = default!;
         [Dependency] private readonly MetaDataSystem _metaData = default!;
@@ -307,7 +307,18 @@ namespace Content.Server.Ghost
             // Frontier: get admin status for entity.
             bool isAdmin = _admin.IsAdmin(entity);
 
-            var response = new GhostWarpsResponseEvent(GetPlayerWarps(entity).Concat(GetLocationWarps(isAdmin)).ToList()); // Frontier: add isAdmin
+            // Only include admin ghosts if the requester is an admin
+            var warps = GetPlayerWarps(entity)
+                .Concat(GetLocationWarps(isAdmin));
+
+            if (isAdmin)
+            {
+                // Add admin ghosts and regular ghosts to the warp list for admin users
+                warps = warps.Concat(GetAdminGhostWarps(entity))
+                            .Concat(GetRegularGhostWarps(entity));
+            }
+
+            var response = new GhostWarpsResponseEvent(warps.ToList());
             RaiseNetworkEvent(response, args.SenderSession.Channel);
         }
 
@@ -389,7 +400,7 @@ namespace Content.Server.Ghost
 
         private IEnumerable<GhostWarp> GetPlayerWarps(EntityUid except)
         {
-            foreach (var player in _playerManager.Sessions)
+            foreach (var player in _player.Sessions)
             {
                 if (player.AttachedEntity is not {Valid: true} attached)
                     continue;
@@ -403,6 +414,52 @@ namespace Content.Server.Ghost
 
                 if (_mobState.IsAlive(attached) || _mobState.IsCritical(attached))
                     yield return new GhostWarp(GetNetEntity(attached), playerInfo, false);
+            }
+        }
+
+        private IEnumerable<GhostWarp> GetAdminGhostWarps(EntityUid except)
+        {
+            foreach (var player in _player.Sessions)
+            {
+                if (player.AttachedEntity is not {Valid: true} attached)
+                    continue;
+
+                if (attached == except) continue;
+
+                // Skip if not a ghost or not an admin
+                if (!_ghostQuery.HasComp(attached) || !_admin.IsAdmin(attached))
+                    continue;
+
+                TryComp<MindContainerComponent>(attached, out var mind);
+                var jobName = _jobs.MindTryGetJobName(mind?.Mind);
+
+                // Add "(Admin Ghost)" suffix to the display name
+                var playerInfo = $"{Comp<MetaDataComponent>(attached).EntityName} (Admin Ghost)";
+
+                yield return new GhostWarp(GetNetEntity(attached), playerInfo, false);
+            }
+        }
+
+        private IEnumerable<GhostWarp> GetRegularGhostWarps(EntityUid except)
+        {
+            foreach (var player in _player.Sessions)
+            {
+                if (player.AttachedEntity is not {Valid: true} attached)
+                    continue;
+
+                if (attached == except) continue;
+
+                // Skip if not a ghost or if it's an admin
+                if (!_ghostQuery.HasComp(attached) || _admin.IsAdmin(attached))
+                    continue;
+
+                TryComp<MindContainerComponent>(attached, out var mind);
+                var jobName = _jobs.MindTryGetJobName(mind?.Mind);
+
+                // Add "(Ghost)" suffix to the display name
+                var playerInfo = $"{Comp<MetaDataComponent>(attached).EntityName} (Ghost)";
+
+                yield return new GhostWarp(GetNetEntity(attached), playerInfo, false);
             }
         }
 
@@ -509,8 +566,8 @@ namespace Content.Server.Ghost
             // However, that should rarely happen.
             if (!string.IsNullOrWhiteSpace(mind.Comp.CharacterName))
                 _metaData.SetEntityName(ghost, mind.Comp.CharacterName);
-            else if (!string.IsNullOrWhiteSpace(mind.Comp.Session?.Name))
-                _metaData.SetEntityName(ghost, mind.Comp.Session.Name);
+            else if (mind.Comp.UserId is { } userId && _player.TryGetSessionById(userId, out var session))
+                _metaData.SetEntityName(ghost, session.Name);
 
             if (mind.Comp.TimeOfDeath.HasValue)
             {
@@ -556,9 +613,9 @@ namespace Content.Server.Ghost
 
             if (mind.PreventGhosting && !forced)
             {
-                if (mind.Session != null) // Logging is suppressed to prevent spam from ghost attempts caused by movement attempts
+                if (_player.TryGetSessionById(mind.UserId, out var session)) // Logging is suppressed to prevent spam from ghost attempts caused by movement attempts
                 {
-                    _chatManager.DispatchServerMessage(mind.Session, Loc.GetString("comp-mind-ghosting-prevented"),
+                    _chatManager.DispatchServerMessage(session, Loc.GetString("comp-mind-ghosting-prevented"),
                         true);
                 }
 

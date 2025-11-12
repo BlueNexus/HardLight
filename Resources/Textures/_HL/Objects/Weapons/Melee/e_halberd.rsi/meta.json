@@ -1,7 +1,7 @@
 {
   "version": 1,
   "license": "CC-BY-SA-3.0",
-  "copyright": "Made by VividPups",
+  "copyright": "Made by VividPups, modified for backslot by Wuffindy",
   "size": {
     "x": 32,
     "y": 32
@@ -30,6 +30,10 @@
           0.1
         ]
       ]
-    }
+    },
+	{
+            "name": "equipped-BACKPACK",
+            "directions": 4
+	}
   ]
 }

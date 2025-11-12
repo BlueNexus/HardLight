@@ -1,47 +1,25 @@
-#if ENABLE_MONO_RADAR
-namespace Content.Server._Mono.Radar;
+// SPDX-FileCopyrightText: 2025 Ark
+// SPDX-FileCopyrightText: 2025 Ilya246
+// SPDX-FileCopyrightText: 2025 ark1368
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
+// Disabled duplicate; use Content.Server._NF.Radar.RadarBlipComponent instead.
+#if false
+namespace Content.Server.Mono.Radar;
 
 using Content.Shared._Mono.Radar;
 
-/// <summary>
-/// These handle objects which should be represented by radar blips.
-/// </summary>
 [RegisterComponent]
 public sealed partial class RadarBlipComponent : Component
 {
-    /// <summary>
-    /// Color that gets shown on the radar screen.
-    /// </summary>
-    [ViewVariables(VVAccess.ReadWrite), DataField("radarColor")]
-    public Color RadarColor = Color.Red;
-
-    /// <summary>
-    /// Color that gets shown on the radar screen when the blip is highlighted.
-    /// </summary>
-    [ViewVariables(VVAccess.ReadWrite), DataField("highlightedRadarColor")]
-    public Color HighlightedRadarColor = Color.OrangeRed;
-
-    /// <summary>
-    /// Scale of the blip.
-    /// </summary>
-    [DataField]
-    public float Scale = 1;
-
-    /// <summary>
-    /// The shape of the blip on the radar.
-    /// </summary>
-    [DataField]
-    public RadarBlipShape Shape = RadarBlipShape.Circle;
-
-    /// <summary>
-    /// Whether this blip should be shown even when parented to a grid.
-    /// </summary>
-    [DataField]
-    public bool RequireNoGrid = false;
-
-    [DataField]
-    public bool Enabled = true;
+    [DataField] public Color RadarColor = Color.Red;
+    [DataField] public Color HighlightedRadarColor = Color.OrangeRed;
+    [DataField] public float Scale = 1;
+    [DataField] public RadarBlipShape Shape = RadarBlipShape.Circle;
+    [DataField] public bool RequireNoGrid = false;
+    [DataField] public bool VisibleFromOtherGrids = true;
+    [DataField] public bool Enabled = true;
 }
-#else
-// _Mono radar component disabled by default. Define ENABLE_MONO_RADAR to enable this alternative implementation.
 #endif
+

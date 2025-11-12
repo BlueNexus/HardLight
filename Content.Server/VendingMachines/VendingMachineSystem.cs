@@ -1,3 +1,40 @@
+// SPDX-FileCopyrightText: 2022 Alex Evgrashin
+// SPDX-FileCopyrightText: 2022 Andreas Kämper
+// SPDX-FileCopyrightText: 2022 EmoGarbage404
+// SPDX-FileCopyrightText: 2022 Fishfish458
+// SPDX-FileCopyrightText: 2022 Flipp Syder
+// SPDX-FileCopyrightText: 2022 Rane
+// SPDX-FileCopyrightText: 2022 Visne
+// SPDX-FileCopyrightText: 2022 fishfish458 <fishfish458>
+// SPDX-FileCopyrightText: 2023 Cheackraze
+// SPDX-FileCopyrightText: 2023 DrSmugleaf
+// SPDX-FileCopyrightText: 2023 Leon Friedrich
+// SPDX-FileCopyrightText: 2023 Nemanja
+// SPDX-FileCopyrightText: 2023 Slava0135
+// SPDX-FileCopyrightText: 2023 Vordenburg
+// SPDX-FileCopyrightText: 2023 deltanedas
+// SPDX-FileCopyrightText: 2023 keronshb
+// SPDX-FileCopyrightText: 2024 Checkraze
+// SPDX-FileCopyrightText: 2024 Dvir
+// SPDX-FileCopyrightText: 2024 Ed
+// SPDX-FileCopyrightText: 2024 GreaseMonk
+// SPDX-FileCopyrightText: 2024 LordCarve
+// SPDX-FileCopyrightText: 2024 Niels Huylebroeck
+// SPDX-FileCopyrightText: 2024 Pieter-Jan Briers
+// SPDX-FileCopyrightText: 2024 Repo
+// SPDX-FileCopyrightText: 2024 Robert V
+// SPDX-FileCopyrightText: 2024 Tayrtahn
+// SPDX-FileCopyrightText: 2024 checkraze
+// SPDX-FileCopyrightText: 2024 goet
+// SPDX-FileCopyrightText: 2024 lzk
+// SPDX-FileCopyrightText: 2024 metalgearsloth
+// SPDX-FileCopyrightText: 2025 Ark
+// SPDX-FileCopyrightText: 2025 ScarKy0
+// SPDX-FileCopyrightText: 2025 Whatstone
+// SPDX-FileCopyrightText: 2025 ark1368
+//
+// SPDX-License-Identifier: MPL-2.0
+
 using System.Linq;
 using Content.Server._NF.Bank;
 using System.Numerics;
@@ -29,10 +66,14 @@ using Content.Shared.Database; // Frontier
 using Content.Shared._NF.Bank.BUI; // Frontier
 using Content.Server._NF.Contraband.Systems; // Frontier
 using Content.Shared.Stacks; // Frontier
-using Content.Server.Stack; // Frontier
+using Content.Server.Stack;
+// using Content.Server._Mono.VendingMachine; // Removed: namespace no longer exists in this branch
+using Content.Shared._Mono.Traits.Physical;
 using Robust.Shared.Containers; // Frontier
 using Content.Shared._NF.Bank.Components; // Frontier
 using Robust.Shared.Configuration; // HL: CVars
+using Content.Shared.Access.Components;
+using Content.Shared.Access.Systems;
 
 namespace Content.Server.VendingMachines
 {
@@ -43,6 +84,7 @@ namespace Content.Server.VendingMachines
         [Dependency] private readonly ThrowingSystem _throwingSystem = default!;
         [Dependency] private readonly IGameTiming _timing = default!;
         [Dependency] private readonly IConfigurationManager _cfg = default!; // HL: vending CVars
+        [Dependency] private readonly AccessReaderSystem _accessReader = default!;
 
         [Dependency] private readonly SharedAudioSystem _audioSystem = default!; // Frontier
         [Dependency] private readonly BankSystem _bankSystem = default!; // Frontier
@@ -270,6 +312,134 @@ namespace Content.Server.VendingMachines
 
             component.Contraband = contraband;
             Dirty(uid, component);
+        }
+
+        public void Deny(EntityUid uid, VendingMachineComponent? vendComponent = null)
+        {
+            if (!Resolve(uid, ref vendComponent))
+                return;
+
+            if (vendComponent.Denying)
+                return;
+
+            // Set DenyEnd to trigger denying state (Denying property is read-only)
+            vendComponent.DenyEnd = _timing.CurTime + vendComponent.DenyDelay;
+            Audio.PlayPvs(vendComponent.SoundDeny, uid, AudioParams.Default.WithVolume(-2f));
+            TryUpdateVisualState(uid, vendComponent);
+        }
+
+        /// <summary>
+        /// Checks if the user is authorized to use this vending machine
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <param name="sender">Entity trying to use the vending machine</param>
+        /// <param name="vendComponent"></param>
+        public bool IsAuthorized(EntityUid uid, EntityUid sender, VendingMachineComponent? vendComponent = null)
+        {
+            if (!Resolve(uid, ref vendComponent))
+                return false;
+
+            if (!TryComp<AccessReaderComponent>(uid, out var accessReader))
+                return true;
+
+            if (_accessReader.IsAllowed(sender, uid, accessReader))
+                return true;
+
+            Popup.PopupEntity(Loc.GetString("vending-machine-component-try-eject-access-denied"), uid);
+            Deny(uid, vendComponent);
+            return false;
+        }
+
+        /// <summary>
+        /// Tries to eject the provided item. Will do nothing if the vending machine is incapable of ejecting, already ejecting
+        /// or the item doesn't exist in its inventory.
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <param name="type">The type of inventory the item is from</param>
+        /// <param name="itemId">The prototype ID of the item</param>
+        /// <param name="throwItem">Whether the item should be thrown in a random direction after ejection</param>
+        /// <param name="vendComponent"></param>
+        public bool TryEjectVendorItem(EntityUid uid, InventoryType type, string itemId, bool throwItem, VendingMachineComponent? vendComponent = null)
+        {
+            if (!Resolve(uid, ref vendComponent))
+                return false;
+
+            if (vendComponent.Ejecting || vendComponent.Broken || !this.IsPowered(uid, EntityManager))
+            {
+                return false;
+            }
+
+            var entry = GetEntry(uid, itemId, type, vendComponent);
+
+            if (entry == null)
+            {
+                Popup.PopupEntity(Loc.GetString("vending-machine-component-try-eject-invalid-item"), uid);
+                Deny(uid, vendComponent);
+                return false;
+            }
+
+            if (entry.Amount <= 0)
+            {
+                Popup.PopupEntity(Loc.GetString("vending-machine-component-try-eject-out-of-stock"), uid);
+                Deny(uid, vendComponent);
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(entry.ID))
+                return false;
+
+            if (!TryComp<TransformComponent>(vendComponent.Owner, out var transformComp))
+                return false;
+
+            // Start ejecting: set end time rather than assigning read-only property.
+            vendComponent.EjectEnd = Timing.CurTime + vendComponent.EjectDelay;
+            vendComponent.NextItemToEject = entry.ID;
+            vendComponent.ThrowNextItem = throwItem;
+
+            // SpeakOnUIClosed handled in shared system; remove server duplicate dependency.
+
+            // Frontier: unlimited vending
+            // Infinite supplies must stay infinite.
+            if (entry.Amount != uint.MaxValue)
+                entry.Amount--;
+            // End Frontier
+
+            Dirty(uid, vendComponent);
+            TryUpdateVisualState(uid, vendComponent);
+            Audio.PlayPvs(vendComponent.SoundVend, uid);
+            return true;
+        }
+
+        // Removed duplicate AuthorizedVend; keep the override implementation below.
+
+        /// <summary>
+        /// Tries to update the visuals of the component based on its current state.
+        /// </summary>
+        public void TryUpdateVisualState(EntityUid uid, VendingMachineComponent? vendComponent = null)
+        {
+            if (!Resolve(uid, ref vendComponent))
+                return;
+
+            var finalState = VendingMachineVisualState.Normal;
+            if (vendComponent.Broken)
+            {
+                finalState = VendingMachineVisualState.Broken;
+            }
+            else if (vendComponent.Ejecting)
+            {
+                finalState = VendingMachineVisualState.Eject;
+            }
+            else if (vendComponent.Denying)
+            {
+                finalState = VendingMachineVisualState.Deny;
+            }
+            else if (!this.IsPowered(uid, EntityManager))
+            {
+                finalState = VendingMachineVisualState.Off;
+            }
+
+            // Light and appearance handled by shared system; server override retains visual state via base system dependencies.
+            base.TryUpdateVisualState((uid, vendComponent));
         }
 
         /// <summary>

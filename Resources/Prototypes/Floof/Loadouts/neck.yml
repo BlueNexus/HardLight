@@ -26,6 +26,15 @@
   price: 500
   equipment:
     neck: ClothingNeckCollarEpi
+    
+- type: loadout # HL - Moved to T1
+  id: FloofClothingCollarMed #ContractorNeck
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: ContractorT1
+  price: 500
+  equipment:
+    neck: ClothingNeckCollarMed
 
 - type: loadout
   id: FloofClothingCollarEngi # ContractorNeck
@@ -67,10 +76,6 @@
     neck: ClothingNeckCollarCmd
 
 #Job specific
-- type: loadout
-  id: FloofClothingCollarMed # DocNeck TODO: additional integration - BrigmedicNeck?
-  equipment:
-    neck: ClothingNeckCollarMed
 
 - type: loadout
   id: FloofClothingCollarSec # TODO: finish integration - potentially CadetNeck, DeputyNeck, BrigmedicNeck, NFDetectiveNeck, PalNeck(?), BaliffNeck, SeniorOfficerNeck, SheriffNeck?

@@ -95,9 +95,14 @@ public sealed partial class SalvageSystem
             return;
         }
 
-        // Only one shuttle can occupy an expedition.
-        dest.Enabled = false;
-        _shuttleConsoles.RefreshShuttleConsoles();
+        // HARDLIGHT: Allow multiple shuttles to FTL into an expedition.
+        // Previously the destination was disabled after first arrival, blocking reinforcements and recovery ops.
+        // Keep destination enabled so long as expedition exists; consoles will continue to show it as a target.
+        if (!dest.Enabled)
+        {
+            dest.Enabled = true;
+            Dirty(ev.MapUid, dest);
+        }
     }
 
     private void OnFTLCompleted(ref FTLCompletedEvent args)
@@ -311,9 +316,16 @@ public sealed partial class SalvageSystem
 
             if (remaining < TimeSpan.Zero)
             {
-                // HARDLIGHT: Clean up console state before deleting expedition
+                // HARDLIGHT: Mission ended; FTL all shuttles out immediately before cleanup.
+                FTLAllShuttlesHome(uid, comp, 10f); // 10s travel time on forced end
+
+                // Clean up console state; map deletion scheduled after shuttles depart.
                 CleanupExpeditionConsoleState(uid);
-                QueueDel(uid);
+                uid.SpawnTimer(TimeSpan.FromSeconds(15f), () =>
+                {
+                    if (Exists(uid))
+                        QueueDel(uid);
+                });
             }
         }
 
@@ -427,6 +439,64 @@ public sealed partial class SalvageSystem
         else
         {
             Log.Warning($"Failed to cleanup console state for expedition {expeditionUid} - console reference missing or invalid");
+        }
+    }
+
+    /// <summary>
+    /// HARDLIGHT: FTL all shuttles currently on an expedition map back to the default map.
+    /// </summary>
+    /// <param name="expeditionMapUid">Map entity containing the expedition.</param>
+    /// <param name="expedition">Expedition component (for state / travel time).</param>
+    /// <param name="hyperspaceTime">Optional travel time override.</param>
+    private void FTLAllShuttlesHome(EntityUid expeditionMapUid, SalvageExpeditionComponent expedition, float? hyperspaceTime = null)
+    {
+        var shuttleQuery = AllEntityQuery<ShuttleComponent, TransformComponent>();
+        var mapId = _gameTicker.DefaultMap;
+        if (!_mapSystem.TryGetMap(mapId, out var targetMapUid))
+        {
+            Log.Error("Default map not found for expedition FTL egress.");
+            return;
+        }
+
+        // Precompute existing grid positions to avoid collisions.
+        List<Vector2> existingPositions = new();
+        var gridQuery = EntityManager.AllEntityQueryEnumerator<MapGridComponent, TransformComponent>();
+        while (gridQuery.MoveNext(out var _, out _, out var xform))
+        {
+            if (xform.MapID == mapId)
+                existingPositions.Add(_transform.GetWorldPosition(xform));
+        }
+
+        // Destination parameters.
+        int numRetries = 20;
+        float minDistance = 200f;
+        float minRange = 750f;
+        float maxRange = 3500f;
+
+        while (shuttleQuery.MoveNext(out var shuttleUid, out var shuttle, out var shuttleXform))
+        {
+            if (shuttleXform.MapUid != expeditionMapUid || HasComp<FTLComponent>(shuttleUid))
+                continue;
+
+            Vector2 dropLocation = _random.NextVector2(minRange, maxRange);
+            for (int i = 0; i < numRetries; i++)
+            {
+                bool valid = true;
+                foreach (var pos in existingPositions)
+                {
+                    if (Vector2.Distance(pos, dropLocation) < minDistance)
+                    {
+                        valid = false;
+                        break;
+                    }
+                }
+                if (valid)
+                    break;
+                dropLocation = _random.NextVector2(minRange, maxRange);
+            }
+
+            _shuttle.FTLToCoordinates(shuttleUid, shuttle, new EntityCoordinates(targetMapUid.Value, dropLocation), 0f, hyperspaceTime ?? _shuttle.DefaultTravelTime, TravelTime);
+            Log.Info($"Expedition end: FTLing shuttle {shuttleUid} home from expedition {expeditionMapUid}");
         }
     }
 }

@@ -58,6 +58,7 @@ using Robust.Server.Player;
 using Robust.Shared.Log;
 using Content.Shared.Shuttles.Components;
 using Content.Server.Shuttles.Systems;
+using Content.Shared._HL.Shipyard;
 
 // Suppress naming style rule for the _NF namespace prefix (project convention)
 #pragma warning disable IDE1006
@@ -206,6 +207,12 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         // setting up any stations if we have a matching game map prototype to allow late joins directly onto the vessel
         if (_prototypeManager.TryIndex<GameMapPrototype>(vessel.ID, out var stationProto))
         {
+            // Hardlight.
+            // The shuttle loader will grab the vessel prototype from this component on load.
+            var vesselComp = EnsureComp<HLSavedVesselPrototypeComponent>(shuttleUid);
+            vesselComp.VesselId = vessel.ID;
+            Dirty(shuttleUid, vesselComp);
+
             List<EntityUid> gridUids = new()
             {
                 shuttleUid
@@ -455,31 +462,6 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         }
         name ??= $"LoadedShip_{DateTime.Now:yyyyMMdd_HHmmss}";
 
-        // Best-effort: infer a vessel prototype from the source file path or the computed name
-        VesselPrototype? vessel = null;
-        try
-        {
-            if (!string.IsNullOrWhiteSpace(args.SourceFilePath))
-            {
-                var fileId = System.IO.Path.GetFileNameWithoutExtension(args.SourceFilePath);
-                if (!string.IsNullOrWhiteSpace(fileId) && _prototypeManager.TryIndex<VesselPrototype>(fileId, out var vByFile))
-                    vessel = vByFile;
-            }
-
-            if (vessel == null && !string.IsNullOrWhiteSpace(name))
-            {
-                // As a fallback, try to match by display name (case-insensitive)
-                var match = _prototypeManager.EnumeratePrototypes<VesselPrototype>()
-                    .FirstOrDefault(p => string.Equals(p.Name, name, StringComparison.OrdinalIgnoreCase));
-                if (match != null)
-                    vessel = match;
-            }
-        }
-        catch
-        {
-            // Ignore inference errors; we'll guard vessel usages below.
-        }
-
         // Attempt to load the shuttle using the exact purchase-from-file path.
         // If the client provided a source file path under UserData, use it; otherwise, write YAML to a temp and load from there.
         EntityUid? shuttleUidOut = null;
@@ -545,17 +527,19 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         }
         // For loaded ships, we don't spawn a new station via a GameMap prototype unless we can infer the vessel ID.
         EntityUid? shuttleStation = null;
-        if (vessel != null && _prototypeManager.TryIndex<GameMapPrototype>(vessel.ID, out var stationProto))
+        var vesselComp = EnsureComp<HLSavedVesselPrototypeComponent>(shuttleUid);
+        var vessel = vesselComp.VesselId;
+        if (_prototypeManager.TryIndex<GameMapPrototype>(vessel, out var stationProto))
         {
             List<EntityUid> gridUids = new()
             {
                 shuttleUid
             };
-            shuttleStation = _station.InitializeNewStation(stationProto.Stations[vessel.ID], gridUids);
-            name = Name(shuttleStation.Value);
+            name = Name(shuttleUid); // Name the station to the shuttle's name
+            shuttleStation = _station.InitializeNewStation(stationProto.Stations[vessel], gridUids, name);
 
             var vesselInfo = EnsureComp<ExtraShuttleInformationComponent>(shuttleStation.Value);
-            vesselInfo.Vessel = vessel.ID;
+            vesselInfo.Vessel = vessel;
         }
 
         if (TryComp<AccessComponent>(targetId, out var newCap))
@@ -605,9 +589,9 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         }
         if (shuttleStation != null)
             _records.Synchronize(shuttleStation.Value);
-        // If we managed to infer a vessel prototype, add any extra components it specifies.
-        if (vessel != null)
-            EntityManager.AddComponents(shuttleUid, vessel.AddComponents);
+        // If we infer a vessel prototype, add any extra components it specifies.
+        if (_prototypeManager.TryIndex(vessel, out var vesselProto))
+            EntityManager.AddComponents(shuttleUid, vesselProto.AddComponents);
 
         // Ensure cleanup on ship sale
         EnsureComp<LinkedLifecycleGridParentComponent>(shuttleUid);
@@ -635,7 +619,7 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
                     ownerName: shuttleOwner,
                     entityUid: EntityManager.GetNetEntity(shuttleUid),
                     purchasedWithVoucher: loadedFromSave,
-                    purchasePrice: (uint)(vessel?.Price ?? 0)
+                    purchasePrice: (uint)(vesselProto?.Price ?? 0)
                 )
             );
         }

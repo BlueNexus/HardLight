@@ -8,3 +8,48 @@
     sprite: _HL/Clothing/OuterClothing/cropbomber.rsi
   - type: Clothing
     sprite: _HL/Clothing/OuterClothing/cropbomber.rsi
+
+# Stratos Pharmaceutical
+- type: entity
+  parent: ClothingOuterStorageFoldableBase
+  id: ClothingOuterSPLabCoat
+  name: SP lab coat
+  description: Stratos Pharmaceuticals first issued coat, Used in sterile areas.
+  components:
+  - type: Sprite
+    sprite: _HL/Clothing/OuterClothing/stratospharmaceutical/labcoat.rsi
+  - type: Clothing
+    sprite: _HL/Clothing/OuterClothing/stratospharmaceutical/labcoat.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Caustic: 0.85
+
+- type: entity
+  parent: [ClothingOuterStorageFoldableBaseOpened, ClothingOuterSPLabCoat]
+  id: ClothingOuterSPLabCoatOpened
+  name: SP lab coat
+  components:
+  - type: Armor
+    modifiers:
+      coefficients:
+        Caustic: 0.85
+
+- type: entity
+  parent: [ ClothingOuterStorageBase, BaseC1Contraband, ContrabandClothing ]
+  id: ClothingOuterSPArmoredCoat
+  name: SP armored coat
+  description: A standard issued armored coat from Stratos Pharmaceuticals, will protect you from the most basic dangers
+  components:
+  - type: Sprite
+    sprite: _HL/Clothing/OuterClothing/stratospharmaceutical/armoredcoat.rsi
+  - type: Clothing
+    sprite: _HL/Clothing/OuterClothing/stratospharmaceutical/armoredcoat.rsi
+  - type: Armor # Same value as arcadia flak vest
+    modifiers:
+      coefficients:
+        Blunt: 0.85
+        Slash: 0.85
+        Piercing: 0.8
+        Heat: 0.9
+        Caustic: 0.75

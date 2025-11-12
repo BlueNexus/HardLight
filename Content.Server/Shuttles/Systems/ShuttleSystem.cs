@@ -65,6 +65,8 @@ public sealed partial class ShuttleSystem : SharedShuttleSystem
     [Dependency] private readonly ThrusterSystem _thruster = default!;
     [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
     [Dependency] private readonly GameTicker _ticker = default!; //frontier edit to get the main map in FTL
+    [Dependency] private readonly Content.Shared.Inventory.InventorySystem _inventorySystem = default!;
+    [Dependency] private readonly Content.Shared.Damage.DamageableSystem _damageSys = default!;
 
     private EntityQuery<MapGridComponent> _gridQuery;
 

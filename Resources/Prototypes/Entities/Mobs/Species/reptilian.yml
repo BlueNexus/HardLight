@@ -12,6 +12,11 @@
     - HeadTop
     - HeadSide
     - Hair
+    # HL start: Hide genital markings on equip
+    - Genital
+    - Penis
+    - Breasts
+    # HL end
     undergarmentBottom: UndergarmentBottomBoxersReptilian
   - type: Hunger
   - type: Puller
@@ -130,6 +135,11 @@
     - Snout
     - HeadTop
     - HeadSide
+    # HL start: Hide genital markings on equip
+    - Genital
+    - Penis
+    - Breasts
+    # HL end
     undergarmentBottom: UndergarmentBottomBoxersReptilian
   - type: Inventory
     speciesId: reptilian

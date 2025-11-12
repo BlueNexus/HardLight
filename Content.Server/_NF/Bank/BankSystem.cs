@@ -1,3 +1,13 @@
+// SPDX-FileCopyrightText: 2024 Checkraze
+// SPDX-FileCopyrightText: 2024 Whatstone
+// SPDX-FileCopyrightText: 2024 checkraze
+// SPDX-FileCopyrightText: 2025 Ark
+// SPDX-FileCopyrightText: 2025 Dvir
+// SPDX-FileCopyrightText: 2025 Redrover1760
+// SPDX-FileCopyrightText: 2025 ark1368
+//
+// SPDX-License-Identifier: MPL-2.0
+
 using System.Threading;
 using Content.Server.Preferences.Managers;
 using Content.Server.GameTicking;
@@ -6,6 +16,8 @@ using Content.Shared._NF.Bank.Components;
 using Content.Shared.Preferences;
 using Robust.Shared.Player;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
+using Content.Shared._Mono.Traits.Physical;
 using Content.Shared._NF.Bank.Events;
 using Content.Shared.GameTicking;
 
@@ -65,6 +77,13 @@ public sealed partial class BankSystem : SharedBankSystem
         if (!TryComp<BankAccountComponent>(mobUid, out var bank))
         {
             _log.Info($"TryBankWithdraw: {mobUid} has no bank account");
+            return false;
+        }
+
+        // Mono
+        if (HasComp<IronmanComponent>(mobUid))
+        {
+            _log.Info($"TryBankWithdraw: {mobUid} is blocked from withdrawals (Ironman)");
             return false;
         }
 
@@ -230,6 +249,12 @@ public sealed partial class BankSystem : SharedBankSystem
     /// <returns>true if the account was successfully queried.</returns>
     public bool TryGetBalance(EntityUid ent, out int balance)
     {
+        // Mono
+        if (HasComp<IronmanComponent>(ent))
+        {
+            balance = 0;
+            return true;
+        }
         if (!_playerManager.TryGetSessionByEntity(ent, out var session) ||
             !_prefsManager.TryGetCachedPreferences(session.UserId, out var prefs))
         {
@@ -257,6 +282,12 @@ public sealed partial class BankSystem : SharedBankSystem
     /// <returns>true if the account was successfully queried.</returns>
     public bool TryGetBalance(ICommonSession session, out int balance)
     {
+        // Mono
+        if (session.AttachedEntity is { } attached && HasComp<IronmanComponent>(attached))
+        {
+            balance = 0;
+            return true;
+        }
         if (!_prefsManager.TryGetCachedPreferences(session.UserId, out var prefs))
         {
             _log.Info($"{session.UserId} has no cached prefs");

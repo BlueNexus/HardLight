@@ -1,8 +1,9 @@
-using System.Numerics;
+using Content.Shared.Emag.Systems;
 using Content.Shared.Physics;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics;
+using System.Numerics;
 
 namespace Content.Shared.Maps;
 
@@ -11,8 +12,32 @@ namespace Content.Shared.Maps;
 /// </summary>
 public sealed class TurfSystem : EntitySystem
 {
+
+    [Dependency] private readonly IMapManager _mapManager = default!;
     [Dependency] private readonly EntityLookupSystem _entityLookup = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
+
+    /// <summary>
+    /// Attempts to get the turf at or under some given coordinates or null if no such turf exists.
+    /// </summary>
+    /// <param name="coordinates">The coordinates to search for a turf.</param>
+    /// <returns>A <see cref="TileRef"/> for the turf found at the given coordinates or null if no such turf exists.</returns>
+    public TileRef? GetTileRef(EntityCoordinates coordinates)
+    {
+        if (!coordinates.IsValid(EntityManager))
+            return null;
+
+        var pos = _transform.ToMapCoordinates(coordinates);
+        if (!_mapManager.TryFindGridAt(pos, out var gridUid, out var gridComp))
+            return null;
+
+        if (!_mapSystem.TryGetTileRef(gridUid, gridComp, coordinates, out var tile))
+            return null;
+
+        return tile;
+    }
+
 
     /// <summary>
     ///     Returns true if a given tile is blocked by physics-enabled entities.

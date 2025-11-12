@@ -69,8 +69,11 @@
     - map: [ "enum.HumanoidVisualLayers.LArm" ]
     - map: [ "enum.HumanoidVisualLayers.RLeg" ]
     - map: [ "enum.HumanoidVisualLayers.LLeg" ]
-    - map: [ "enum.HumanoidVisualLayers.UndergarmentBottom" ]
+    - map: [ "enum.HumanoidVisualLayers.Genital" ]
+    - map: [ "enum.HumanoidVisualLayers.Breasts" ] # HL: Add breasts layer
     - map: [ "enum.HumanoidVisualLayers.UndergarmentTop" ]
+    - map: [ "enum.HumanoidVisualLayers.Penis" ]
+    - map: [ "enum.HumanoidVisualLayers.UndergarmentBottom" ]
     - map: [ "accessory1" ]
     - map: [ "accessory2" ]
     - map: [ "jumpsuit" ]

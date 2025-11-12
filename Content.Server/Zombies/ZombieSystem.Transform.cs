@@ -35,6 +35,7 @@ using Content.Shared.Prying.Components;
 using Content.Shared.Traits.Assorted;
 using Robust.Shared.Audio.Systems;
 using Content.Shared.Ghost.Roles.Components;
+using Content.Shared.Roles;
 using Content.Shared.Tag;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
@@ -62,6 +63,7 @@ public sealed partial class ZombieSystem
     [Dependency] private readonly NPCSystem _npc = default!;
     [Dependency] private readonly TagSystem _tag = default!;
     [Dependency] private readonly NameModifierSystem _nameMod = default!;
+    [Dependency] private readonly SharedRoleSystem _roles = default!;
     [Dependency] private readonly ISharedPlayerManager _player = default!;
 
     private static readonly ProtoId<TagPrototype> InvalidForGlobalSpawnSpellTag = "InvalidForGlobalSpawnSpell";

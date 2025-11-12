@@ -148,8 +148,8 @@
     layers:
     - state: icon
   - type: TradeCrate
-    valueAtDestination: 10000
-    valueElsewhere: 1000
+    valueAtDestination: 15000
+    valueElsewhere: 1500
 
 - type: entity
   parent: [BaseTradeItem, BaseC2ContrabandUnredeemable]
@@ -162,8 +162,8 @@
     layers:
     - state: icon
   - type: TradeCrate
-    valueAtDestination: 7500
-    valueElsewhere: 750
+    valueAtDestination: 10000
+    valueElsewhere: 1000
 
 - type: entity
   parent: [BaseTradeItem, BaseC2ContrabandUnredeemable]

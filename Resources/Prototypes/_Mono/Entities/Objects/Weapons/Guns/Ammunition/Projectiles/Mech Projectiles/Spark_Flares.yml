@@ -38,6 +38,7 @@
     netsync: false
   - type: RadarBlip
     scale: 4
+    visibleFromOtherGrids: true
     requireNoGrid: true
     shape: square
   - type: Projectile

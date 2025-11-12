@@ -82,6 +82,7 @@
       color: "#a9b6bd"
       shader: unshaded
   - type: Clothing
+    slots: [neck , accessory, accessoryalt] #HL
     sprite: _NF/Clothing/Neck/Misc/mercenary_iff.rsi
     clothingVisuals:
       neck:

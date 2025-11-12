@@ -13,6 +13,11 @@
     - Hair
     - HeadTop
     - Snout # Nose, tusks
+    # HL start: Hide genital markings on equip
+    - Genital
+    - Penis
+    - Breasts
+    # HL end
   - type: Hunger
     baseDecayRate: 0.0083
   - type: Thirst

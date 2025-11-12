@@ -27,3 +27,11 @@
   - type: Construction
     graph: LockerWallBluespace
     node: done
+
+- type: entity
+  id: HLLockerWallMedical
+  parent: LockerWallMedical
+  suffix: Station
+  components:
+  - type: AccessReader
+    access: [["Medical"]]

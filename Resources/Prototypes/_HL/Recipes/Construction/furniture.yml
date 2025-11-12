@@ -10,3 +10,16 @@
   canBuildInImpassable: false
   conditions:
     - !type:TileNotBlocked
+
+# Banners
+- type: construction
+  id: BannerNanotrasenReal
+  graph: BannersGraph
+  startNode: start
+  targetNode: BannerNanotrasenRealNode
+  category: construction-category-furniture
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canBuildInImpassable: false
+  conditions:
+    - !type:TileNotBlocked

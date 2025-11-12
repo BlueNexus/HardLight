@@ -131,15 +131,10 @@
   parent: SuitStorageBase
   suffix: Station Engineer
   components:
-  - type: StorageFill
-    contents:
-#        - id: NitrogenTankFilled
-#        - id: OxygenTankFilled
-        - id: NFTankO2N2EqualFilled # Frontier
-        - id: ClothingShoesBootsMag
-        - id: ClothingOuterHardsuitEngineering
-        - id: ClothingMaskBreath
-        - id: JetpackMiniFilled # Frontier
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:NestedSelector
+        tableId: FillAtmosphericsHardsuit
   - type: AccessReader
     # access: [["Engineering"]] # Frontier
 
@@ -149,14 +144,10 @@
   parent: SuitStorageBase
   suffix: Atmospheric Technician
   components:
-  - type: StorageFill
-    contents:
-#        - id: NitrogenTankFilled
-#        - id: OxygenTankFilled
-        - id: NFTankO2N2EqualFilled # Frontier
-        - id: ClothingOuterHardsuitAtmos
-        - id: ClothingMaskBreath
-        - id: JetpackMiniFilled # Frontier
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:NestedSelector
+        tableId: FillAtmosphericsHardsuit
   - type: AccessReader
     # access: [["Atmospherics"]] # Frontier
 
@@ -166,17 +157,23 @@
   parent: SuitStorageBase
   suffix: Security
   components:
-  - type: StorageFill
-    contents:
-#        - id: NitrogenTankFilled
-#        - id: OxygenTankFilled
-        - id: NFTankO2N2EqualFilled # Frontier
-        - id: ClothingOuterHardsuitSecurity
-        - id: ClothingMaskBreath
-        - id: JetpackSecurityFilled # Frontier
-        - id: ClothingShoesBootsMagSecurityFilled # Frontier
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:NestedSelector
+        tableId: FillSuitStorageSecurity
   - type: AccessReader
     access: [["Security"]]
+
+- type: entityTable
+  id: FillSuitStorageSecurity
+  table: !type:AllSelector
+    children:
+#    - id: OxygenTankFilled
+    - id: NFTankO2N2EqualFilled # Frontier
+    - id: ClothingOuterHardsuitSecurity
+    - id: ClothingMaskBreath
+    - id: JetpackSecurityFilled # Frontier
+    - id: ClothingShoesBootsMagSecurityFilled # Frontier
 
 #CE's hardsuit
 - type: entity
@@ -236,15 +233,10 @@
   parent: [BaseStructureIndestructible, BaseStructureLockImmuneToEmag, BaseStructureAccessReaderImmuneToEmag, BaseStructureDisableToolUse, SuitStorageBase] # Frontier: added BaseStructureDisableToolUse
   suffix: Warden
   components:
-  - type: StorageFill
-    contents:
-#        - id: NitrogenTankFilled
-#        - id: OxygenTankFilled
-        - id: NFTankO2N2EqualFilled # Frontier
-        - id: ClothingOuterHardsuitWarden
-        - id: ClothingMaskBreath
-        - id: JetpackSecurityFilled # Frontier
-        - id: ClothingShoesBootsMagSecurityFilled # Frontier
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:NestedSelector
+        tableId: FillLockerWardenHarduit
   - type: AccessReader
     access: [["Armory"]]
 

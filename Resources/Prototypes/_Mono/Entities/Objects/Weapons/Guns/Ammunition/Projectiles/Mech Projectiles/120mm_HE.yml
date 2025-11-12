@@ -16,7 +16,7 @@
     maxIntensity: 400
     intensitySlope: 20
     totalIntensity: 150
-    maxTileBreak: 2
+    maxTileBreak: 0
   - type: Sprite
     sprite: _Mono/Objects/SpaceArtillery/630_armorpiercing_shell_casing.rsi
     layers:
@@ -24,6 +24,7 @@
   - type: RadarBlip
     radarColor: "#C92BCC"
     scale: 2.5
+    visibleFromOtherGrids: true
     requireNoGrid: true
     shape: triangle
   - type: TimedDespawn

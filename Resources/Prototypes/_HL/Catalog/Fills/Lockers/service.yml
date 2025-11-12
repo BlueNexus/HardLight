@@ -1,0 +1,31 @@
+- type: entity
+  id: HLLockerBoozeFilled
+  suffix: Station, Filled
+  parent: HLLockerBooze
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:AllSelector
+        children:
+        - !type:NestedSelector
+          tableId: FillLockerBooze
+        - !type:NestedSelector
+          tableId: HLFillLockerBooze
+
+- type: entityTable
+  id: HLFillLockerBooze
+  table: !type:AllSelector
+    children:
+    - id: WeaponShotgunDoubleBarreledRubber
+    - id: AmmoBox12_gaugeBeanbag
+    - id: AmmoBox12_gaugeBeanbag
+
+- type: entity
+  id: HLLockerBotanistFilled
+  suffix: Station, Filled
+  parent: HLLockerBotanist
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:NestedSelector
+        tableId: FillLockerBotanist

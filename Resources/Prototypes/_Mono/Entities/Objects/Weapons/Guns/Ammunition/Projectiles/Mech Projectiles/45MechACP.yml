@@ -10,6 +10,7 @@
         Piercing: 18
   - type: RadarBlip
     scale: 0.5
+    visibleFromOtherGrids: true
     requireNoGrid: true
     shape: triangle
   - type: TimedDespawn

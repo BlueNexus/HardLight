@@ -120,7 +120,7 @@
   id: LockerFillParamedic
   table: !type:AllSelector
     children:
-    - id: ClothingOuterHardsuitVoidParamed
+#    - id: ClothingOuterHardsuitVoidParamed # HL. Moved to HLFillParamedicHardsuit
     - id: ClothingOuterCoatParamedicWB
     - id: ClothingHeadHatParamedicsoft
     - id: ClothingOuterWinterPara

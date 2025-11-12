@@ -75,20 +75,20 @@ public sealed class PlayerPaymentPersistenceSystem : EntitySystem
 
     private void OnRoleAdded(RoleAddedEvent args)
     {
-        if (args.Mind.Session != null)
+        if (_playerManager.TryGetSessionById(args.Mind.UserId, out var session))
         {
             // We could track job role additions here if needed
             // For now, just update timing for any role change
-            UpdatePlayerJob(args.Mind.Session, null);
+            UpdatePlayerJob(session, null);
         }
     }
 
     private void OnRoleRemoved(RoleRemovedEvent args)
     {
-        if (args.Mind.Session != null)
+        if (_playerManager.TryGetSessionById(args.Mind.UserId, out var session))
         {
             // Track role removals
-            UpdatePlayerJob(args.Mind.Session, null);
+            UpdatePlayerJob(session, null);
         }
     }
 

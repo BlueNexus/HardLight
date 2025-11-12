@@ -1,0 +1,178 @@
+- type: entity
+  id: HLLockerWardenFilledHardsuit
+  suffix: Station, Filled, Hardsuit
+  parent: HLLockerWarden
+  categories: []
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:AllSelector
+        children:
+        - !type:NestedSelector
+          tableId: FillLockerWarden
+        - !type:NestedSelector
+          tableId: FillLockerWardenHarduit
+
+- type: entity
+  id: HLLockerWardenFilled
+  suffix: Station, Filled
+  parent: HLLockerWarden
+  categories: []
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:NestedSelector
+        tableId: FillLockerWarden
+
+- type: entity
+  id: HLLockerSecurityFilled
+  suffix: Station, Filled
+  parent: HLLockerSecurity
+  categories: []
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:NestedSelector
+        tableId: FillLockerSecurity
+
+- type: entity
+  id: HLLockerBrigmedicFilled
+  suffix: Brigmedic, Filled, Hardsuit
+  parent: HLLockerBrigmedic
+  categories: []
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:AllSelector
+        children:
+        - !type:NestedSelector
+          tableId: FillLockerBrigmedic
+        - !type:NestedSelector
+          tableId: HLFillHardsuitBrigmedic
+
+- type: entity
+  id: HLLockerBrigmedicFilledNoHardsuit
+  suffix: Brigmedic, Filled
+  parent: HLLockerBrigmedic
+  categories: []
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:NestedSelector
+        tableId: FillLockerBrigmedic
+
+- type: entityTable
+  id: HLFillHardsuitBrigmedic
+  table: !type:AllSelector
+    children:
+    - id: ClothingOuterHardsuitBrigmedic
+    - id: NFTankO2N2EqualFilled
+    - id: ClothingMaskBreath
+    - id: JetpackSecurityFilled
+    - id: ClothingShoesBootsMagSecurityFilled
+
+- type: entity
+  id: HLLockerDetectiveFilled
+  suffix: Station, Filled
+  parent: HLLockerDetective
+  categories: []
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:NestedSelector
+        tableId: FillLockerDetective
+
+- type: entity
+  parent: [HLGunSafeBaseSecure, BaseC1Contraband]
+  id: HLGunSafeDisabler
+  name: disabler safe
+  suffix: Station
+  categories: []
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:NestedSelector
+        tableId: FillGunSafeDisabler
+
+- type: entity
+  parent: [HLGunSafeBaseSecure, BaseC2ContrabandUnredeemable]
+  id: HLGunSafePistolMk58
+  name: mk58 safe
+  suffix: Station
+  categories: [] # Frontier
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:NestedSelector
+        tableId: FillGunSafePistolMk58
+
+- type: entity
+  parent: [HLGunSafeBaseSecure, BaseC2ContrabandUnredeemable]
+  id: HLGunSafeRifleLecter
+  suffix: Station
+  categories: []
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:NestedSelector
+        tableId: FillGunSafeRifleLecter
+
+- type: entity
+  parent: [HLGunSafeBaseSecure, BaseC2ContrabandUnredeemable]
+  id: HLGunSafeSubMachineGunDrozd
+  name: Drozd safe
+  suffix: Station
+  categories: []
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:NestedSelector
+        tableId: FillGunSafeSubMachineGunDrozd
+
+- type: entity
+  parent: [HLGunSafeBaseSecure, BaseC2ContrabandUnredeemable]
+  id: HLGunSafeShotgunEnforcer
+  name: Enforcer safe
+  suffix: Station
+  categories: []
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:NestedSelector
+        tableId: FillGunSafeShotgunEnforcer
+
+- type: entity
+  parent: [HLGunSafeBaseSecure, BaseC2ContrabandUnredeemable]
+  id: HLGunSafeShotgunKammerer
+  name: Kammerer safe
+  suffix: Station
+  categories: []
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:NestedSelector
+        tableId: FillGunSafeShotgunKammerer
+
+- type: entity
+  id: HLGunSafeSubMachineGunWt550
+  parent: [HLGunSafeBaseSecure, BaseC2ContrabandUnredeemable]
+  name: WT-550 safe
+  suffix: Station
+  categories: []
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:NestedSelector
+        tableId: FillGunSafeSubMachineGunWt550
+
+- type: entity
+  parent: [HLGunSafeBaseSecure] # Frontier: remove BaseSecurityContraband
+  id: HLGunSafeLaserCarbine
+  name: laser safe
+  suffix: Station
+  categories: []
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:NestedSelector
+        tableId: FillGunSafeLaserCarbine

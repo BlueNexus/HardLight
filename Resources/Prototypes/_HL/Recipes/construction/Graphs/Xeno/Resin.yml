@@ -15,6 +15,24 @@
         amount: 1
         doAfter: 1
         
+    - to: Xenolight
+      completed:
+      - !type:SnapToGrid
+        southRotation: true
+      steps:
+      - material: Resin
+        amount: 1
+        doAfter: 1
+        
+    - to: WallXenolight
+      completed:
+      - !type:SnapToGrid
+        southRotation: true
+      steps:
+      - material: Resin
+        amount: 1
+        doAfter: 1
+        
     - to: WallXenoResin
       completed:
       - !type:SnapToGrid
@@ -96,6 +114,24 @@
         amount: 6
         doAfter: 3
         
+    - to: XenoTrapdrone
+      completed:
+      - !type:SnapToGrid
+        southRotation: true
+      steps:
+      - material: RoyalResin
+        amount: 6
+        doAfter: 3
+        
+    - to: XenoTrapburrower
+      completed:
+      - !type:SnapToGrid
+        southRotation: true
+      steps:
+      - material: RoyalResin
+        amount: 6
+        doAfter: 3    
+            
     - to: XenoHiveWeeds
       completed:
       - !type:SnapToGrid
@@ -117,6 +153,18 @@
   - node: WallXenoMembrane
     entity: WallXenoMembrane
 
+  - node: Xenolight
+    entity: Xenolight
+    
+  - node: WallXenolight
+    entity: WallXenolight
+  
+  - node: XenoTrapdrone
+    entity: SpawnFloorTrapXenoDrone
+    
+  - node: XenoTrapburrower
+    entity: SpawnFloorTrapXenoBurrower
+    
   - node: DoorXenoResin
     entity: DoorXenoResin
 

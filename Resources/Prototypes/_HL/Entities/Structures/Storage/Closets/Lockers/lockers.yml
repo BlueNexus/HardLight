@@ -1,0 +1,220 @@
+- type: entity
+  id: HLLockerBooze
+  parent: LockerBooze
+  suffix: Station
+  components:
+  - type: AccessReader
+    access: [["Bar"]]
+
+# Cargo
+- type: entity
+  id: HLLockerQuarterMaster
+  parent: LockerQuarterMaster
+  suffix: Station
+  components:
+  - type: AccessReader
+    access: [["Quartermaster"]]
+
+- type: entity
+  id: HLLockerSalvageSpecialist
+  parent: LockerSalvageSpecialist
+  suffix: Station
+  components:
+  - type: AccessReader
+    access: [["Salvage"]]
+
+# Command
+- type: entity
+  id: HLLockerCaptain
+  parent: LockerCaptain
+  suffix: Station
+  components:
+  - type: AccessReader
+    access: [["StationCaptain"]]
+
+- type: entity
+  id: HLLockerHeadOfPersonnel
+  parent: LockerHeadOfPersonnel
+  suffix: Station
+  components:
+  - type: AccessReader
+    access: [["HeadOfPersonnel"]]
+
+# CE
+- type: entity
+  id: HLLockerChiefEngineer
+  parent: LockerChiefEngineer
+  suffix: Station
+  components:
+  - type: AccessReader
+    access: [["ChiefEngineer"]]
+
+# Electrical supplies
+- type: entity
+  id: HLLockerElectricalSupplies
+  parent: LockerElectricalSupplies
+  suffix: Station
+  components:
+  - type: AccessReader
+    access: [[ "Engineering" ]]
+
+# Welding supplies
+- type: entity
+  id: HLLockerWeldingSupplies
+  parent: LockerWeldingSupplies
+  suffix: Station
+  components:
+  - type: AccessReader
+    access: [["Engineering"]]
+
+# Atmos tech
+- type: entity
+  id: HLLockerAtmospherics
+  parent: LockerAtmospherics
+  suffix: Station
+  components:
+  - type: AccessReader
+    access: [["Atmospherics"]]
+
+# Engineer
+- type: entity
+  id: HLLockerEngineer
+  parent: LockerEngineer
+  suffix: Station
+  components:
+  - type: AccessReader
+    access: [["Engineering"]]
+
+# Freezer
+- type: entity
+  id: HLLockerFreezer
+  parent: LockerFreezer
+  suffix: Station, Kitchen, Locked
+  components:
+  - type: AccessReader
+    access: [["Kitchen"]]
+
+# Botanist
+- type: entity
+  id: HLLockerBotanist
+  parent: LockerBotanist
+  suffix: Station
+  components:
+  - type: AccessReader
+    access: [["Hydroponics"]]
+
+# Medicine
+- type: entity
+  id: HLLockerMedicine
+  parent: LockerMedicine
+  suffix: Station
+  components:
+  - type: AccessReader
+    access: [["Medical"]]
+
+# Medical doctor
+- type: entity
+  id: HLLockerMedical
+  parent: LockerMedical
+  suffix: Station
+  components:
+  - type: AccessReader
+    access: [["Medical"]]
+
+# Paramedic
+- type: entity
+  id: HLLockerParamedic
+  parent: LockerParamedic
+  suffix: Station
+  components:
+  - type: AccessReader
+    access: [["Paramedic"]]
+
+# Chemical
+- type: entity
+  id: HLLockerChemistry
+  parent: LockerChemistry
+  suffix: Station
+  components:
+  - type: AccessReader
+    access: [["Chemistry"]]
+
+# CMO
+- type: entity
+  id: HLLockerChiefMedicalOfficer
+  parent: LockerChiefMedicalOfficer
+  suffix: Station
+  components:
+  - type: AccessReader
+    access: [["ChiefMedicalOfficer"]]
+
+# Science
+- type: entity
+  id: HLLockerResearchDirector
+  parent: LockerResearchDirector
+  suffix: Station
+  components:
+  - type: AccessReader
+    access: [["ResearchDirector"]]
+
+- type: entity
+  id: HLLockerScientist
+  parent: LockerScientist
+  suffix: Station
+  categories: []
+  components:
+  - type: AccessReader
+    access: [["Research"]]
+
+# HoS
+- type: entity
+  id: HLLockerHeadOfSecurity
+  parent: LockerHeadOfSecurity
+  suffix: Station
+  components:
+  - type: AccessReader
+    access: [["HeadOfSecurity"]]
+
+# Warden
+- type: entity
+  id: HLLockerWarden
+  parent: LockerWarden
+  suffix: Station
+  components:
+  - type: AccessReader
+    access: [["Armory"]]
+
+# Brigmedic
+- type: entity
+  id: HLLockerBrigmedic
+  parent: LockerBrigmedic
+  suffix: Station
+  components:
+  - type: AccessReader
+    access: [["Security"]]
+
+# Security Officer
+- type: entity
+  id: HLLockerSecurity
+  parent: LockerSecurity
+  suffix: Station
+  components:
+  - type: AccessReader
+    access: [["Security"]]
+
+- type: entity
+  id: HLGunSafeBaseSecure
+  parent: GunSafeBaseSecure
+  suffix: Station, Armory, Locked
+  components:
+  - type: AccessReader
+    access: [["Armory"]]
+
+# Detective
+- type: entity
+  id: HLLockerDetective
+  parent: LockerDetective
+  suffix: Station
+  components:
+  - type: AccessReader
+    access: [["Detective"]]

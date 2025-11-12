@@ -61,6 +61,7 @@
     intensitySlope: 1
     totalIntensity: 3
     canCreateVacuum: false
+    maxTileBreak: 0
   - type: ItemToggle
     soundActivate:
       path: /Audio/Effects/cig_light.ogg

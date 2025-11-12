@@ -262,3 +262,61 @@
     tags:
     - ClothMade
     - WhitelistChameleon
+
+## Recipes
+
+# Hats
+- type: latheRecipe
+  parent: BaseHatRecipe
+  id: ClothingHeadHatNTBeret
+  result: ClothingHeadHatNTBeret
+
+- type: latheRecipe
+  parent: BaseHatRecipe
+  id: ClothingHeadHatNTCap
+  result: ClothingHeadHatNTCap
+
+- type: latheRecipe
+  parent: BaseHatRecipe
+  id: ClothingHeadHatNTBaseballCap
+  result: ClothingHeadHatNTBaseballCap
+
+# Jumpsuits/skirts
+- type: latheRecipe
+  parent: BaseJumpsuitRecipe
+  id: ClothingUniformJumpsuitNT
+  result: ClothingUniformJumpsuitNT
+
+- type: latheRecipe
+  parent: BaseJumpsuitRecipe
+  id: ClothingUniformJumpskirtNT
+  result: ClothingUniformJumpskirtNT
+
+# Scarfs
+- type: latheRecipe
+  parent: BaseNeckClothingRecipe
+  id: ClothingNeckScarfNT
+  result: ClothingNeckScarfNT
+
+# Winter clothes
+- type: latheRecipe
+  parent: BaseCoatRecipe
+  id: ClothingOuterWinterNT
+  result: ClothingOuterWinterNT
+
+- type: latheRecipe
+  parent: BaseCoatRecipe
+  id: ClothingShoesBootsWinterNT
+  result: ClothingShoesBootsWinterNT
+
+- type: latheRecipePack
+  id: ClothingNT
+  recipes:
+  - ClothingUniformJumpsuitNT
+  - ClothingUniformJumpskirtNT
+  - ClothingHeadHatNTBeret
+  - ClothingHeadHatNTCap
+  - ClothingHeadHatNTBaseballCap
+  - ClothingNeckScarfNT
+  - ClothingShoesBootsWinterNT
+  - ClothingOuterWinterNT

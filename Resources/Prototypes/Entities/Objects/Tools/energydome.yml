@@ -38,6 +38,15 @@
     delay: 10.0
 
 - type: entity
+  name: unmarked personal shield generator
+  id: EnergyDomeGeneratorPersonalCartel
+  parent: EnergyDomeGeneratorPersonalSyndie
+  components:
+  - type: EnergyDomeGenerator
+    damageEnergyDraw: 7
+    domePrototype: EnergyDomeSmallPurple
+
+- type: entity
   name: BR-40c "Turtle"
   description: A two-handed and heavy energy barrier with extremely low passive energy consumption. Can be tethered with a multitool.
   id: EnergyDomeDirectionalTurtle

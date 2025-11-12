@@ -434,7 +434,7 @@
       - state: bride_white
 
 - type: entity
-  parent: CoolCoyoteClothes
+  parent: [ClothingTopless, CoolCoyoteClothes]
   id: CoolCoyoteClothesBrownPunkPants
   name: brown punk pants
   description: |
@@ -686,7 +686,7 @@
       - state: customtoga
 
 - type: entity
-  parent: CoolCoyoteClothes
+  parent: [ClothingTopless, CoolCoyoteClothes]
   id: CoolCoyoteClothesCyberHell
   name: cyber hell
   description: |
@@ -1154,7 +1154,7 @@
       - state: gothic2
 
 - type: entity
-  parent: CoolCoyoteClothes
+  parent: [ClothingTopless, CoolCoyoteClothes]
   id: CoolCoyoteClothesGreatShendyt
   name: great shendyt
   description: |
@@ -1280,7 +1280,7 @@
       - state: half_skirt
 
 - type: entity
-  parent: CoolCoyoteClothes
+  parent: [ClothingTopless, CoolCoyoteClothes]
   id: CoolCoyoteClothesHalfHuipil
   name: half huipil
   description: |
@@ -1352,7 +1352,7 @@
       - state: huipil
 
 - type: entity
-  parent: CoolCoyoteClothes
+  parent: [ClothingTopless, CoolCoyoteClothes]
   id: CoolCoyoteClothesHunter
   name: hunter leathers
   description: |
@@ -1622,7 +1622,7 @@
       - state: latex_half
 
 - type: entity
-  parent: CoolCoyoteClothes
+  parent: [ClothingTopless, CoolCoyoteClothes]
   id: CoolCoyoteClothesLeavesSkirt
   name: leaves mini skirt
   description: |
@@ -1640,7 +1640,7 @@
       - state: leaves_skirt
 
 - type: entity
-  parent: CoolCoyoteClothes
+  parent: [ClothingTopless, CoolCoyoteClothes]
   id: CoolCoyoteClothesLeavesSkirtLong
   name: leaves skirt
   description: |
@@ -1784,7 +1784,7 @@
       - state: marlowduds
 
 - type: entity
-  parent: CoolCoyoteClothes
+  parent: [ClothingTopless, CoolCoyoteClothes]
   id: CoolCoyoteClothesMayanLoincloth
   name: mayan loincloth
   description: |
@@ -1820,7 +1820,7 @@
       - state: miku_bikini
 
 - type: entity
-  parent: CoolCoyoteClothes
+  parent: [ClothingTopless, CoolCoyoteClothes]
   id: CoolCoyoteClothesOliveCargoPunk
   name: olive cargopunk pants
   description: |
@@ -1928,7 +1928,7 @@
       - state: pinktutu_s
 
 - type: entity
-  parent: CoolCoyoteClothes
+  parent: [ClothingTopless, CoolCoyoteClothes]
   id: CoolCoyoteClothesPinkwshort
   name: pink athletic shorts
   description: |
@@ -2288,7 +2288,7 @@
       - state: red_sari
 
 - type: entity
-  parent: CoolCoyoteClothes
+  parent: [ClothingTopless, CoolCoyoteClothes]
   id: CoolCoyoteClothesRedWshort
   name: red athletic shorts
   description: |
@@ -2504,7 +2504,7 @@
       - state: shortpink
 
 - type: entity
-  parent: CoolCoyoteClothes
+  parent: [ClothingTopless, CoolCoyoteClothes]
   id: CoolCoyoteClothesShortsBlue
   name: neon blue flashy shorts
   description: |
@@ -2522,7 +2522,7 @@
       - state: shorts_blue
 
 - type: entity
-  parent: CoolCoyoteClothes
+  parent: [ClothingTopless, CoolCoyoteClothes]
   id: CoolCoyoteClothesShortsRed
   name: blood red breeches
   description: |
@@ -3026,7 +3026,7 @@
       - state: tribal_colorful
 
 - type: entity
-  parent: CoolCoyoteClothes
+  parent: [ClothingBottomless, CoolCoyoteClothes]
   id: CoolCoyoteClothesTribalColorfulTop
   name: tribal colorful tribalwear top
   description: |
@@ -3062,7 +3062,7 @@
       - state: un_irish
 
 - type: entity
-  parent: CoolCoyoteClothes
+  parent: [ClothingTopless, CoolCoyoteClothes]
   id: CoolCoyoteClothesUNGreentrousersOG107
   name: drab green trousers
   description: |
@@ -3332,7 +3332,7 @@
       - state:
 
 - type: entity
-  parent: CoolCoyoteClothes
+  parent: [ClothingTopless, CoolCoyoteClothes]
   id: CoolCoyoteClothesYellowwshort
   name: yellow athletic shorts
   description: |
@@ -3350,7 +3350,7 @@
       - state: yellowwshort
 
 - type: entity
-  parent: CoolCoyoteClothes
+  parent: [ClothingNude, CoolCoyoteClothes]
   id: CoolCoyoteClothesGearHarness
   name: nudist gear harness
   description: |

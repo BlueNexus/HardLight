@@ -1,0 +1,90 @@
+- type: guideEntry
+  id: WeaponsSystems
+  name: guide-entry-gunnery
+  text: "/ServerInfo/_Mono/Guidebook/ShipCombat.xml"
+  priority: 7
+  children:
+  - L85Guide
+  - AK570Guide
+  - CHARONGuide
+  - MARAUDERGuide
+  - RUBICONGuide
+  - ASM302Guide
+  - CYREXAGuide
+  - DYMEREGuide
+  - DRAVONGuide
+  - TARNYXGuide
+  - VESPERAGuide
+  - TOVEKGuide
+
+- type: guideEntry
+  id: L85Guide
+  name: guide-entry-l85
+  text: "/ServerInfo/_Mono/Guidebook/Specifications/L85.xml"
+  priority: 1
+
+- type: guideEntry
+  id: AK570Guide
+  name: guide-entry-ak570
+  text: "/ServerInfo/_Mono/Guidebook/Specifications/AK570.xml"
+  priority: 1
+
+- type: guideEntry
+  id: MARAUDERGuide
+  name: guide-entry-marauder
+  text: "/ServerInfo/_Mono/Guidebook/Specifications/MARAUDER.xml"
+  priority: 1
+
+- type: guideEntry
+  id: RUBICONGuide
+  name: guide-entry-rubicon
+  text: "/ServerInfo/_Mono/Guidebook/Specifications/RUBICON.xml"
+  priority: 1
+
+- type: guideEntry
+  id: CHARONGuide
+  name: guide-entry-charon
+  text: "/ServerInfo/_Mono/Guidebook/Specifications/CHARON.xml"
+  priority: 1
+
+- type: guideEntry
+  id: CYREXAGuide
+  name: guide-entry-cyrexa
+  text: "/ServerInfo/_Mono/Guidebook/Specifications/CYREXA.xml"
+  priority: 1
+
+- type: guideEntry
+  id: ASM302Guide
+  name: guide-entry-asm302
+  text: "/ServerInfo/_Mono/Guidebook/Specifications/ASM302.xml"
+  priority: 1
+
+- type: guideEntry
+  id: DYMEREGuide
+  name: guide-entry-dymere
+  text: "/ServerInfo/_Mono/Guidebook/Specifications/DYMERE.xml"
+  priority: 1
+
+- type: guideEntry
+  id: DRAVONGuide
+  name: guide-entry-dravon
+  text: "/ServerInfo/_Mono/Guidebook/Specifications/DRAVON.xml"
+  priority: 1
+
+- type: guideEntry
+  id: TARNYXGuide
+  name: guide-entry-tarnyx
+  text: "/ServerInfo/_Mono/Guidebook/Specifications/TARNYX.xml"
+  priority: 1
+
+- type: guideEntry
+  id: VESPERAGuide
+  name: guide-entry-vespera
+  text: "/ServerInfo/_Mono/Guidebook/Specifications/VESPERA.xml"
+  priority: 1
+
+- type: guideEntry
+  id: TOVEKGuide
+  name: guide-entry-tovek
+  text: "/ServerInfo/_Mono/Guidebook/Specifications/TOVEK.xml"
+  priority: 1

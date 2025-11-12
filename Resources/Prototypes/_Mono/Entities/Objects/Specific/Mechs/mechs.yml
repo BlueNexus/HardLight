@@ -36,7 +36,7 @@
 # S2 Mechas
 - type: entity
   id: AFInterceptor
-  parent: [ BaseMech, LightMechMount, BaseRestrictedContraband ]
+  parent: [ BaseMech, LightMechMount, BaseC3ExpeditionContraband ]
   name: AF-28 "Broadsword"
   description: One of the first purpose built Armored Frames, made to engage light targets and other Armored Frames.
   components:
@@ -70,7 +70,7 @@
     baseState: broadsword
     openState: broadsword-open
     brokenState: broadsword-broken
-    mechToPilotDamageMultiplier: 0
+    mechToPilotDamageMultiplier: 0.2
     airtight: true
     maxIntegrity: 600
     pilotWhitelist:
@@ -95,12 +95,13 @@
   - type: MovementSpeedModifier
     baseWalkSpeed: 0.2
     baseSprintSpeed: 1
-    weightlessModifier: 40
+    baseWeightlessModifier: 20
   - type: RadarBlip
     radarColor: "#CF0E0E"
     scale: 4
     requireNoGrid: true
     shape: square
+    visibleFromOtherGrids: true
   - type: Damageable
     damageModifierSet: MediumArmorNT
   - type: Repairable
@@ -126,7 +127,7 @@
 
 - type: entity
   id: AFInterceptorM
-  parent: [ BaseMech, LightMultiroleMountEquipment, BaseRestrictedContraband ]
+  parent: [ BaseMech, LightMultiroleMountEquipment, BaseC3ExpeditionContraband ]
   name: AF-28-M "Halberd"
   description: A modification of the Broadsword, the Halberd sacrifices armor and speed for heavier weapon mounts.
   components:
@@ -160,7 +161,7 @@
     baseState: broadsword
     openState: broadsword-open
     brokenState: broadsword-broken
-    mechToPilotDamageMultiplier: 0
+    mechToPilotDamageMultiplier: 0.2
     airtight: true
     maxIntegrity: 450
     pilotWhitelist:
@@ -185,7 +186,7 @@
   - type: MovementSpeedModifier
     baseWalkSpeed: 0.2
     baseSprintSpeed: 1
-    weightlessModifier: 35
+    baseWeightlessModifier: 20
   - type: Damageable
     damageModifierSet: MediumArmorNT
   - type: RadarBlip
@@ -193,6 +194,7 @@
     scale: 4
     requireNoGrid: true
     shape: square
+    visibleFromOtherGrids: true
   - type: Repairable
     fuelCost: 40
     doAfterDelay: 30
@@ -206,7 +208,7 @@
 
 - type: entity
   id: AFInterceptorG
-  parent: [ BaseMech, LightMultiroleMountEquipment, BaseRestrictedContraband ]
+  parent: [ BaseMech, LightMultiroleMountEquipment, BaseC3ExpeditionContraband ]
   name: AF-28-G "Sabre"
   description: A modification of the Broadsword, the Sabre sacrifices it's jetpack and spaceproof shielding to function on planets. Has two hardpoints, which can carry Light or Medium hardpoints.
   components:
@@ -240,7 +242,7 @@
     baseState: broadsword
     openState: broadsword-open
     brokenState: broadsword-broken
-    mechToPilotDamageMultiplier: 0
+    mechToPilotDamageMultiplier: 0.2
     airtight: false
     maxIntegrity: 800
     pilotWhitelist:
@@ -272,6 +274,7 @@
     scale: 4
     requireNoGrid: true
     shape: square
+    visibleFromOtherGrids: true
   - type: Repairable
     fuelCost: 40
     doAfterDelay: 30
@@ -286,7 +289,7 @@
 #4x4 mechas
 - type: entity
   id: AFFlail
-  parent: [ BaseMech, HeavyMechMount, BaseRestrictedContraband ]
+  parent: [ BaseMech, HeavyMechMount, BaseC3ExpeditionContraband ]
   name: ASF-59 "Flail"
   description: Newest mech on the market, the Armored Strike Frame is built to tackle ship-sized foes with it's oversized weapon mounts. Slow as a pig however, it tacks on generous armor plating to survive it's runs.
   components:
@@ -320,7 +323,7 @@
     baseState: flail
     openState: flail-open
     brokenState: flail-broken
-    mechToPilotDamageMultiplier: 0
+    mechToPilotDamageMultiplier: 0.2
     airtight: true
     maxIntegrity: 900
     pilotWhitelist:
@@ -345,12 +348,13 @@
   - type: MovementSpeedModifier
     baseWalkSpeed: 0.1
     baseSprintSpeed: 1
-    weightlessModifier: 25
+    baseWeightlessModifier: 25
   - type: RadarBlip
     radarColor: "#CF0E0E"
     scale: 4
     requireNoGrid: true
     shape: square
+    visibleFromOtherGrids: true
   - type: Damageable
     damageModifierSet: HeavyArmorNT
   - type: Repairable
@@ -366,7 +370,7 @@
 
 - type: entity
   id: AFFlailE
-  parent: [ BaseMech, EWARMechMountEquipment, BaseRestrictedContraband ]
+  parent: [ BaseMech, EWARMechMountEquipment, BaseC3ExpeditionContraband ]
   name: ASF-59-E "Spyglass"
   description: An extremely specialized mech based off the Flail Chassis. Uses sophisticated radar systems to provide command and control capabilities, in addition to employing advanced EWAR weaponry.
   components:
@@ -400,7 +404,7 @@
     baseState: flail
     openState: flail-open
     brokenState: flail-broken
-    mechToPilotDamageMultiplier: 0
+    mechToPilotDamageMultiplier: 0.2
     airtight: true
     maxIntegrity: 500
     pilotWhitelist:
@@ -425,12 +429,13 @@
   - type: MovementSpeedModifier
     baseWalkSpeed: 0.25
     baseSprintSpeed: 0.5
-    weightlessModifier: 20
+    baseWeightlessModifier: 30
   - type: RadarBlip
     radarColor: "#CF0E0E"
     scale: 4
     requireNoGrid: true
     shape: square
+    visibleFromOtherGrids: true
   - type: Damageable
     damageModifierSet: HeavyArmorNT
   - type: Repairable
@@ -446,7 +451,7 @@
 
 - type: entity
   id: AFMace
-  parent: [ BaseMech, HeavyMechMount, BaseRestrictedContraband ]
+  parent: [ BaseMech, HeavyMechMount, BaseC3ExpeditionContraband ]
   name: ASF-59-B "Mace"
   description: A haphazard refit, armor plating is stripped off to add oversized boosters to the machine. Due to the power constraints, it can only equip a single weapon, limiting versatilty. Fits Heavy Mounts.
   components:
@@ -480,7 +485,7 @@
     baseState: flail
     openState: flail-open
     brokenState: flail-broken
-    mechToPilotDamageMultiplier: 0
+    mechToPilotDamageMultiplier: 0.2
     maxEquipmentAmount: 1
     airtight: true
     maxIntegrity: 600
@@ -506,12 +511,13 @@
   - type: MovementSpeedModifier
     baseWalkSpeed: 0.1
     baseSprintSpeed: 1
-    weightlessModifier: 30
+    baseWeightlessModifier: 35
   - type: RadarBlip
     radarColor: "#CF0E0E"
     scale: 4
     requireNoGrid: true
     shape: square
+    visibleFromOtherGrids: true
   - type: Damageable
     damageModifierSet: HeavyArmorNT
   - type: Repairable
@@ -524,3 +530,4 @@
     - DoorBumpOpener
     - FootstepSound
     - Mace
+

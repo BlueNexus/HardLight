@@ -340,11 +340,13 @@
     - NFNfsdTechfabDeprecatedStatic
     - CivilianAmmoRecipePack
     dynamicPacks:
-    - NFNfsdTechfabDynamicDeprecated
-    - AdvancedAmmoRecipePack
-#  - type: EmagLatheRecipes
-#    emagStaticPacks:
-#    - NFNfsdTechfabDeprecatedEmag
+      - NFNfsdTechfabDynamicDeprecated
+      - AdvancedAmmoRecipePack
+      - UniversalShellAmmo
+      - UniversalRailgunAmmo
+      - UniversalMissileAmmo
+      - UniversalOrdinance
+  # Emag recipes removed: missing NFNfsdTechfabDeprecatedEmag pack
   - type: PirateBountyItem # Mono
     id: Techfab
   - type: OreSiloClient

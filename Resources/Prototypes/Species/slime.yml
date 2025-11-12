@@ -17,6 +17,9 @@
     FacialHair: MobSlimeMarkingFollowSkin
     UndergarmentTop: MobHumanoidAnyMarking
     UndergarmentBottom: MobHumanoidAnyMarking
+    Genital: MobHumanoidAnyMarking
+    Penis: MobHumanoidAnyMarking
+    Breasts: MobHumanoidAnyMarking
     Chest: MobSlimeTorso
     Eyes: MobHumanoidEyes
     HeadTop: MobHumanoidAnyMarking # Hardlight

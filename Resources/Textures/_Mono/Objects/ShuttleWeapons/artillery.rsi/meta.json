@@ -10,10 +10,6 @@
     {
       "name": "space_artillery",
       "directions": 4
-    },
-    {
-      "name": "artillery",
-      "directions": 4
-    } 
+    }
   ]
 }

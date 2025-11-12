@@ -267,11 +267,7 @@
 - type: Tag
   id: NFMagazineSuMaGunPistol35
 
-- type: Tag
-  id: WeaponShotgunBigLeady
-
-- type: Tag
-  id: ShellShotgun23x75mmBuckshot
+## Removed duplicate tags; canonical tags live in _Mono/tags.yml
 
 - type: Tag
   id: MagazineAMR

@@ -3,24 +3,33 @@
   suffix: Filled
   parent: LockerBooze
   components:
-  - type: StorageFill
-    contents:
-      - id: ClothingOuterArmorBasicSlim
-#      - id: WeaponShotgunDoubleBarreledRubber # Frontier
-      - id: DrinkShaker
-      - id: ClothingEyesHudBeer
-      - id: HandLabeler
-        amount: 1
-      - id: DrinkBottleBeer
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:NestedSelector
+        tableId: FillLockerBooze
+
+- type: entityTable
+  id: FillLockerBooze
+  table: !type:AllSelector
+    children:
+    - id: ClothingOuterArmorBasicSlim
+#    - id: WeaponShotgunDoubleBarreledRubber # Frontier
+    - id: DrinkShaker
+    - id: ClothingEyesHudBeer
+    - id: HandLabeler
+    - !type:AllSelector
+      rolls: !type:ConstantNumberSelector
+        value: 3
+      children:
+      - id: DrinkBeerBottleFull
         prob: 0.5
-      - id: DrinkBottleBeer
-        prob: 0.5
-      - id: DrinkBottleBeer
-        prob: 0.5
+    - !type:AllSelector
+      rolls: !type:ConstantNumberSelector
+        value: 2
+      children:
 #      - id: AmmoBox12_gaugeBeanbag # Frontier
 #        amount: 2  # Frontier
       - id: RagItem
-        amount: 2
 
 #- type: entity
 #  id: LockerFormalFilled
@@ -95,22 +104,29 @@
   suffix: Filled
   parent: LockerBotanist
   components:
-  - type: StorageFill
-    contents:
-      # - id: ClothingHandsGlovesLeather
-      # - id: ClothingOuterApronBotanist
-      # - id: ClothingHeadBandBotany
-      # - id: ChemistryBottleRobustHarvest
-      #   prob: 0.3
-      # - id: ClothingBeltPlant
-      - id: ClothingBeltPlantFilled # Frontier
-      - id: PlantBag ##Some maps don't have nutrivend
-      - id: BoxMouthSwab
-      - id: Dropper
-#      - id: HandLabeler
-#      - id: ClothingUniformOveralls # Frontier
-#      - id: ClothingHeadHatTrucker # Frontier
-#        prob: 0.1
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:NestedSelector
+        tableId: FillLockerBotanist
+
+- type: entityTable
+  id: FillLockerBotanist
+  table: !type:AllSelector
+    children:
+#    - id: ClothingHandsGlovesLeather
+#    - id: ClothingOuterApronBotanist
+#    - id: ClothingHeadBandBotany
+#    - id: ChemistryBottleRobustHarvest
+#      prob: 0.3
+#    - id: ClothingBeltPlant
+    - id: ClothingBeltPlantFilled # Frontier
+    - id: PlantBag ##Some maps don't have nutrivend
+    - id: BoxMouthSwab
+    - id: Dropper
+#    - id: HandLabeler
+#    - id: ClothingUniformOveralls # Frontier
+#    - id: ClothingHeadHatTrucker # Frontier
+#      prob: 0.1
 
 - type: entity
   id: LockerBotanistLoot

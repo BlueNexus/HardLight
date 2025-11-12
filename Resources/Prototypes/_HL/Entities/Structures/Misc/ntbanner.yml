@@ -2,7 +2,10 @@
   id: BannerNanotrasenreal
   parent: BannerBase
   name: NT banner
-  description: A banner displaying the Nanotrasen logo.
+  description: A banner displaying the NanoTrasen logo.
   components:
   - type: Sprite
-    sprite: _HL/Nanotrasen/banner.rsi # Frontier - unique sprites
+    sprite: _HL/Nanotrasen/banner.rsi
+  - type: Construction
+    graph: BannersGraph
+    node: BannerNanotrasenRealNode

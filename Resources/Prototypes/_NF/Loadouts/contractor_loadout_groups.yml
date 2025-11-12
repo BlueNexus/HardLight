@@ -124,10 +124,10 @@
   - ContractorClothingUniformJumpskirtQMTurtleneck
   - ContractorClothingUniformJumpsuitSeniorPhysician
   - ContractorClothingUniformJumpskirtSeniorPhysician
-  #- ContractorClothingUniformJumpsuitCMO # Temp removed for MOM. Will return if replaced.
-  #- ContractorClothingUniformJumpskirtCMO # Temp removed for MOM. Will return if replaced. #
-  #- ContractorClothingUniformTurtleneckCMO # Temp removed for MOM. Will return if replaced. #
-  #- ContractorClothingUniformTurtleskirtCMO # Temp removed for MOM. Will return if replaced. #
+  - ContractorClothingUniformJumpsuitCMO # HL Uncommented
+  - ContractorClothingUniformJumpskirtCMO # HL Uncommented
+  - ContractorClothingUniformTurtleneckCMO # HL Uncommented
+  - ContractorClothingUniformTurtleskirtCMO # HL Uncommented
   - ContractorClothingUniformJumpsuitSeniorResearcher
   - ContractorClothingUniformJumpskirtSeniorResearcher
   - ContractorClothingUniformJumpsuitResearchDirector
@@ -175,7 +175,7 @@
   - ContractorClothingUniformJumpsuitMilitaryChemistry
   - ContractorClothingUniformJumpsuitMilitaryVirology
   - ContractorClothingUniformJumpsuitMilitaryGenetics
- # - ContractorClothingUniformJumpsuitMilitaryCMO # Temp removed for MOM. Will return if replaced.
+  - ContractorClothingUniformJumpsuitMilitaryCMO # HL Uncommented
   - ContractorClothingUniformJumpsuitMilitaryScientist
   - ContractorClothingUniformJumpsuitMilitaryResearchDirector
   - ContractorClothingUniformJumpsuitMilitaryService
@@ -350,9 +350,9 @@
   - ContractorClothingOuterWinterMime
   - ContractorClothingOuterWinterQM
   - ContractorClothingOuterWinterRD
-#  - ContractorClothingOuterWinterCMO # Temp removed for MOM. Will return if replaced.
+  - ContractorClothingOuterWinterCMO #HL Uncommented
   - ContractorClothingOuterWinterCE
-#  - ContractorClothingOuterCoatLabCmo # Temp removed for MOM. Will return if replaced.
+  - ContractorClothingOuterCoatLabCmo #HL Uncommented
   - ContractorClothingOuterCoatLabSeniorPhysician
   - ContractorClothingOuterCoatRD
   - ContractorClothingOuterCoatLabSeniorResearcher
@@ -479,7 +479,7 @@
   - ContractorClothingShoesHighheelBoots
   - ContractorClothingShoesBootsCowboyFancy
   - ContractorClothingShoesBootsWinterChiefEngineer
-#  - ContractorClothingShoesBootsWinterCMO # Temp removed for DOC. Will return if replaced.
+  - ContractorClothingShoesBootsWinterCMO #HL Uncommented
   - ContractorClothingShoesBootsWinterQM
   - ContractorClothingShoesBootsWinterRD
   - ContractorClothingShoesBootsWinterClown
@@ -542,7 +542,7 @@
   - ContractorClothingHeadHatBeretRND
   - ContractorClothingHeadHatBeretEngineering
   - ContractorClothingHeadHatBeretSeniorPhysician
-#  - ContractorClothingHeadHatBeretCmo # Temp removed for DOC. Will return if replaced.
+  - ContractorClothingHeadHatBeretCmo # HL Uncommented
   - ContractorClothingHeadHatBeretQM
   - ContractorClothingHeadHatQMsoft
   - ContractorClothingHeadHatCardinal
@@ -691,8 +691,8 @@
   - ContractorClothingNeckCloakCapFormal
   - ContractorClothingNeckCloakQm
   - ContractorClothingNeckMantleQM
-#  - ContractorClothingCloakCmo # Temp removed for DOC. Will return if replaced.
-#  - ContractorClothingNeckMantleCMO # Temp removed for DOC. Will return if replaced.
+  - ContractorClothingCloakCmo # HL Uncommented
+  - ContractorClothingNeckMantleCMO # HL Uncommented
   - ContractorClothingNeckCloakRd
   - ContractorClothingNeckMantleRD
   - ContractorClothingNeckCloakCe
@@ -706,6 +706,7 @@
   - FloofClothingCollarEpi
   - FloofClothingCollarEngi
   - FloofClothingCollarLogi
+  - FloofClothingCollarMed
   - FloofClothingCollarCmd
   - FloofClothingShockCollar
   # Flooftier collars end
@@ -740,7 +741,7 @@
   - ContractorSeniorResearcherPDA
   - ContractorRnDPDA
   - ContractorSeniorPhysicianPDA
-  #- ContractorCMOPDA # Temp removed for DOC. Will return if replaced.
+  - ContractorCMOPDA # HL Uncommented
   - ContractorSeniorEngineerPDA
   - ContractorCEPDA
   - ContractorBoxerPDA

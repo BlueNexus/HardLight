@@ -364,7 +364,7 @@
 
 #Loincloths
 - type: entity
-  parent: ClothingUniformBase
+  parent: [ClothingTopless, ClothingUniformBase]
   id: ClothingUniformloincloth
   name: loincloth
   description: A simple piece of fabric worn around the hips.
@@ -377,7 +377,7 @@
     price: 80 # Frontier
 
 - type: entity
-  parent: ClothingUniformBase
+  parent: [ClothingTopless, ClothingUniformBase]
   id: ClothingUniformloinclothWhite
   name: loincloth
   description: A simple piece of fabric worn around the hips.

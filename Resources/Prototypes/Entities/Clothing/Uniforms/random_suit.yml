@@ -132,7 +132,7 @@
           mask_null: ""
 
 - type: entity
-  parent: ClothingUniformRandom
+  parent: [ClothingTopless, ClothingUniformRandom] #HL: Topless clothing shows breasts
   id: ClothingUniformRandomShorts
   name: colorful pants
   components:

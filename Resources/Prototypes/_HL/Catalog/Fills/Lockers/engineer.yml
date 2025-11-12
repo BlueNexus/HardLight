@@ -1,0 +1,103 @@
+
+- type: entity
+  id: HLLockerElectricalSuppliesFilled
+  suffix: Station, Filled
+  parent: HLLockerElectricalSupplies
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:NestedSelector
+        tableId: FillElectricalSupplies
+
+- type: entity
+  id: HLLockerWeldingSuppliesFilled
+  suffix: Station, Filled
+  parent: HLLockerWeldingSupplies
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:AllSelector
+        children:
+        - !type:NestedSelector
+          tableId: FillWelderSupplies
+          rolls: !type:ConstantNumberSelector
+            value: 3
+        - !type:NestedSelector
+          tableId: FillWelderSuppliesMask
+          rolls: !type:ConstantNumberSelector
+            value: 3
+
+- type: entity
+  id: HLLockerAtmosphericsFilledHardsuit
+  suffix: Station, Filled, Hardsuit
+  parent: HLLockerAtmospherics
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:AllSelector
+        children:
+        - !type:NestedSelector
+          tableId: FillLockerAtmospherics
+        - !type:NestedSelector
+          tableId: HLFillLockerAtmospherics
+        - !type:NestedSelector
+          tableId: FillAtmosphericsHardsuit
+
+- type: entity
+  id: HLLockerAtmosphericsFilled
+  suffix: Station, Filled
+  parent: HLLockerAtmospherics
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:AllSelector
+        children:
+        - !type:NestedSelector
+          tableId: FillLockerAtmospherics
+        - !type:NestedSelector
+          tableId: HLFillLockerAtmospherics
+
+- type: entityTable
+  id: HLFillLockerAtmospherics
+  table: !type:AllSelector
+    children:
+    - id: RCD
+    - id: RCDAmmo
+
+- type: entity
+  id: HLLockerEngineerFilledHardsuit
+  suffix: Station, Filled, Hardsuit
+  parent: HLLockerEngineer
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:AllSelector
+        children:
+        - !type:NestedSelector
+          tableId: FillLockerEngineer
+        - !type:NestedSelector
+          tableId: HLFillLockerEngineer
+        - !type:NestedSelector
+          tableId: FillEngineerHardsuit
+
+- type: entity
+  id: HLLockerEngineerFilled
+  suffix: Station, Filled
+  parent: HLLockerEngineer
+  components:
+  - type: EntityTableContainerFill
+    containers:
+      entity_storage: !type:AllSelector
+        children:
+        - !type:NestedSelector
+          tableId: FillLockerEngineer
+        - !type:NestedSelector
+          tableId: HLFillLockerEngineer
+
+- type: entityTable
+  id: HLFillLockerEngineer
+  table: !type:AllSelector
+    children:
+    - id: RCD
+    - id: RCDAmmo
+    - id: MetalFoamGrenade

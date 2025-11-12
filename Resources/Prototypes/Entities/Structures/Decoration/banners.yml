@@ -48,8 +48,8 @@
 - type: entity
   id: BannerNanotrasen
   parent: BannerBase
-  name: nanotrasen banner
-  description: A banner displaying the Nanotrasen logo. It looks rather cheap.
+  name: ColComm banner
+  description: A banner displaying the ColComm logo.
   components:
   - type: Sprite
     sprite: _NF/Structures/Decoration/banner.rsi # Frontier - unique sprites

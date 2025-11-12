@@ -20,6 +20,7 @@
   - type: RadarBlip
     radarColor: "#FCBA03"
     scale: 4
+    visibleFromOtherGrids: true
     requireNoGrid: true
     shape: triangle
   - type: TimedDespawn
@@ -34,6 +35,7 @@
     maxIntensity: 8000
     intensitySlope: 30
     totalIntensity: 8000
+    maxTileBreak: 0
   - type: GatheringProjectile
   - type: MiningGatheringSoft
   - type: MiningGatheringHard

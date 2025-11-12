@@ -1,0 +1,251 @@
+- type: entity
+  id: BorgChassisRaptor
+  parent: BaseBorgChassisNT
+  components:
+  - type: Body
+    prototype: Quadborg
+  - type: Sprite
+    sprite: _HL/Mobs/Silicon/RaptBorg.rsi
+    scale: 0.5, 0.5
+    layers:
+    - state: Rborg_Base
+      map: ["movement"]
+    - state: RBorg_Glow
+      map: ["enum.BorgVisualLayers.Light"]
+      shader: unshaded
+      visible: false
+    - state: RBorg_GlowB
+      shader: unshaded
+      map: ["light"]
+      visible: false
+  - type: SpriteMovement
+    movementLayers:
+      movement:
+        state: Rborg_Base
+    noMovementLayers:
+      movement:
+        state: Rborg_Base
+  - type: Stripping
+  - type: Strap
+    position: Stand
+    buckleOffset: "0,0.5"
+  - type: Sanitized
+  - type: Hands
+  - type: Cuffable
+  - type: ComplexInteraction
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - Security
+    - Binary
+    - Common
+    - Science
+  - type: ActiveRadio
+    channels:
+    - Security
+    - Binary
+    - Common
+    - Science
+  - type: BorgChassis
+    maxModules: 4
+    moduleWhitelist:
+      tags:
+      - BorgModuleGeneric
+      - BorgModuleSecurity
+      - BorgModuleSyndicate
+      - BorgModuleSyndicateAssault
+    hasMindState: RBorg_Glow
+    noMindState: RBorg_NoGlow
+  - type: AccessReader
+    access: [["Security"], ["Armory"], ["Command"], ["Mercenary"]]
+  - type: BorgTransponder
+    sprite:
+      sprite: _HL/Mobs/Silicon/RaptBorg.rsi
+      state: Rborg_Base
+    name: cyborg
+  - type: Construction
+    node: cyborg
+  - type: Speech
+    speechVerb: Robotic
+  - type: LayingDown
+  - type: SiliconLawProvider
+    laws: Qborg
+  - type: LeashAnchor # Floofstation
+  - type: InteractionPopup  # Hardlight change
+    interactSuccessString: petting-success-generic-cyborg
+    interactFailureString: petting-failure-generic-cyborg
+    interactSuccessSound:
+      path: /Audio/Ambience/Objects/periodic_beep.ogg
+  # - type: SpriteStateToggle
+  #   spriteLayer: movement
+  #   stateOff: quadsprite
+  #   stateOn: quadspriteballz
+  #   movementStateOff: quadsprite_moving
+  #   movementStateOn: quadsprite_movingballz
+
+- type: entity
+  id: BorgChassisRaptorTypeB
+  parent: BaseBorgChassisNT
+  components:
+  - type: Body
+    prototype: Quadborg
+  - type: Sprite
+    sprite: _HL/Mobs/Silicon/RaptBorg.rsi
+    scale: 0.5, 0.5
+    layers:
+    - state: Rborg_WingBase
+      map: ["movement"]
+    - state: RBorg_Glow
+      map: ["enum.BorgVisualLayers.Light"]
+      shader: unshaded
+      visible: false
+    - state: RBorg_GlowB
+      shader: unshaded
+      map: ["light"]
+      visible: false
+  - type: SpriteMovement
+    movementLayers:
+      movement:
+        state: Rborg_WingBase
+    noMovementLayers:
+      movement:
+        state: Rborg_WingBase
+  - type: Stripping
+  - type: Strap
+    position: Stand
+    buckleOffset: "0,0.5"
+  - type: Sanitized
+  - type: Hands
+  - type: Cuffable
+  - type: ComplexInteraction
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - Security
+    - Binary
+    - Common
+    - Science
+  - type: ActiveRadio
+    channels:
+    - Security
+    - Binary
+    - Common
+    - Science
+  - type: BorgChassis
+    maxModules: 4
+    moduleWhitelist:
+      tags:
+      - BorgModuleGeneric
+      - BorgModuleSecurity
+      - BorgModuleSyndicate
+      - BorgModuleSyndicateAssault
+    hasMindState: RBorg_Glow
+    noMindState: RBorg_NoGlow
+  - type: AccessReader
+    access: [["Security"], ["Armory"], ["Command"], ["Mercenary"]]
+  - type: BorgTransponder
+    sprite:
+      sprite: _HL/Mobs/Silicon/RaptBorg.rsi
+      state: Rborg_WingBase
+    name: cyborg
+  - type: Construction
+    node: cyborg
+  - type: Speech
+    speechVerb: Robotic
+  - type: LayingDown
+  - type: SiliconLawProvider
+    laws: Qborg
+  - type: LeashAnchor # Floofstation
+  - type: InteractionPopup  # Hardlight change
+    interactSuccessString: petting-success-generic-cyborg
+    interactFailureString: petting-failure-generic-cyborg
+    interactSuccessSound:
+      path: /Audio/Ambience/Objects/periodic_beep.ogg
+  # - type: SpriteStateToggle
+  #   spriteLayer: movement
+  #   stateOff: quadsprite
+  #   stateOn: quadspriteballz
+  #   movementStateOff: quadsprite_moving
+  #   movementStateOn: quadsprite_movingballz
+
+- type: entity
+  id: BorgChassisRaptorAthren
+  parent: BaseBorgChassisNT
+  components:
+  - type: Body
+    prototype: Quadborg
+  - type: Sprite
+    sprite: _HL/Mobs/Silicon/RaptBorg.rsi
+    scale: 0.5, 0.5
+    layers:
+    - state: Rborg_Athren
+      map: ["movement"]
+    - state: Rborg_AthrenGlow
+      map: ["enum.BorgVisualLayers.Light"]
+      shader: unshaded
+      visible: false
+    - state: RBorg_GlowB
+      shader: unshaded
+      map: ["light"]
+      visible: false
+  - type: SpriteMovement
+    movementLayers:
+      movement:
+        state: Rborg_Athren
+    noMovementLayers:
+      movement:
+        state: Rborg_Athren
+  - type: Stripping
+  - type: Strap
+    position: Stand
+    buckleOffset: "0,0.5"
+  - type: Sanitized
+  - type: Hands
+  - type: Cuffable
+  - type: ComplexInteraction
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - Security
+    - Binary
+    - Common
+    - Science
+  - type: ActiveRadio
+    channels:
+    - Security
+    - Binary
+    - Common
+    - Science
+  - type: BorgChassis
+    maxModules: 4
+    moduleWhitelist:
+      tags:
+      - BorgModuleGeneric
+      - BorgModuleSecurity
+      - BorgModuleSyndicate
+      - BorgModuleSyndicateAssault
+    hasMindState: RBorg_Glow
+    noMindState: RBorg_NoGlow
+  - type: AccessReader
+    access: [["Security"], ["Armory"], ["Command"], ["Mercenary"]]
+  - type: BorgTransponder
+    sprite:
+      sprite: _HL/Mobs/Silicon/RaptBorg.rsi
+      state: Rborg_Athren
+    name: cyborg (Athren)
+  - type: Construction
+    node: cyborg
+  - type: Speech
+    speechVerb: Robotic
+  - type: LayingDown
+  - type: SiliconLawProvider
+    laws: Qborg
+  - type: LeashAnchor # Floofstation
+  - type: InteractionPopup  # Hardlight change
+    interactSuccessString: petting-success-generic-cyborg
+    interactFailureString: petting-failure-generic-cyborg
+    interactSuccessSound:
+      path: /Audio/Ambience/Objects/periodic_beep.ogg
+  # - type: SpriteStateToggle
+  #   spriteLayer: movement
+  #   stateOff: quadsprite
+  #   stateOn: quadspriteballz
+  #   movementStateOff: quadsprite_moving
+  #   movementStateOn: quadsprite_movingballz

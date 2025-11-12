@@ -103,6 +103,9 @@
     - type: SpawnOnTrigger
       proto: MobXenoDrone
     - type: DeleteOnTrigger
+    - type: Construction
+      graph: ResinStructures
+      node: XenoTrapdrone
 
 - type: entity
   parent: CollideFloorTrapSpawn
@@ -114,3 +117,6 @@
     - type: SpawnOnTrigger
       proto: MobXeno
     - type: DeleteOnTrigger
+    - type: Construction
+      graph: ResinStructures
+      node: XenoTrapburrower

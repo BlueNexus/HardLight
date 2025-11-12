@@ -230,6 +230,7 @@
     canCreateVacuum: false
     deleteAfterExplosion: false
     repeatable: true
+    maxTileBreak: 0
   - type: TimedDespawn
     lifetime: 5
 

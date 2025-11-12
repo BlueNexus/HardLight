@@ -1,6 +1,22 @@
+// SPDX-FileCopyrightText: 2025 Ark
+// SPDX-FileCopyrightText: 2025 Redrover1760
+// SPDX-FileCopyrightText: 2025 RikuTheKiller
+// SPDX-FileCopyrightText: 2025 ScyronX
+// SPDX-FileCopyrightText: 2025 ark1368
+// SPDX-FileCopyrightText: 2025 sleepyyapril
+// SPDX-FileCopyrightText: 2025 starch
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
+// Copyright Rane (elijahrane@gmail.com) 2025
+// All rights reserved. Relicensed under AGPL with permission
+
 using Content.Server.Weapons.Ranged.Systems;
 using Content.Shared._Mono.FireControl;
+using Content.Shared.Examine;
+using Content.Shared.Interaction;
 using Content.Shared.Power;
+using Content.Shared._Mono.ShipGuns;
 using Content.Shared.Weapons.Ranged.Components;
 using Robust.Shared.Map;
 using Robust.Shared.Physics;
@@ -8,6 +24,9 @@ using Robust.Shared.Physics.Systems;
 using System.Linq;
 using Content.Shared.Physics;
 using System.Numerics;
+using Content.Server.Power.EntitySystems;
+using Content.Shared.Shuttles.Components;
+using Robust.Shared.Timing;
 using Content.Server.Power.EntitySystems;
 using Content.Shared.Shuttles.Components;
 using Robust.Shared.Timing;
@@ -32,11 +51,13 @@ public sealed partial class FireControlSystem : EntitySystem
         base.Initialize();
         SubscribeLocalEvent<FireControlServerComponent, PowerChangedEvent>(OnPowerChanged);
         SubscribeLocalEvent<FireControlServerComponent, ComponentShutdown>(OnShutdown);
+        SubscribeLocalEvent<FireControlServerComponent, ExaminedEvent>(OnExamined);
 
         SubscribeLocalEvent<FireControllableComponent, PowerChangedEvent>(OnControllablePowerChanged);
         SubscribeLocalEvent<FireControllableComponent, ComponentShutdown>(OnControllableShutdown);
 
         InitializeConsole();
+        InitializeTargetGuided();
     }
 
     private void OnPowerChanged(EntityUid uid, FireControlServerComponent component, PowerChangedEvent args)
@@ -50,6 +71,20 @@ public sealed partial class FireControlSystem : EntitySystem
     private void OnShutdown(EntityUid uid, FireControlServerComponent component, ComponentShutdown args)
     {
         Disconnect(uid, component);
+    }
+
+    private void OnExamined(EntityUid uid, FireControlServerComponent component, ExaminedEvent args)
+    {
+        if (!args.IsInDetailsRange)
+            return;
+        args.PushMarkup(
+            Loc.GetString(
+                "gunnery-server-examine-detail",
+                ("usedProcessingPower", component.UsedProcessingPower),
+                ("processingPower", component.ProcessingPower),
+                ("valueColor", component.UsedProcessingPower <= component.ProcessingPower - 2 ? "green" : "yellow")
+            )
+        );
     }
 
     private void OnControllablePowerChanged(EntityUid uid, FireControllableComponent component, PowerChangedEvent args)
@@ -106,6 +141,7 @@ public sealed partial class FireControlSystem : EntitySystem
             return;
 
         server.Controlled.Clear();
+        server.UsedProcessingPower = 0;
 
         var query = EntityQueryEnumerator<FireControllableComponent>();
 
@@ -151,6 +187,7 @@ public sealed partial class FireControlSystem : EntitySystem
             return;
 
         controlComp.Controlled.Remove(controllable);
+        controlComp.UsedProcessingPower -= GetProcessingPowerCost(controllable, component);
         component.ControllingServer = null;
     }
 
@@ -161,11 +198,17 @@ public sealed partial class FireControlSystem : EntitySystem
 
         var gridServer = TryGetGridServer(controllable);
 
-        if (gridServer.ServerComponent == null)
+        if (gridServer.ServerUid == null || gridServer.ServerComponent == null)
+            return false;
+
+        var processingPowerCost = GetProcessingPowerCost(controllable, component);
+
+        if (processingPowerCost > GetRemainingProcessingPower(gridServer.ServerUid.Value, gridServer.ServerComponent))
             return false;
 
         if (gridServer.ServerComponent.Controlled.Add(controllable))
         {
+            gridServer.ServerComponent.UsedProcessingPower += processingPowerCost;
             component.ControllingServer = gridServer.ServerUid;
             return true;
         }
@@ -173,6 +216,33 @@ public sealed partial class FireControlSystem : EntitySystem
         {
             return false;
         }
+    }
+
+    public int GetRemainingProcessingPower(EntityUid server, FireControlServerComponent? component = null)
+    {
+        if (!Resolve(server, ref component))
+            return 0;
+
+        return component.ProcessingPower - component.UsedProcessingPower;
+    }
+
+    public int GetProcessingPowerCost(EntityUid controllable, FireControllableComponent? component = null)
+    {
+        if (!Resolve(controllable, ref component))
+            return 0;
+
+        if (!TryComp<ShipGunClassComponent>(controllable, out var classComponent))
+            return 0;
+
+        return classComponent.Class switch
+        {
+            ShipGunClass.Superlight => 1,
+            ShipGunClass.Light => 3,
+            ShipGunClass.Medium => 6,
+            ShipGunClass.Heavy => 9,
+            ShipGunClass.Superheavy => 12,
+            _ => 0,
+        };
     }
 
     private (EntityUid? ServerUid, FireControlServerComponent? ServerComponent) TryGetGridServer(EntityUid uid)
@@ -207,9 +277,33 @@ public sealed partial class FireControlSystem : EntitySystem
             if (!TryComp<GunComponent>(localWeapon, out var gun))
                 continue;
 
-            var weaponXform = Transform(localWeapon);
-            var targetPos = targetCoords.ToMap(EntityManager, _xform);
+            // Get transform once and reuse
+            if (!TryComp<TransformComponent>(localWeapon, out var weaponXform))
+                continue;
 
+            // Rotate weapon towards target if applicable and within same map
+            var currentMapCoords = _xform.GetMapCoordinates(localWeapon, weaponXform);
+            var destinationMapCoords = targetCoords.ToMap(EntityManager, _xform);
+
+            if (destinationMapCoords.MapId == currentMapCoords.MapId && currentMapCoords.MapId != MapId.Nullspace)
+            {
+                var diff = destinationMapCoords.Position - currentMapCoords.Position;
+                if (TryComp<FireControlRotateComponent>(localWeapon, out var _))
+                {
+                    if (diff.LengthSquared() > 0.01f)
+                    {
+                        // Rotate towards target
+                        // Get the world rotation needed to face the target
+                        var goalAngle = Angle.FromWorldVec(diff);
+                        // Convert to local rotation by removing parent rotation
+                        var parentRotation = _xform.GetWorldRotation(weaponXform.ParentUid);
+                        var localRotation = goalAngle - parentRotation;
+                        _xform.SetLocalRotation(localWeapon, localRotation, weaponXform);
+                    }
+                }
+            }
+
+            var targetPos = targetCoords.ToMap(EntityManager, _xform);
             if (targetPos.MapId != weaponXform.MapID)
                 continue;
 
@@ -317,14 +411,14 @@ public sealed partial class FireControlSystem : EntitySystem
         // Initialize ray collision
         var ray = new CollisionRay(weaponPos, direction, collisionMask: (int)(CollisionGroup.Opaque | CollisionGroup.Impassable));
 
-        // Create a predicate that ignores entities not on the same grid
-        bool IgnoreEntityNotOnSameGrid(EntityUid entity, EntityUid sourceWeapon)
+        // Create a predicate that only checks entities on the same grid
+        bool CheckOnlyEntitiesOnSameGrid(EntityUid entity, EntityUid sourceWeapon)
         {
             // Always ignore the source weapon itself
             if (entity == sourceWeapon)
                 return true;
 
-            // If the weapon isn't on a grid, we'll check against all entities
+            // If the weapon isn't on a grid, check all entities (don't ignore any)
             if (weaponGridUid == null)
                 return false;
 
@@ -332,21 +426,21 @@ public sealed partial class FireControlSystem : EntitySystem
             var entityTransform = Transform(entity);
             var entityGridUid = entityTransform.GridUid;
 
-            // Ignore if not on the same grid
+            // Ignore entities NOT on the same grid (we only want to check obstacles on our own grid)
             return entityGridUid != weaponGridUid;
         }
 
-        // Check if there's any obstacles in the firing direction, only considering entities on the same grid
+        // Check if there's any obstacles in the firing direction on the same grid
         var raycastResults = _physics.IntersectRayWithPredicate(
             mapId,
             ray,
             weapon,
-            IgnoreEntityNotOnSameGrid,
+            CheckOnlyEntitiesOnSameGrid,
             distance,
-            returnOnFirstHit: false
+            returnOnFirstHit: true // Stop at first hit for efficiency
         ).ToList();
 
-        // Can only fire if there's no obstacles in the path
+        // Can only fire if there's no obstacles in the path on our own grid
         return raycastResults.Count == 0;
     }
 
@@ -366,14 +460,14 @@ public sealed partial class FireControlSystem : EntitySystem
         var mapId = transform.MapID;
         var weaponGridUid = transform.GridUid;
 
-        // Create a predicate that ignores entities not on the same grid
-        bool IgnoreEntityNotOnSameGrid(EntityUid entity, EntityUid sourceWeapon)
+        // Create a predicate that only checks entities on the same grid
+        bool CheckOnlyEntitiesOnSameGrid(EntityUid entity, EntityUid sourceWeapon)
         {
             // Always ignore the source weapon itself
             if (entity == sourceWeapon)
                 return true;
 
-            // If the weapon isn't on a grid, we'll check against all entities
+            // If the weapon isn't on a grid, check all entities (don't ignore any)
             if (weaponGridUid == null)
                 return false;
 
@@ -381,7 +475,7 @@ public sealed partial class FireControlSystem : EntitySystem
             var entityTransform = Transform(entity);
             var entityGridUid = entityTransform.GridUid;
 
-            // Ignore if not on the same grid
+            // Ignore entities NOT on the same grid (we only want to check obstacles on our own grid)
             return entityGridUid != weaponGridUid;
         }
 
@@ -395,17 +489,17 @@ public sealed partial class FireControlSystem : EntitySystem
             // Initialize ray collision
             var ray = new CollisionRay(position, direction, collisionMask: (int)(CollisionGroup.Opaque | CollisionGroup.Impassable));
 
-            // Check if there's any obstacles in this direction, only considering entities on the same grid
+            // Check if there's any obstacles in this direction on the same grid
             var raycastResults = _physics.IntersectRayWithPredicate(
                 mapId,
                 ray,
                 weapon,
-                IgnoreEntityNotOnSameGrid,
+                CheckOnlyEntitiesOnSameGrid,
                 maxDistance,
-                returnOnFirstHit: false
+                returnOnFirstHit: true // Stop at first hit for efficiency
             ).ToList();
 
-            // Direction is clear if there are no obstacles
+            // Direction is clear if there are no obstacles on our own grid
             var canFire = raycastResults.Count == 0;
             directions[angle * 180 / MathF.PI] = canFire;
         }
