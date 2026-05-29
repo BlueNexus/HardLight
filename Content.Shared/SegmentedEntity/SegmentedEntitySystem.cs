@@ -262,6 +262,8 @@ public sealed partial class LamiaSystem : EntitySystem
         args.Cancelled = true;
     }
 
+
+    //Commented out all storage entry/removal events. These changes are handled in the parenting event instead.
     /// <summary>
     /// Checks if the segmented entity has been inserted into a container and deletes their segments if true. This prevents further issues with segment logic.
     /// <see cref="OnInsertedIntoContainer"/> failed to execute, so its code was copied to this event handler instead.
@@ -371,21 +373,22 @@ public sealed partial class LamiaSystem : EntitySystem
 
     private void OnParentChanged(EntityUid uid, SegmentedEntityComponent component, ref EntParentChangedMessage args)
     {
+        //Added to prevent unecessary client side calls.
         if (_net.IsClient)
             return;
 
-        if (_containerSystem.IsEntityInContainer(uid))
+        if (_containerSystem.IsEntityInContainer(uid) && component.Segments.Count > 0)
         {
             DeleteSegments(component);
             return;
         }
 
+        //Don't do anything with segments on a map change. This is to prevent cross-grid errors.
         if (args.OldMapId != args.Transform.MapUid)
         {
             return;
         }
 
-        //If the change was NOT to a different map
         //Added conditional to ensure entity is not inside a container to avoid trying to spawn segments after they had been deleted by OnGotInsertedIntoContainer event handler
         if (component.Segments.Count == 0 && !_containerSystem.IsEntityInContainer(uid))
         {
